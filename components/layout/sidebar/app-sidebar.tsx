@@ -57,7 +57,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton className="hover:text-foreground h-10 group-data-[collapsible=icon]:px-0! hover:bg-[var(--primary)]/5">
                   <Logo />
-                  <span className="text-foreground font-semibold">Scholia</span>
+                  <span className="text-foreground font-semibold">Scholia v1.0</span>
                   <ChevronsUpDown className="ml-auto group-data-[collapsible=icon]:hidden" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
