@@ -1,0 +1,163 @@
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewAll": "View All",
+    "manage": "Manage"
+  },
+  "Header": {
+    "communities": "Communities",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "getStarted": "Get Started"
+  },
+  "Footer": {
+    "copyright": "© {year} Meetsy. All rights reserved."
+  },
+  "Hero": {
+    "badge": "Powered by AI",
+    "title": "Find Your Perfect",
+    "titleHighlight": "AI Learning Partner",
+    "subtitle": "Join communities, set your learning goals, and get matched with partners who share your passion. Chat, collaborate, and grow together with AI-powered insights.",
+    "getStartedButton": "Get Started for Free",
+    "learnMoreButton": "Learn More"
+  },
+  "Features": {
+    "title": "Everything You Need to Learn Together",
+    "subtitle": "Powerful features designed to help you find, connect, and learn with the right partners",
+    "matching": {
+      "title": "Matching that works",
+      "description": "We look at your goals, skill level, and what you want to learn, then find someone who's a good fit. No swiping, no guessing."
+    },
+    "chat": {
+      "title": "Built-in chat",
+      "description": "Message your matches directly in the app. Plan sessions, share resources, or just check in on each other's progress."
+    },
+    "summaries": {
+      "title": "Auto summaries",
+      "description": "After each chat, get a quick summary of what you discussed and what to work on next. Keeps you accountable without the effort."
+    },
+    "goals": {
+      "title": "Track your goals",
+      "description": "Write down what you're learning and where you're at. Update it as you go. Simple goal tracking that doesn't get in your way."
+    },
+    "communities": {
+      "title": "Join communities",
+      "description": "Find groups of people learning similar things. Whether it's coding, design, or YouTube, there's probably a community for it."
+    },
+    "setup": {
+      "title": "Quick setup",
+      "description": "Sign up, fill out your profile, and you're ready to get matched. Takes a few minutes, not a few hours."
+    }
+  },
+  "HowItWorks": {
+    "title": "How It Works",
+    "subtitle": "Get matched with your ideal learning partner in four simple steps",
+    "step1": {
+      "title": "Pick a community",
+      "description": "Browse communities and join the ones that match what you're trying to learn."
+    },
+    "step2": {
+      "title": "Add your goals",
+      "description": "Tell us what you want to learn, where you're at, and what you're working on."
+    },
+    "step3": {
+      "title": "Get matched",
+      "description": "We'll find someone with similar goals and pair you up for accountability."
+    },
+    "step4": {
+      "title": "Start learning",
+      "description": "Message your match, set up sessions, and help each other stay on track."
+    }
+  },
+  "Pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the plan that works best for you. Start free and upgrade as you grow."
+  },
+  "CTA": {
+    "title": "Stop learning alone",
+    "subtitle": "Get matched with someone who's learning the same things. Hold each other accountable. Make real progress.",
+    "button": "Try it free"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back, {name}!",
+    "newMatches": "🎉 You have {count} new {matches}!",
+    "match": "match",
+    "matches": "matches",
+    "reviewMatchesDescription": "Review and accept your matches to start chatting",
+    "reviewMatchesButton": "Review Matches",
+    "stats": {
+      "yourCommunities": "Your Communities",
+      "learningGoals": "Learning Goals",
+      "activeMatches": "Active Matches",
+      "pendingMatches": "Pending Matches"
+    },
+    "recentChats": {
+      "title": "Recent Chats",
+      "description": "Conversations you're part of"
+    },
+    "communities": {
+      "title": "Communities",
+      "description": "Communities you're part of"
+    }
+  },
+  "Communities": {
+    "title": "Communities",
+    "joined": "{count} joined",
+    "tabs": {
+      "myGoals": "My Goals",
+      "findPartners": "Find Partners with AI"
+    },
+    "learningGoals": {
+      "title": "Learning Goals",
+      "description": "{count} {goals} in selected community",
+      "goal": "goal",
+      "goals": "goals"
+    },
+    "potentialPartners": {
+      "title": "Potential Learning Partners",
+      "description": "Members with similar learning goals"
+    },
+    "addGoal": {
+      "button": "Add Learning Goal",
+      "placeholder": "What do you want to learn?",
+      "addButton": "Add Goal",
+      "cancelButton": "Cancel"
+    },
+    "aiMatching": {
+      "title": "AI-Powered Matching",
+      "description": "Our AI will analyze your learning goals and automatically match you with the most compatible learning partners in this community.",
+      "button": "🤖 Find Partners with AI",
+      "goalsSet": "You have {count} learning goals set",
+      "noGoals": "Add learning goals first to enable AI matching",
+      "successToast": "AI partners found successfully",
+      "errorToast": "Failed to find ai partners"
+    }
+  },
+  "Chat": {
+    "pendingMatches": "Pending Matches",
+    "activeChats": "Active Chats",
+    "theirGoals": "Their Learning Goals:",
+    "acceptButton": "Accept & Start Chatting",
+    "accepting": "Accepting...",
+    "yourGoals": "Your goals:",
+    "theirGoalsLabel": "Their goals:",
+    "messagePlaceholder": "Type your message...",
+    "sendButton": "Send"
+  }
+}
