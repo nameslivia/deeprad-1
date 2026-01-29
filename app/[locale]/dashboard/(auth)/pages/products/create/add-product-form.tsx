@@ -46,8 +46,8 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import { AddMediaFromUrl } from "@/app/dashboard/(auth)/pages/products/create/add-media-from-url";
-import AddNewCategory from "@/app/dashboard/(auth)/pages/products/create/add-category";
+import { AddMediaFromUrl } from "@/app/[locale]/dashboard/(auth)/pages/products/create/add-media-from-url";
+import AddNewCategory from "@/app/[locale]/dashboard/(auth)/pages/products/create/add-category";
 
 const FormSchema = z.object({
   name: z.string().min(2, {

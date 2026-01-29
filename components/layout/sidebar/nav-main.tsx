@@ -56,7 +56,7 @@ import {
   BookAIcon,
   PuzzleIcon
 } from "lucide-react";
-import Link from "next/link";
+// import Link from "next/link";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { usePathname } from "next/navigation";
 import {
@@ -66,6 +66,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+
+import { Link } from "@/i18n/navigation";
 
 type NavGroup = {
   title: string;

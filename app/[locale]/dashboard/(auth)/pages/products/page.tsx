@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import ProductList from "@/app/dashboard/(auth)/pages/products/product-list";
+import ProductList from "@/app/[locale]/dashboard/(auth)/pages/products/product-list";
 
 export async function generateMetadata(): Promise<Metadata> {
   return generateMeta({
@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 async function getProducts() {
   const data = await fs.readFile(
-    path.join(process.cwd(), "app/dashboard/(auth)/pages/products/data.json")
+    path.join(process.cwd(), "app/[locale]/dashboard/(auth)/pages/products/data.json")
   );
   return JSON.parse(data.toString());
 }
