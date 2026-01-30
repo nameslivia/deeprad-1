@@ -1,7 +1,8 @@
 import { BellIcon, ClockIcon } from "lucide-react";
 import Link from "next/link";
-import { useIsMobile } from "@/hooks/use-mobile";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +11,10 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 
 import { notifications, type Notification } from "./data";
+
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Notifications = () => {
   const isMobile = useIsMobile();
@@ -37,7 +38,7 @@ const Notifications = () => {
           </div>
         </DropdownMenuLabel>
 
-        <ScrollArea className="h-[350px]">
+        <ScrollArea className="h-87.5">
           {notifications.map((item: Notification, key) => (
             <DropdownMenuItem
               key={key}

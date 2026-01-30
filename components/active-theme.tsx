@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+
 import { DEFAULT_THEME, ThemeType } from "@/lib/themes";
 
 function setThemeCookie(key: string, value: string | null) {
@@ -70,8 +71,10 @@ export function ActiveThemeProvider({
 
 export function useThemeConfig() {
   const context = useContext(ThemeContext);
+
   if (context === undefined) {
     throw new Error("useThemeConfig must be used within an ActiveThemeProvider");
   }
+
   return context;
 }

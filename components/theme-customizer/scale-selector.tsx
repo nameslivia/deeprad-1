@@ -1,9 +1,10 @@
 "use client";
 
+import { BanIcon } from "lucide-react";
+
 import { Label } from "@/components/ui/label";
 import { useThemeConfig } from "@/components/active-theme";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { BanIcon } from "lucide-react";
 
 export function ThemeScaleSelector() {
   const { theme, setTheme } = useThemeConfig();
@@ -23,13 +24,13 @@ export function ThemeScaleSelector() {
           <ToggleGroupItem
             variant="outline"
             value="sm"
-            className="text-xs data-[variant=outline]:border-l-1">
+            className="text-xs data-[variant=outline]:border-l">
             XS
           </ToggleGroupItem>
           <ToggleGroupItem
             variant="outline"
             value="lg"
-            className="text-xs data-[variant=outline]:border-l-1">
+            className="text-xs data-[variant=outline]:border-l">
             LG
           </ToggleGroupItem>
         </ToggleGroup>

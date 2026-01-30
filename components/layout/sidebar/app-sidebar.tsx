@@ -53,46 +53,14 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton className="hover:text-foreground h-10 group-data-[collapsible=icon]:px-0! hover:bg-[var(--primary)]/5">
-                  <Logo />
-                  <span className="text-foreground font-semibold">Scholia v1.0</span>
-                  <ChevronsUpDown className="ml-auto group-data-[collapsible=icon]:hidden" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="mt-4 w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align="end"
-                sideOffset={4}>
-                <DropdownMenuLabel>Projects</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-md border">
-                    <ShoppingBagIcon className="text-muted-foreground size-4" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">E-commerce</span>
-                    <span className="text-xs text-green-700">Active</span>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-3">
-                  <div className="flex size-8 items-center justify-center rounded-md border">
-                    <UserCircle2Icon className="text-muted-foreground size-4" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">Blog Platform</span>
-                    <span className="text-muted-foreground text-xs">Inactive</span>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <Button className="w-full">
-                  <PlusIcon />
-                  New Project
-                </Button>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SidebarMenuButton
+              className="hover:text-foreground h-10 cursor-pointer group-data-[collapsible=icon]:px-0! hover:bg-(--primary)/5"
+              onClick={() => {
+                console.log("*** to landing page");
+              }}>
+              <Logo />
+              <span className="text-foreground font-semibold">Scholia v1.0</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -104,15 +72,13 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
       <SidebarFooter>
         <Card className="gap-4 overflow-hidden py-4 group-data-[collapsible=icon]:hidden">
           <CardHeader className="px-3">
-            <CardTitle>Download</CardTitle>
-            <CardDescription>
-              Unlock lifetime access to all dashboards, templates and components.
-            </CardDescription>
+            <CardTitle>Credits Balance: 100</CardTitle>
+            <CardDescription>Unlock premium features and services.</CardDescription>
           </CardHeader>
           <CardContent className="px-3">
             <Button className="w-full" asChild>
               <Link href="https://shadcnuikit.com/pricing" target="_blank">
-                Get Shadcn UI Kit
+                Buy Credits
               </Link>
             </Button>
           </CardContent>

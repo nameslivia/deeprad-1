@@ -38,7 +38,7 @@ export default function UserMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="https://shadcnuikit.com/pricing" target="_blank">
+            <Link href="https://agentwbro.com/pricing" target="_blank">
               <Sparkles /> Upgrade to Pro
             </Link>
           </DropdownMenuItem>

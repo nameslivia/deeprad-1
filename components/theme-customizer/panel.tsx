@@ -1,21 +1,23 @@
 "use client";
 
 import { Palette } from "lucide-react";
+
+import {
+  ColorModeSelector,
+  ContentLayoutSelector,
+  PresetSelector,
+  ResetThemeButton,
+  SidebarModeSelector,
+  ThemeRadiusSelector,
+  ThemeScaleSelector
+} from "@/components/theme-customizer/index";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {
-  PresetSelector,
-  SidebarModeSelector,
-  ThemeScaleSelector,
-  ColorModeSelector,
-  ContentLayoutSelector,
-  ThemeRadiusSelector,
-  ResetThemeButton
-} from "@/components/theme-customizer/index";
+
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function ThemeCustomizerPanel() {
@@ -32,12 +34,12 @@ export function ThemeCustomizerPanel() {
         className="me-4 w-72 p-4 shadow-xl lg:me-0"
         align={isMobile ? "center" : "end"}>
         <div className="grid space-y-4">
-          <PresetSelector />
+          {/* <PresetSelector /> */}
           <ThemeScaleSelector />
-          <ThemeRadiusSelector />
+          {/* <ThemeRadiusSelector />
           <ColorModeSelector />
           <ContentLayoutSelector />
-          <SidebarModeSelector />
+          <SidebarModeSelector /> */}
         </div>
         <ResetThemeButton />
       </DropdownMenuContent>
