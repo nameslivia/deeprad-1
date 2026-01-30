@@ -1,8 +1,6 @@
 "use client";
 
-import { useIsTablet } from "@/hooks/use-mobile";
-import { PlusIcon } from "@radix-ui/react-icons";
-import { ChevronsUpDown, ShoppingBagIcon, UserCircle2Icon } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -13,14 +11,6 @@ import { NavMain } from "@/components/layout/sidebar/nav-main";
 import { NavUser } from "@/components/layout/sidebar/nav-user";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
@@ -32,6 +22,8 @@ import {
   SidebarMenuItem,
   useSidebar
 } from "@/components/ui/sidebar";
+
+import { useIsTablet } from "@/hooks/use-mobile";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar>;
 
@@ -78,7 +70,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
           <CardContent className="px-3">
             <Button className="w-full" asChild>
               <Link href="https://shadcnuikit.com/pricing" target="_blank">
-                Buy Credits
+                <Sparkles /> Buy Credits
               </Link>
             </Button>
           </CardContent>
