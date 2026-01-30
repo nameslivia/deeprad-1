@@ -1,15 +1,27 @@
 "use client";
 
-import { PanelLeftIcon } from "lucide-react";
+import { GlobeIcon, PanelLeftIcon } from "lucide-react";
+import { useLocale } from "next-intl";
 
-import { Separator } from "@/components/ui/separator";
 import Notifications from "@/components/layout/header/notifications";
 import Search from "@/components/layout/header/search";
 import ThemeSwitch from "@/components/layout/header/theme-switch";
 import UserMenu from "@/components/layout/header/user-menu";
 import { ThemeCustomizerPanel } from "@/components/theme-customizer";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
 import { useSidebar } from "@/components/ui/sidebar";
+
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar();
@@ -24,6 +36,7 @@ export function SiteHeader() {
         <Search />
 
         <div className="ml-auto flex items-center gap-2">
+          <DropdownMenuRadioGroupDemo />
           <Notifications />
           <ThemeSwitch />
           <ThemeCustomizerPanel />
@@ -32,5 +45,34 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
+  );
+}
+
+export function DropdownMenuRadioGroupDemo() {
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLocaleChange = (newLocale: string) => {
+    router.replace(pathname, { locale: newLocale });
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <GlobeIcon className="size-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-32">
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="flex items-center gap-2">選擇語系</DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={locale} onValueChange={handleLocaleChange}>
+            <DropdownMenuRadioItem value="en">英文</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="zh-TW">繁體中文</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

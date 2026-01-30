@@ -1,4 +1,40 @@
 {
+  "Sidebar": {
+    "dashboard": { "title": "儀表板", "subTitle": {} },
+    "library": {
+      "title": "圖書館",
+      "subTitle": {
+        "dashboard": "儀表板",
+        "product-list": "產品列表",
+        "product-detail": "產品詳情",
+        "add-product": "新增產品",
+        "order-list": "訂單列表",
+        "order-detail": "訂單詳情"
+      }
+    },
+    "agent": {
+      "title": "代理",
+      "subTitle": {
+        "dashboard": "儀表板",
+        "transactions": "交易"
+      }
+    },
+    "report": {
+      "title": "報表",
+      "subTitle": {
+        "dashboard": "儀表板",
+        "bookings": "預約"
+      }
+    },
+    "project": {
+      "title": "專案",
+      "subTitle": {
+        "dashboard": "儀表板",
+        "project-list": "專案列表"
+      }
+    },
+    "authority": { "title": "權限", "subTitle": {} }
+  },
   "Common": {
     "loading": "載入中...",
     "error": "錯誤",

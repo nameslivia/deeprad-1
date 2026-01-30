@@ -1,4 +1,40 @@
 {
+  "Sidebar": {
+    "dashboard": { "title": "Dashboard", "subTitle": {} },
+    "library": {
+      "title": "Library",
+      "subTitle": {
+        "dashboard": "Dashboard",
+        "product-list": "Product List",
+        "product-detail": "Product Detail",
+        "add-product": "Add Product",
+        "order-list": "Order List",
+        "order-detail": "Order Detail"
+      }
+    },
+    "agent": {
+      "title": "Agent",
+      "subTitle": {
+        "dashboard": "Dashboard",
+        "transactions": "Transactions"
+      }
+    },
+    "report": {
+      "title": "Report",
+      "subTitle": {
+        "dashboard": "Dashboard",
+        "bookings": "Bookings"
+      }
+    },
+    "project": {
+      "title": "Project",
+      "subTitle": {
+        "dashboard": "Dashboard",
+        "project-list": "Project List"
+      }
+    },
+    "authority": { "title": "Authority", "subTitle": {} }
+  },
   "Common": {
     "loading": "Loading...",
     "error": "Error",

@@ -6,8 +6,6 @@ export const routing = {
   // 所有語言都使用相同的路由路徑
   // pathnames: {
   //   "/": "/",
-  //   "/dashboard": "/dashboard",
-  //   "/communities": "/communities",
-  //   "/chat": "/chat"
+  //   "/dashboard/default": "/dashboard/default"
   // }
 };

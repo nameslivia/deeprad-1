@@ -44,25 +44,18 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         suppressHydrationWarning
         className={cn("bg-background group/layout font-sans", fontVariables)}
         {...bodyAttributes}>
-        <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange>
-            <ActiveThemeProvider initialTheme={themeSettings}>
-              {children}
-              <Toaster position="top-center" richColors />
-              <NextTopLoader
-                color="var(--primary)"
-                showSpinner={false}
-                height={2}
-                shadow-sm="none"
-              />
-              {process.env.NODE_ENV === "production" ? <GoogleAnalyticsInit /> : null}
-            </ActiveThemeProvider>
-          </ThemeProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange>
+          <ActiveThemeProvider initialTheme={themeSettings}>
+            <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+            <Toaster position="top-center" richColors />
+            <NextTopLoader color="var(--primary)" showSpinner={false} height={2} shadow-sm="none" />
+            {process.env.NODE_ENV === "production" ? <GoogleAnalyticsInit /> : null}
+          </ActiveThemeProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
