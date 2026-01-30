@@ -4,7 +4,6 @@ import { GlobeIcon, PanelLeftIcon } from "lucide-react";
 import { useLocale } from "next-intl";
 
 import Notifications from "@/components/layout/header/notifications";
-import Search from "@/components/layout/header/search";
 import ThemeSwitch from "@/components/layout/header/theme-switch";
 import UserMenu from "@/components/layout/header/user-menu";
 import { ThemeCustomizerPanel } from "@/components/theme-customizer";
@@ -33,7 +32,6 @@ export function SiteHeader() {
           <PanelLeftIcon />
         </Button>
         <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
-        <Search />
 
         <div className="ml-auto flex items-center gap-2">
           <DropdownMenuRadioGroupDemo />
@@ -60,7 +58,7 @@ export function DropdownMenuRadioGroupDemo() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button variant="ghost">
           <GlobeIcon className="size-4" />
         </Button>
       </DropdownMenuTrigger>
