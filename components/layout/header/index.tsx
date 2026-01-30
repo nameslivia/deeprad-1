@@ -64,9 +64,11 @@ export function DropdownMenuRadioGroupDemo() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-32">
         <DropdownMenuGroup>
-          <DropdownMenuLabel className="flex items-center gap-2">選擇語系</DropdownMenuLabel>
+          <DropdownMenuLabel className="flex items-center gap-2">
+            {locale === "en" ? "Language" : "語系"}
+          </DropdownMenuLabel>
           <DropdownMenuRadioGroup value={locale} onValueChange={handleLocaleChange}>
-            <DropdownMenuRadioItem value="en">英文</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="zh-TW">繁體中文</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuGroup>
