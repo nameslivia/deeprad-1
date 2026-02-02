@@ -1,30 +1,31 @@
+'use client';
+
 import { benefitList } from '@/@data/benefits';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/icon';
 import { cn } from '@/lib/utils';
 import SectionContainer from '../section-container';
 import SectionHeader from '../section-header';
+import { useTranslations } from 'next-intl';
 
 export const BenefitsSection = () => {
+  const t = useTranslations('Benefits');
   return (
     <SectionContainer id="benefits">
       <div className="grid lg:grid-cols-2 lg:gap-24">
         <div>
           <SectionHeader
             className="sticky max-w-full text-center lg:top-[22rem] lg:text-start"
-            subTitle="Benefits"
-            title="What Do We Bring to You?"
-            description="All the innovative solutions you need to grow your business are
-              here! We add value to your business with our features that
-              simplify your workflow, increase efficiency and strengthen your
-              decisions."
+            subTitle={t('subTitle')}
+            title={t('title')}
+            description={t('description')}
           />
         </div>
 
         <div className="flex w-full flex-col gap-6 lg:gap-[14rem]">
-          {benefitList.map(({ icon, title, description }, index) => (
+          {benefitList.map(({ icon }, index) => (
             <Card
-              key={title}
+              key={index}
               className={cn('group/number bg-background lg:sticky')}
               style={{ top: `${20 + index + 2}rem` }}
             >
@@ -38,10 +39,10 @@ export const BenefitsSection = () => {
                     0{index + 1}
                   </span>
                 </div>
-                <CardTitle className="text-lg">{title}</CardTitle>
+                <CardTitle className="text-lg">{t(`items.${index}.title`)}</CardTitle>
               </CardHeader>
               <CardContent className="text-muted-foreground">
-                {description}
+                {t(`items.${index}.description`)}
               </CardContent>
             </Card>
           ))}

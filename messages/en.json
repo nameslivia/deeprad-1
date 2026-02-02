@@ -65,39 +65,116 @@
     "copyright": "© {year} Meetsy. All rights reserved."
   },
   "Hero": {
-    "badge": "Powered by AI",
-    "title": "Find Your Perfect",
-    "titleHighlight": "AI Learning Partner",
-    "subtitle": "Join communities, set your learning goals, and get matched with partners who share your passion. Chat, collaborate, and grow together with AI-powered insights.",
-    "getStartedButton": "Get Started for Free",
-    "learnMoreButton": "Learn More"
+    "title": "Your Next-Gen Research Assistant",
+    "subtitle": "Overcome research procrastination with AI agent",
+    "tryForFree": "Try For Free",
+    "watchVideo": "Watch Video"
+  },
+  "Benefits": {
+    "subTitle": "Benefits",
+    "title": "What Do We Bring to You?",
+    "description": "All the innovative solutions you need to grow your business are here! We add value to your business with our features that simplify your workflow, increase efficiency and strengthen your decisions.",
+    "items": {
+      "0": {
+        "title": "AI-Powered Automation",
+        "description": "Save time and increase your efficiency by automating your routine business processes."
+      },
+      "1": {
+        "title": "AI-Powered Automation 2",
+        "description": "Save time and increase your efficiency by automating your routine business processes."
+      },
+      "2": {
+        "title": "AI-Powered Automation 3",
+        "description": "Save time and increase your efficiency by automating your routine business processes."
+      },
+      "3": {
+        "title": "AI-Powered Automation 4",
+        "description": "Save time and increase your efficiency by automating your routine business processes."
+      }
+    }
   },
   "Features": {
-    "title": "Everything You Need to Learn Together",
-    "subtitle": "Powerful features designed to help you find, connect, and learn with the right partners",
-    "matching": {
-      "title": "Matching that works",
-      "description": "We look at your goals, skill level, and what you want to learn, then find someone who's a good fit. No swiping, no guessing."
-    },
-    "chat": {
-      "title": "Built-in chat",
-      "description": "Message your matches directly in the app. Plan sessions, share resources, or just check in on each other's progress."
-    },
-    "summaries": {
-      "title": "Auto summaries",
-      "description": "After each chat, get a quick summary of what you discussed and what to work on next. Keeps you accountable without the effort."
-    },
-    "goals": {
-      "title": "Track your goals",
-      "description": "Write down what you're learning and where you're at. Update it as you go. Simple goal tracking that doesn't get in your way."
-    },
-    "communities": {
-      "title": "Join communities",
-      "description": "Find groups of people learning similar things. Whether it's coding, design, or YouTube, there's probably a community for it."
-    },
-    "setup": {
-      "title": "Quick setup",
-      "description": "Sign up, fill out your profile, and you're ready to get matched. Takes a few minutes, not a few hours."
+    "subTitle": "Features",
+    "title": "Tools Designed to Accelerate Your Research",
+    "description": "Here to support your writing, reviewing, and everything in between—so you can focus on ideas, not the struggle.",
+    "items": {
+      "0": {
+        "title": "Better Reviews",
+        "description": "Turns your review comments into clear, constructive feedback that feels professional and easy to follow."
+      },
+      "1": {
+        "title": "Clearer Writing",
+        "description": "Helps you say things in a clean, simple, and academic way—without changing your ideas."
+      },
+      "2": {
+        "title": "Faster Drafting",
+        "description": "Helps you build and shape your manuscript quickly, from ideas to structure to polished text."
+      },
+      "3": {
+        "title": "Smarter Suggestions",
+        "description": "Understands your context and gives you helpful improvements that actually fit your research."
+      },
+      "4": {
+        "title": "Less Overwhelm",
+        "description": "Reduces the mental load of writing and reviewing, so you can stay focused and make steady progress."
+      },
+      "5": {
+        "title": "Consistent Quality",
+        "description": "Keeps your tone, logic, and clarity steady across every part of your manuscript or review."
+      }
+    }
+  },
+  "Services": {
+    "subTitle": "Services",
+    "title": "Amplify Your Work, Not Replace It",
+    "description": "Our tools are designed to augment your research process, providing smart assistance where you need it most.",
+    "items": {
+      "0": {
+        "title": "Manuscript Peer Review",
+        "description": "Transform your review comments with intelligent contextual analysis and tone refinement, delivering clarity and professionalism without altering your original verdict."
+      },
+      "1": {
+        "title": "Project Peer Review",
+        "description": "Enhance project evaluation with AI-powered reasoning that sharpens your insights, strengthens constructive impact, and safeguards your core judgment."
+      },
+      "2": {
+        "title": "Manuscript Copilot",
+        "description": "Draft scholarly manuscripts faster with deep search and context engineering, ensuring clear structure, strong logic, and academic-level rigor from start to finish."
+      }
+    }
+  },
+  "FAQ": {
+    "subTitle": "FAQS",
+    "title": "Common Questions",
+    "items": {
+      "0": {
+        "question": "How do you protect my research content?",
+        "answer": "We protect your research content through strict security measures.All data is encrypted both in transit and at rest, ensuring unauthorized parties cannot access it. Only you have access to your content — we do not use your data for AI training or share it with third parties. You may delete your data at any time, and once removed, it is permanently erased from our systems."
+      },
+      "1": {
+        "question": "Will the data I upload be used to train AI models?",
+        "answer": "Absolutely! You can upgrade, downgrade, or modify your plan at any time through your account settings."
+      },
+      "2": {
+        "question": "Is this suitable for individual use or team use?",
+        "answer": "Yes, our support team is available around the clock to assist you with any questions or issues."
+      },
+      "3": {
+        "question": "Can beginners, researchers, or students use this as well?",
+        "answer": "We prioritize your data privacy with robust security protocols, including end-to-end encryption and GDPR compliance."
+      },
+      "4": {
+        "question": "Can I cancel my subscription at any time?",
+        "answer": "Yes, we offer flexible, custom plans designed to meet the unique needs of businesses of all sizes. Contact us for more details."
+      },
+      "5": {
+        "question": "If I upgrade my plan, will my data be kept?",
+        "answer": "We accept major credit cards, PayPal, and bank transfers for easy and convenient payment options."
+      },
+      "6": {
+        "question": "Do you offer discounts for students or educational institutions?",
+        "answer": "We accept major credit cards, PayPal, and bank transfers for easy and convenient payment options."
+      }
     }
   },
   "HowItWorks": {
@@ -121,13 +198,51 @@
     }
   },
   "Pricing": {
-    "title": "Simple, Transparent Pricing",
-    "subtitle": "Choose the plan that works best for you. Start free and upgrade as you grow."
-  },
-  "CTA": {
-    "title": "Stop learning alone",
-    "subtitle": "Get matched with someone who's learning the same things. Hold each other accountable. Make real progress.",
-    "button": "Try it free"
+    "subTitle": "Pricing",
+    "title": "Get Unlimitted Access",
+    "description": "Enjoy unlimited access to all features and resources, empowering your business to grow without limits.",
+    "monthly": "Monthly",
+    "annually": "Annually",
+    "save": "Save",
+    "mostPopular": "Most Popular",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "description": "Perfect for small websites and blogs.",
+        "features": {
+          "0": "Up to 5 pages",
+          "1": "Basic optimization",
+          "2": "Weekly reports",
+          "3": "Email support"
+        },
+        "cta": "Start Free Trial"
+      },
+      "professional": {
+        "name": "Professional",
+        "description": "Ideal for growing businesses and e-commerce.",
+        "features": {
+          "0": "Up to 25 pages",
+          "1": "Advanced optimization",
+          "2": "Daily reports",
+          "3": "Priority email support",
+          "4": "SEO recommendations"
+        },
+        "cta": "Getting Started"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For large websites with complex needs.",
+        "features": {
+          "0": "Unlimited pages",
+          "1": "Custom optimization rules",
+          "2": "Real-time monitoring",
+          "3": "24/7 phone & email support",
+          "4": "Advanced API access",
+          "5": "Custom integrations"
+        },
+        "cta": "Contact Sales"
+      }
+    }
   },
   "Dashboard": {
     "title": "Dashboard",

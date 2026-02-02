@@ -1,9 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { CircleArrowRight, Menu, Earth } from 'lucide-react';
 
@@ -29,6 +28,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import DiscordIcon from '@/components/icons/discord-icon';
+import LanguageSwitch from '@/components/layout/header/language-switch';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -91,6 +91,7 @@ export const Navbar = () => {
                 <SheetFooter className="flex-col items-start justify-start sm:flex-col">
                   <Separator className="mb-2" />
                   <ToggleTheme />
+                  <LanguageSwitch />
                 </SheetFooter>
               </SheetContent>
             </Sheet>
@@ -119,9 +120,7 @@ export const Navbar = () => {
           <div className="hidden items-center lg:flex">
             <ToggleTheme />
 
-            <Button size="icon" variant="ghost">
-              <Earth className="size-5" />
-            </Button>
+            <LanguageSwitch />
 
             <Button size="sm" variant="ghost" asChild>
               <a

@@ -1,3 +1,5 @@
+'use client';
+
 import { FAQList } from '@/@data/faq';
 import {
   Accordion,
@@ -8,14 +10,19 @@ import {
 import SectionHeader from '../section-header';
 import SectionContainer from '../section-container';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export const FAQSection = () => {
+  const t = useTranslations('FAQ');
   return (
     <SectionContainer id="faqs">
-      <SectionHeader subTitle="FAQS" title="Common Questions" />
+      <SectionHeader 
+        subTitle={t('subTitle')} 
+        title={t('title')} 
+      />
       <div className="max-w-(--breakpoint-sm) mx-auto">
         <Accordion type="single" collapsible className="AccordionRoot">
-          {FAQList.map(({ question, answer, value }) => (
+          {FAQList.map(({ value }, index) => (
             <AccordionItem key={value} value={value}>
               <AccordionTrigger className="text-left text-lg">
                 <div className="flex items-start gap-3">
@@ -26,11 +33,11 @@ export const FAQSection = () => {
                     height={20}
                     className="mt-1 shrink-0"
                   />
-                  <span>{question}</span>
+                  <span>{t(`items.${index}.question`)}</span>
                 </div>
               </AccordionTrigger>
               <AccordionContent className="text-base text-muted-foreground">
-                {answer}
+                {t(`items.${index}.answer`)}
               </AccordionContent>
             </AccordionItem>
           ))}

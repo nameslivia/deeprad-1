@@ -8,32 +8,36 @@ import Icon from '@/components/icon';
 import { CardHover, CardsHover } from '@/components/ui/extras/cards-hover';
 import SectionContainer from '@/components/layout/section-container';
 import SectionHeader from '@/components/layout/section-header';
+import { useTranslations } from 'next-intl';
 
 export const FeaturesSection = () => {
+  const t = useTranslations('Features');
   const [value, setValue] = React.useState<string | null>(null);
 
   return (
     <SectionContainer id="features">
       <SectionHeader
-        subTitle="Features"
-        title="Tools Designed to Accelerate Your Research"
-        description="Here to support your writing, reviewing, and everything in between—so you can focus on ideas, not the struggle."
+        subTitle={t('subTitle')}
+        title={t('title')}
+        description={t('description')}
       />
       <CardsHover
         className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
         value={value}
         onValueChange={setValue}
       >
-        {featureList.map(card => (
+        {featureList.map((card, index) => (
           <CardHover
             key={card.icon}
             value={card.icon}
             className="flex items-start gap-6"
           >
             <div className="space-y-4">
-              <CardTitle className="text-lg">{card.title}</CardTitle>
+              <CardTitle className="text-lg">
+                {t(`items.${index}.title`)}
+              </CardTitle>
               <p className="text-muted-foreground font-normal">
-                {card.description}
+                {t(`items.${index}.description`)}
               </p>
             </div>
             <div className="bg-primary/20 ring-primary/10 rounded-full p-2 ring-8">

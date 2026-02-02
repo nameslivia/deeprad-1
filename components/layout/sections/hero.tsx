@@ -1,29 +1,34 @@
+'use client';
+
 import Image from 'next/image';
 import { CheckIcon, CircleArrowRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BackgroundBeamsWithCollision } from '@/components/ui/extras/background-beams-with-collision';
 
 export const HeroSection = () => {
+  const t = useTranslations('Hero');
+
   return (
     <section className="container w-full">
       <div className="mx-auto grid place-items-center py-16 pb-8 md:py-32 md:pb-14 lg:max-w-(--breakpoint-xl)">
         <BackgroundBeamsWithCollision>
           <div className="space-y-8 pb-8 text-center lg:pb-20">
             <div className="mx-auto max-w-(--breakpoint-md) text-center text-4xl font-bold md:text-6xl">
-              <h1>Your Next-Gen Research Assistant</h1>
+              <h1>{t('title')}</h1>
             </div>
             <p className="text-muted-foreground mx-auto max-w-(--breakpoint-sm) text-xl">
-              {`Overcome research procrastination with AI agent`}
+              {t('subtitle')}
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 md:flex-row!">
               <Button className="h-12 px-10 text-base">
-                Try For Free
+                {t('tryForFree')}
                 <CircleArrowRight />
               </Button>
               <Button variant="outline" className="h-12 px-10 text-base">
-                Watch Video
+                {t('watchVideo')}
                 <CircleArrowRight />
               </Button>
             </div>
