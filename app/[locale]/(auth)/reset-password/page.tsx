@@ -62,7 +62,7 @@ export default function ResetPasswordPage() {
     }
   }, [searchParams, router]);
 
-  const onSubmit = async (data: ResetPasswordFormData) => {
+  const onSubmit = async (formData: ResetPasswordFormData) => {
     if (!token) {
       toast.error('Invalid reset token');
       return;
@@ -70,7 +70,8 @@ export default function ResetPasswordPage() {
 
     setIsSubmitting(true);
     try {
-      // TODO: API call to reset password
+      // TODO: API call to reset password with formData.password and token
+      console.log('Resetting password with token:', token, 'New password length:', formData.password.length);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
       toast.success('Password reset successful!');

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { RefreshCw, Check, X, FileText } from 'lucide-react';
+import { RefreshCw, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -298,7 +298,7 @@ export function Step4_AIReviewResults() {
                     </p>
                   </div>
                 </div>
-              ) : (
+              ) : reviewResults ? (
                 <div className="grid gap-4 lg:grid-cols-2">
                   {/* Original Column */}
                   <div className="space-y-3">
@@ -318,24 +318,24 @@ export function Step4_AIReviewResults() {
                     <div className="flex items-center justify-between">
                       <h3 className="font-semibold">Revised (editable)</h3>
                       <div className="flex gap-2">
-                        <Button 
-                          size="sm" 
+                        <Button
+                          size="sm"
                           variant="outline"
                           onClick={() => handleRegenerateSection(section)}
                           title="Regenerate"
                         >
                           <RefreshCw className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          size="sm" 
+                        <Button
+                          size="sm"
                           variant="outline"
                           onClick={() => handleAcceptChanges(section)}
                           title="Accept changes"
                         >
                           <Check className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          size="sm" 
+                        <Button
+                          size="sm"
                           variant="outline"
                           onClick={() => handleRejectChanges(section)}
                           title="Reject changes"
@@ -352,7 +352,7 @@ export function Step4_AIReviewResults() {
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </TabsContent>
           ))}
         </Tabs>
