@@ -32,7 +32,7 @@ import LanguageSwitch from '@/components/layout/header/language-switch';
 
 export const Navbar = () => {
   const pathname = usePathname();
-  const isAuthPage = pathname === '/login' || pathname === '/signup';
+  const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/reset-password';
   const [isOpen, setIsOpen] = React.useState(false);
 
   if (isAuthPage) {
