@@ -7,7 +7,7 @@ import { UploadZone } from '../upload-zone';
 import { FileItem } from '../file-item';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 
-export function Step3_JournalSelection() {
+export function Step2_JournalSelection() {
   const { setSelectedJournal, uploadedFiles, addFiles, removeFile } =
     usePaperReviewStore();
   const [searchValue, setSearchValue] = useState('');

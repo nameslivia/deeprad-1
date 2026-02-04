@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 import { GrDocumentPdf } from "react-icons/gr";
 import { FaFileWord } from "react-icons/fa";
 
-export function Step4_AIReviewResults() {
+export function Step3_AIReviewResults() {
   const { reviewResults, setReviewResults } = usePaperReviewStore();
   const [proSearchOpen, setProSearchOpen] = useState(true);
   const [proSearchProgress, setProSearchProgress] = useState(0);

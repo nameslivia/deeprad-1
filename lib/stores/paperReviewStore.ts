@@ -10,7 +10,7 @@ import { generateId } from '@/lib/paperReviewUtils';
 
 interface PaperReviewStore {
   // State
-  currentStep: 1 | 2 | 3 | 4 | 5;
+  currentStep: 1 | 2 | 3;
   manuscriptType: ManuscriptType | null;
   uploadedFiles: UploadedFile[];
   selectedJournal: string | null;
@@ -18,7 +18,7 @@ interface PaperReviewStore {
   isProcessing: boolean;
 
   // Actions
-  setStep: (step: 1 | 2 | 3 | 4 | 5) => void;
+  setStep: (step: 1 | 2 | 3) => void;
   setManuscriptType: (type: ManuscriptType) => void;
   addFiles: (files: File[], category: FileCategory) => void;
   removeFile: (id: string) => void;
@@ -31,7 +31,6 @@ interface PaperReviewStore {
 
   // Computed
   canProceedToStep2: () => boolean;
-  canProceedToStep3: () => boolean;
 }
 
 export const usePaperReviewStore = create<PaperReviewStore>((set, get) => ({
@@ -102,10 +101,5 @@ export const usePaperReviewStore = create<PaperReviewStore>((set, get) => ({
     const { uploadedFiles, manuscriptType } = get();
     const hasManuscript = uploadedFiles.some((f) => f.category === 'manuscript');
     return manuscriptType !== null && hasManuscript;
-  },
-
-  canProceedToStep3: () => {
-    const { uploadedFiles } = get();
-    return uploadedFiles.every((f) => f.status === 'completed');
   }
 }));

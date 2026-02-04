@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface StepNavigationProps {
-  currentStep: 1 | 2 | 3 | 4 | 5;
+  currentStep: 1 | 2 | 3;
   onBack: () => void;
   onNext: () => void;
   canGoBack: boolean;
@@ -18,7 +18,7 @@ export function StepNavigation({
   canGoBack,
   canGoNext
 }: StepNavigationProps) {
-  const steps = [1, 2, 3, 4];
+  const steps = [1, 2, 3];
 
   return (
     <div className="flex items-center justify-between border-t bg-background p-6">
@@ -44,7 +44,7 @@ export function StepNavigation({
             BACK
           </Button>
         )}
-        {currentStep < 4 && (
+        {currentStep < 3 && (
           <Button onClick={onNext} disabled={!canGoNext}>
             NEXT
           </Button>

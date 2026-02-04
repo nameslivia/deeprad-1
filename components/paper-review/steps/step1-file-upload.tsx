@@ -8,10 +8,10 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { UploadZone } from '../upload-zone';
-import { FileItem } from '../file-item';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
-import { formatManuscriptType } from '@/lib/paperReviewUtils';
+import { uploadFiles } from '@/lib/api/paperReviewApi';
 import type { ManuscriptType } from '@/types/paperReview';
+import { useCallback } from 'react';
 
 export function Step1_FileUpload() {
   const {
@@ -19,8 +19,30 @@ export function Step1_FileUpload() {
     setManuscriptType,
     uploadedFiles,
     addFiles,
-    removeFile
+    removeFile,
+    updateFileProgress,
+    updateFileStatus
   } = usePaperReviewStore();
+
+  const handleFilesSelected = useCallback(
+    (files: File[], category: 'manuscript' | 'references' | 'prompt') => {
+      const newFileIds: string[] = [];
+      
+      // Add files to store
+      addFiles(files, category);
+      
+      // Start uploading files
+      setTimeout(() => {
+        // Get the latest uploadedFiles
+        const currentFiles = usePaperReviewStore.getState().uploadedFiles;
+        const filesToUpload = currentFiles.filter(f => f.status === 'idle');
+        if (filesToUpload.length > 0) {
+          uploadFiles(filesToUpload, updateFileProgress, updateFileStatus);
+        }
+      }, 100); // Give a little time for the store to update
+    },
+    [addFiles, updateFileProgress, updateFileStatus]
+  );        
 
   const manuscriptFiles = uploadedFiles.filter((f) => f.category === 'manuscript');
   const referenceFiles = uploadedFiles.filter((f) => f.category === 'references');
@@ -55,8 +77,9 @@ export function Step1_FileUpload() {
         </Select>
       </div>
 
-      {/* Upload Zones */}
+      {/* Upload Zones with embedded file lists */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Manuscript File */}
         <div className="space-y-3">
           <div className="flex items-baseline justify-between">
             <label className="text-sm font-medium">Manuscript File</label>
@@ -66,12 +89,15 @@ export function Step1_FileUpload() {
             category="manuscript"
             accept=".pdf,.docx,.doc"
             multiple={false}
-            onFilesSelected={(files) => addFiles(files, 'manuscript')}
+            onFilesSelected={(files) => handleFilesSelected(files, 'manuscript')}
             title="Upload Manuscript"
             subtitle="PDF or DOCX format"
+            uploadedFiles={manuscriptFiles}
+            onDeleteFile={removeFile}
           />
         </div>
 
+        {/* Reference Articles */}
         <div className="space-y-3">
           <div className="flex items-baseline justify-between">
             <label className="text-sm font-medium">Reference Articles</label>
@@ -81,12 +107,15 @@ export function Step1_FileUpload() {
             category="references"
             accept=".pdf,.docx,.doc"
             multiple={true}
-            onFilesSelected={(files) => addFiles(files, 'references')}
+            onFilesSelected={(files) => handleFilesSelected(files, 'references')}
             title="Upload References"
             subtitle="Multiple files allowed"
+            uploadedFiles={referenceFiles}
+            onDeleteFile={removeFile}
           />
         </div>
 
+        {/* Prompt File */}
         <div className="space-y-3">
           <div className="flex items-baseline justify-between">
             <label className="text-sm font-medium">Prompt File</label>
@@ -96,51 +125,14 @@ export function Step1_FileUpload() {
             category="prompt"
             accept=".pdf,.docx,.doc,.txt"
             multiple={false}
-            onFilesSelected={(files) => addFiles(files, 'prompt')}
+            onFilesSelected={(files) => handleFilesSelected(files, 'prompt')}
             title="Upload Prompt"
             subtitle="Custom review instructions"
+            uploadedFiles={promptFiles}
+            onDeleteFile={removeFile}
           />
         </div>
       </div>
-
-      {/* Uploaded Files List */}
-      {uploadedFiles.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="font-semibold">Uploaded Files</h3>
-          <div className="space-y-3">
-            {manuscriptFiles.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Manuscript
-                </p>
-                {manuscriptFiles.map((file) => (
-                  <FileItem key={file.id} file={file} onDelete={removeFile} />
-                ))}
-              </div>
-            )}
-            {referenceFiles.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  References
-                </p>
-                {referenceFiles.map((file) => (
-                  <FileItem key={file.id} file={file} onDelete={removeFile} />
-                ))}
-              </div>
-            )}
-            {promptFiles.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                  Prompt
-                </p>
-                {promptFiles.map((file) => (
-                  <FileItem key={file.id} file={file} onDelete={removeFile} />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
