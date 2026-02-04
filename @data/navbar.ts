@@ -12,23 +12,23 @@ interface ProductProps {
 export const routeList: RouteProps[] = [
   {
     href: '#benefits',
-    label: 'Benefits',
+    label: 'benefits',
   },
   {
     href: '#features',
-    label: 'Features',
+    label: 'features',
   },
   {
     href: '#services',
-    label: 'Services',
+    label: 'services',
   },
   {
     href: '#faqs',
-    label: 'FAQS',
+    label: 'faqs',
   },
   {
     href: '#pricing',
-    label: 'Pricing',
+    label: 'pricing',
   },
 ];
 

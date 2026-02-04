@@ -64,6 +64,16 @@
   "Footer": {
     "copyright": "© {year} Meetsy. All rights reserved."
   },
+  "Navbar": {
+    "benefits": "Benefits",
+    "features": "Features",
+    "services": "Services",
+    "faqs": "FAQs",
+    "pricing": "Pricing",
+    "joinUs": "Join Us",
+    "login": "Log in",
+    "tryForFree": "Try For Free"
+  },
   "Hero": {
     "title": "Your Next-Gen Research Assistant",
     "subtitle": "Overcome research procrastination with AI agent",

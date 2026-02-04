@@ -64,6 +64,16 @@
   "Footer": {
     "copyright": "© {year} Meetsy. 版權所有。"
   },
+  "Navbar": {
+    "benefits": "優勢",
+    "features": "功能",
+    "services": "服務",
+    "faqs": "常見問題",
+    "pricing": "定價",
+    "joinUs": "加入我們",
+    "login": "登入",
+    "tryForFree": "免費試用"
+  },
   "Hero": {
     "title": "您的新世代研究助理",
     "subtitle": "用 AI 代理克服研究拖延症",
