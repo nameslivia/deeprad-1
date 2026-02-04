@@ -1,18 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { UploadZone } from '@/components/paper-review/upload-zone';
-import { FileItem } from '../file-item';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
+import { uploadFiles } from '@/lib/api/paperReviewApi';
 
 export function Step2_JournalSelection() {
-  const { setSelectedJournal, uploadedFiles, addFiles, removeFile } =
-    usePaperReviewStore();
+  const {
+    setSelectedJournal,
+    uploadedFiles,
+    addFiles,
+    removeFile,
+    updateFileProgress,
+    updateFileStatus
+  } = usePaperReviewStore();
   const [searchValue, setSearchValue] = useState('');
 
   const authorGuideFiles = uploadedFiles.filter((f) => f.category === 'authorGuide');
+
+  const handleFilesSelected = useCallback(
+    (files: File[]) => {
+      // Add files to store
+      addFiles(files, 'authorGuide');
+
+      // Start uploading files
+      setTimeout(() => {
+        // Get the latest uploadedFiles
+        const currentFiles = usePaperReviewStore.getState().uploadedFiles;
+        const filesToUpload = currentFiles.filter(f => f.status === 'idle');
+        if (filesToUpload.length > 0) {
+          uploadFiles(filesToUpload, updateFileProgress, updateFileStatus);
+        }
+      }, 100); // Give a little time for the store to update
+    },
+    [addFiles, updateFileProgress, updateFileStatus]
+  );
 
   const handleSearchChange = (value: string) => {
     setSearchValue(value);
@@ -65,25 +89,19 @@ export function Step2_JournalSelection() {
       {/* Author Guide Upload */}
       <div className="space-y-3">
         <label className="text-sm font-medium">Upload Author Guide</label>
-        <UploadZone
-          category="authorGuide"
-          accept=".pdf,.docx,.doc"
-          multiple={false}
-          onFilesSelected={(files) => addFiles(files, 'authorGuide')}
-          title="Upload Author Guide"
-          subtitle="PDF or DOCX format with journal guidelines"
-        />
-      </div>
-
-      {/* Uploaded Author Guide */}
-      {authorGuideFiles.length > 0 && (
-        <div className="space-y-3">
-          <h3 className="text-sm font-medium">Uploaded Author Guide</h3>
-          {authorGuideFiles.map((file) => (
-            <FileItem key={file.id} file={file} onDelete={removeFile} />
-          ))}
+        <div className="mx-auto max-w-md">
+          <UploadZone
+            category="authorGuide"
+            accept=".pdf,.docx,.doc"
+            multiple={false}
+            onFilesSelected={handleFilesSelected}
+            title="Upload Author Guide"
+            subtitle="PDF or DOCX format with journal guidelines"
+            uploadedFiles={authorGuideFiles}
+            onDeleteFile={removeFile}
+          />
         </div>
-      )}
+      </div>
 
       <div className="rounded-lg bg-muted/50 p-4">
         <h3 className="font-medium">About AI Policy Transparency</h3>
