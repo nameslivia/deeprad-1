@@ -6,9 +6,9 @@ export default function HomeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="from-muted to-primary/5 min-h-screen bg-gradient-to-tl">
       <Navbar />
       {children}
-    </>
+    </div>
   );
 }
