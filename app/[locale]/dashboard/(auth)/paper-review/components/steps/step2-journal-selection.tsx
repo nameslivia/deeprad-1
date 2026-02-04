@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { UploadZone } from '../upload-zone';
+import { UploadZone } from '@/components/paper-review/upload-zone';
 import { FileItem } from '../file-item';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 
@@ -96,3 +96,4 @@ export function Step2_JournalSelection() {
     </div>
   );
 }
+

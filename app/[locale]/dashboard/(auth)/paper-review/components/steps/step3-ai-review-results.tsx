@@ -433,3 +433,4 @@ function ComparisonText({ text, type }: { text: string; type: 'original' | 'revi
 
   return <p className="text-sm leading-relaxed whitespace-pre-wrap">{parseText(text)}</p>;
 }
+

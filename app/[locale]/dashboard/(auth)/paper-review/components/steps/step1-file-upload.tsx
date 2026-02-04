@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { UploadZone } from '../upload-zone';
+import { UploadZone } from '@/components/paper-review/upload-zone';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 import { uploadFiles } from '@/lib/api/paperReviewApi';
 import type { ManuscriptType } from '@/types/paperReview';
@@ -136,3 +136,4 @@ export function Step1_FileUpload() {
     </div>
   );
 }
+
