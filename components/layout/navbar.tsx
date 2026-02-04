@@ -5,6 +5,7 @@ import { usePathname, Link } from '@/i18n/navigation';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { CircleArrowRight, Menu, Earth } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { routeList } from '@/@data/navbar';
 
@@ -31,6 +32,7 @@ import DiscordIcon from '@/components/icons/discord-icon';
 import LanguageSwitch from '@/components/layout/header/language-switch';
 
 export const Navbar = () => {
+  const t = useTranslations('Navbar');
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/reset-password';
   const [isOpen, setIsOpen] = React.useState(false);
@@ -82,7 +84,7 @@ export const Navbar = () => {
                         variant="ghost"
                         className="justify-start text-base"
                       >
-                        <Link href={href}>{label}</Link>
+                        <Link href={href}>{t(label)}</Link>
                       </Button>
                     ))}
                   </div>
@@ -110,7 +112,7 @@ export const Navbar = () => {
                       'hover:bg-muted! bg-transparent!'
                     )}
                   >
-                    <Link href={href}>{label}</Link>
+                    <Link href={href}>{t(label)}</Link>
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuItem>
@@ -129,18 +131,18 @@ export const Navbar = () => {
                 rel="noopener noreferrer"
               >
                 <DiscordIcon className="size-5" />
-                Join Us
+                {t('joinUs')}
               </a>
             </Button>
 
             <div className="flex gap-2">
               <Link href="/login">
                 <Button size="lg" variant="ghost">
-                  Log in
+                  {t('login')}
                 </Button>
               </Link>
               <Button size="lg">
-                Try For Free
+                {t('tryForFree')}
                 <CircleArrowRight />
               </Button>
             </div>
