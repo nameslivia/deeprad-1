@@ -23,13 +23,19 @@ export default function PaperReviewPage() {
     }
   };
 
+  const handleStepClick = (step: 1 | 2 | 3) => {
+    if(step <= currentStep || (step === 2 && canProceedToStep2())) {
+      setStep(step);
+    }
+  };
+
   // Determine if user can proceed to next step
   const canGoNext = () => {
     switch (currentStep) {
       case 1:
         return canProceedToStep2();
       case 2:
-        return true; // Can always proceed from journal selection
+        return true;
       case 3:
         return false;
       default:
@@ -40,6 +46,15 @@ export default function PaperReviewPage() {
   return (
     <div className="flex min-h-screen flex-col">
 
+      <StepNavigation
+        currentStep={currentStep}
+        onBack={handleBack}
+        onNext={handleNext}
+        onStepClick={handleStepClick}
+        canGoBack={currentStep > 1}
+        canGoNext={canGoNext()}
+      />      
+
       <main className="flex-1 bg-background">
         <div className="container py-8">
           {currentStep === 1 && <Step1_FileUpload />}
@@ -47,14 +62,6 @@ export default function PaperReviewPage() {
           {currentStep === 3 && <Step3_AIReviewResults />}
         </div>
       </main>
-
-      <StepNavigation
-        currentStep={currentStep}
-        onBack={handleBack}
-        onNext={handleNext}
-        canGoBack={currentStep > 1}
-        canGoNext={canGoNext()}
-      />
 
       <ReviewFooter />
     </div>

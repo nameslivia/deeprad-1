@@ -7,8 +7,8 @@ import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { formatFileSize } from '@/lib/paperReviewUtils';
 import type { UploadZoneProps, UploadedFile } from '@/types/paperReview';
-import { GrDocumentPdf } from "react-icons/gr";
-import { FaFileWord } from "react-icons/fa";
+import { FaRegFilePdf } from "react-icons/fa";
+import { FaRegFileWord } from "react-icons/fa";
 import { useFileUpload } from '@/hooks/use-file-upload';
 
 interface ExtendedUploadZoneProps extends UploadZoneProps {
@@ -56,16 +56,34 @@ export function UploadZone({
 
     uploadedFiles.forEach((file) => {
       if (file.file && file.type.startsWith('image/')) {
-        newPreviewUrls[file.id] = URL.createObjectURL(file.file);
+        // Reuse existing URL if available
+        if (previewUrls[file.id]) {
+          newPreviewUrls[file.id] = previewUrls[file.id];
+        } else {
+          // Only create URL for new files
+          newPreviewUrls[file.id] = URL.createObjectURL(file.file);
+        }
       }
     });
 
-    setPreviewUrls(newPreviewUrls);
+    // Only update if there are actual changes
+    const hasChanges =
+      Object.keys(newPreviewUrls).length !== Object.keys(previewUrls).length ||
+      Object.keys(newPreviewUrls).some(id => !previewUrls[id]);
 
-    // revoke URLs when component unmounts
+    if (hasChanges) {
+      setPreviewUrls(newPreviewUrls);
+    }
+
+    // Cleanup URLs for removed files
     return () => {
-      Object.values(newPreviewUrls).forEach((url) => URL.revokeObjectURL(url));
+      Object.keys(previewUrls).forEach((id) => {
+        if (!newPreviewUrls[id]) {
+          URL.revokeObjectURL(previewUrls[id]);
+        }
+      });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedFiles]);
 
   const hasFiles = uploadedFiles.length > 0;
@@ -130,13 +148,13 @@ export function UploadZone({
                     />
                   ) : file.type.includes('pdf') ? (
                     // PDF
-                    <GrDocumentPdf className="h-12 w-12 text-red-500" />
+                    <FaRegFilePdf className="h-10 w-10 text-red-500" />
                   ) : file.type.includes('doc') ? (
                     // DOC
-                    <FaFileWord className="h-12 w-12 text-blue-500" />
+                    <FaRegFileWord className="h-10 w-10 text-blue-500" />
                   ) : (
                     // Other files
-                    <FileText className="h-12 w-12 text-gray-500" />
+                    <FileText className="h-10 w-10 text-gray-500" />
                   )}
                 </div>
 

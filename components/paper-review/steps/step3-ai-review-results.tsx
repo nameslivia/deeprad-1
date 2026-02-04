@@ -12,8 +12,8 @@ import { getReviewResults, simulateProSearch, exportPDF, exportWord } from '@/li
 import { formatSectionName } from '@/lib/paperReviewUtils';
 import type { PaperSection } from '@/types/paperReview';
 import { toast } from 'sonner';
-import { GrDocumentPdf } from "react-icons/gr";
-import { FaFileWord } from "react-icons/fa";
+import { FaRegFilePdf } from "react-icons/fa";
+import { FaRegFileWord } from "react-icons/fa";
 
 export function Step3_AIReviewResults() {
   const { reviewResults, setReviewResults } = usePaperReviewStore();
@@ -200,7 +200,7 @@ export function Step3_AIReviewResults() {
             'Generating PDF...'
           ) : (
             <>
-              <GrDocumentPdf className="mr-2 h-4 w-4" />
+              <FaRegFilePdf className="mr-2 h-4 w-4" />
               Get Your Review Result
             </>
           )}
@@ -215,7 +215,7 @@ export function Step3_AIReviewResults() {
             'Generating Word...'
           ) : (
             <>
-              <FaFileWord className="mr-2 h-4 w-4" />
+              <FaRegFileWord className="mr-2 h-4 w-4" />
               Get Your Revised Manuscript
             </>
           )}
