@@ -1,6 +1,12 @@
 {
   "Sidebar": {
     "dashboard": { "title": "Dashboard", "subTitle": {} },
+    "ai": {
+      "title": "AI",
+      "subTitle": {
+        "manuscript": "Manuscript"
+      }
+    },
     "library": {
       "title": "Library",
       "subTitle": {

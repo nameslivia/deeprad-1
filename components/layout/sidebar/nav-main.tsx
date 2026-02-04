@@ -22,6 +22,7 @@ import {
   CreditCardIcon,
   FolderDotIcon,
   ShoppingBagIcon,
+  SparklesIcon,
   type LucideIcon
 } from "lucide-react";
 // import Link from "next/link";
@@ -61,6 +62,14 @@ export const navItems: NavGroup[] = [
         title: "dashboard",
         href: "/dashboard/default",
         icon: ChartPieIcon
+      },
+      {
+        title: "ai",
+        href: "#",
+        icon: SparklesIcon,
+        items: [
+          { title: "manuscript", href: "/dashboard/paper-review" }
+        ]
       },
       {
         title: "library",

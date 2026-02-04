@@ -1,6 +1,12 @@
 {
   "Sidebar": {
     "dashboard": { "title": "儀表板", "subTitle": {} },
+    "ai": {
+      "title": "AI",
+      "subTitle": {
+        "manuscript": "論文稿件"
+      }
+    },
     "library": {
       "title": "圖書館",
       "subTitle": {
