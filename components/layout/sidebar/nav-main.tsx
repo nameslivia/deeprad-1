@@ -15,14 +15,14 @@ import {
   useSidebar
 } from "@/components/ui/sidebar";
 import {
-  BadgeDollarSignIcon,
-  Building2Icon,
-  ChartPieIcon,
+  LayoutDashboard,
+  Library,
+  BookOpen,
+  Building,
+  Package,
   ChevronRight,
-  CreditCardIcon,
+  FileSpreadsheet,
   FolderDotIcon,
-  ShoppingBagIcon,
-  SparklesIcon,
   type LucideIcon
 } from "lucide-react";
 // import Link from "next/link";
@@ -61,20 +61,12 @@ export const navItems: NavGroup[] = [
       {
         title: "dashboard",
         href: "/dashboard/default",
-        icon: ChartPieIcon
-      },
-      {
-        title: "ai",
-        href: "#",
-        icon: SparklesIcon,
-        items: [
-          { title: "manuscript", href: "/dashboard/paper-review" }
-        ]
+        icon: LayoutDashboard
       },
       {
         title: "library",
         href: "#",
-        icon: ShoppingBagIcon,
+        icon: Library,
         items: [
           { title: "dashboard", href: "/dashboard/ecommerce" },
           { title: "product-list", href: "/dashboard/pages/products" },
@@ -86,22 +78,31 @@ export const navItems: NavGroup[] = [
       },
       {
         title: "agent",
+        href: "#",
+        icon: BookOpen,
+        items: [
+          { title: "manuscript", href: "/dashboard/paper-review" }
+        ]
+      },
+      {
+        title: "report",
         href: "/dashboard/payment",
-        icon: CreditCardIcon,
+        icon: FileSpreadsheet,
         items: [
           { title: "dashboard", href: "/dashboard/payment" },
           { title: "transactions", href: "/dashboard/payment/transactions" }
         ]
       },
       {
-        title: "report",
+        title: "product",
         href: "/dashboard/hotel",
-        icon: Building2Icon,
+        icon: Package,
         items: [
           { title: "dashboard", href: "/dashboard/hotel" },
           { title: "bookings", href: "/dashboard/hotel/bookings" }
         ]
       },
+      { title: "authority", href: "/dashboard/sales", icon: Building },
       {
         title: "project",
         href: "/dashboard/project-management",
@@ -111,7 +112,6 @@ export const navItems: NavGroup[] = [
           { title: "project-list", href: "/dashboard/project-list" }
         ]
       },
-      { title: "authority", href: "/dashboard/sales", icon: BadgeDollarSignIcon }
     ]
   }
 ];

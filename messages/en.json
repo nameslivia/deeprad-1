@@ -1,8 +1,8 @@
 {
   "Sidebar": {
     "dashboard": { "title": "Dashboard", "subTitle": {} },
-    "ai": {
-      "title": "AI",
+    "agent": {
+      "title": "Agent",
       "subTitle": {
         "manuscript": "Manuscript"
       }
@@ -18,15 +18,15 @@
         "order-detail": "Order Detail"
       }
     },
-    "agent": {
-      "title": "Agent",
+    "report": {
+      "title": "Report",
       "subTitle": {
         "dashboard": "Dashboard",
         "transactions": "Transactions"
       }
     },
-    "report": {
-      "title": "Report",
+    "product": {
+      "title": "Product",
       "subTitle": {
         "dashboard": "Dashboard",
         "bookings": "Bookings"

@@ -1,8 +1,8 @@
 {
   "Sidebar": {
     "dashboard": { "title": "儀表板", "subTitle": {} },
-    "ai": {
-      "title": "AI",
+    "agent": {
+      "title": "Agent",
       "subTitle": {
         "manuscript": "論文稿件"
       }
@@ -18,14 +18,14 @@
         "order-detail": "訂單詳情"
       }
     },
-    "agent": {
+    "report": {
       "title": "代理",
       "subTitle": {
         "dashboard": "儀表板",
         "transactions": "交易"
       }
     },
-    "report": {
+    "product": {
       "title": "報表",
       "subTitle": {
         "dashboard": "儀表板",
