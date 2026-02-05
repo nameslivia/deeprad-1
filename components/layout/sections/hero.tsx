@@ -142,7 +142,7 @@ export const HeroSection = () => {
 
       {/* Content */}
       <div className="container relative z-10 mx-auto grid place-items-center py-16 pb-12 md:py-32 md:pb-14">
-        <div className="animate-hero-fade-in space-y-8 pb-8 text-center lg:pb-20 opacity-0 [animation-delay:0.2s]">
+        <div className="animate-hero-fade-in space-y-8 pb-8 text-center lg:pb-20 [animation-delay:0.2s]">
           <h1 className="mx-auto max-w-(--breakpoint-md) text-center text-4xl font-bold md:text-6xl">{t('title')}</h1>
 
           <p className="text-muted-foreground mx-auto max-w-(--breakpoint-sm) text-xl">
