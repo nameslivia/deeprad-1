@@ -392,3 +392,68 @@ dialog[class*='c15t-root'][open] {
   width: 90% !important;
   z-index: 50 !important;
 }
+
+/* ====================================
+   Hero Grid Animation
+   ==================================== */
+
+/* Grid color variables */
+:root {
+  --grid-color: rgba(0, 0, 0, 0.12);
+}
+
+.dark {
+  --grid-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Grid animation keyframes */
+@keyframes grid-move {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 80px;
+  }
+}
+
+/* Grid animation utility class */
+.animate-grid-move {
+  animation: grid-move 12s linear infinite;
+}
+
+/* Hero section fade in animation */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-fade-in {
+  animation: hero-fade-in 0.8s ease-out forwards;
+}
+
+/* Hero floating animation for product image */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Pulse glow animation for background gradients */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
