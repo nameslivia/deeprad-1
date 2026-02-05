@@ -7,13 +7,16 @@ import { cn } from '@/lib/utils';
 import SectionContainer from '../section-container';
 import SectionHeader from '../section-header';
 import { useTranslations } from 'next-intl';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export const BenefitsSection = () => {
   const t = useTranslations('Benefits');
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
   return (
     <SectionContainer id="benefits">
-      <div className="grid lg:grid-cols-2 lg:gap-24">
-        <div>
+      <div ref={ref} className="grid lg:grid-cols-2 lg:gap-24">
+        <div className={cn(isVisible && 'scroll-fade-in')}>
           <SectionHeader
             className="sticky max-w-full text-center lg:top-[22rem] lg:text-start"
             subTitle={t('subTitle')}
@@ -22,7 +25,7 @@ export const BenefitsSection = () => {
           />
         </div>
 
-        <div className="flex w-full flex-col gap-6 lg:gap-[14rem]">
+        <div className={cn('flex w-full flex-col gap-6 lg:gap-[14rem]', isVisible && 'stagger-fade-in')}>
           {benefitList.map(({ icon }, index) => (
             <Card
               key={index}

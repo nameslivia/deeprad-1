@@ -141,8 +141,8 @@ export const HeroSection = () => {
       }} />
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto grid place-items-center py-16 pb-12 md:py-32 md:pb-14">
-        <div className="animate-hero-fade-in space-y-8 pb-8 text-center lg:pb-20 [animation-delay:0.2s]">
+      <div className="container relative z-10 mx-auto grid place-items-center py-8 pb-8 md:py-32 md:pb-14">
+        <div className="animate-hero-fade-in space-y-8 pb-4 md:pb-8 text-center lg:pb-20 [animation-delay:0.2s]">
           <h1 className="mx-auto max-w-(--breakpoint-md) text-center text-4xl font-bold md:text-6xl">{t('title')}</h1>
 
           <p className="text-muted-foreground mx-auto max-w-(--breakpoint-sm) text-xl">
@@ -173,13 +173,28 @@ export const HeroSection = () => {
           <div className="bg-primary/60 absolute top-2 left-1/2 mx-auto h-24 w-[90%] -translate-x-1/2 transform rounded-full blur-3xl lg:-top-8 lg:h-80" />
 
           {/* Clean border design */}
-          <div className="relative overflow-hidden rounded-xl bg-background max-w-7xl" style={{
+          <div className="relative overflow-hidden rounded-xl bg-background max-w-full md:max-w-5xl lg:max-w-7xl mx-auto" style={{
             boxShadow: '0 -20px 20px 0px rgba(249, 115, 22, 0.15), 0 -30px 70px 0px rgba(249, 115, 22, 0.05)',
           }}>
+            {/* Mobile image */}
+            <Image
+              width={800}
+              height={600}
+              className="relative mx-auto w-full rounded-xl shadow-2xl transition-all duration-700 group-hover:scale-[1.02] md:hidden dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+              src="/Figma Resources Component.png"
+              alt="hero"
+              priority
+              unoptimized
+              style={{
+                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.05)',
+              }}
+            />
+
+            {/* Desktop image */}
             <Image
               width={1240}
               height={1200}
-              className="relative mx-auto w-full rounded-xl shadow-2xl transition-all duration-700 group-hover:scale-[1.02] dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
+              className="relative mx-auto hidden w-full rounded-xl shadow-2xl transition-all duration-700 group-hover:scale-[1.02] md:block dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
               src="/hero.png"
               alt="hero"
               priority
