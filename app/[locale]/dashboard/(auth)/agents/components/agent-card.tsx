@@ -1,4 +1,5 @@
 import { Star, BookOpen } from "lucide-react"; // Using BookOpen as a generic icon placeholder, can be customized
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -31,8 +32,9 @@ export function AgentCard({
     usageCount,
     icon,
     className,
-}: AgentCardProps) {
-    return (
+    href,
+}: AgentCardProps & { href?: string }) {
+    const cardContent = (
         <Card className={cn("flex flex-col h-full transition-all hover:shadow-md", className)}>
             <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
                 <div className="flex gap-4">
@@ -67,4 +69,14 @@ export function AgentCard({
             </CardFooter>
         </Card>
     );
+
+    if (href) {
+        return (
+            <Link href={href} className="block h-full">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
 }

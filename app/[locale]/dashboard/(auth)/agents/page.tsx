@@ -13,6 +13,7 @@ interface Agent {
     status: AgentStatus;
     rating: number;
     usageCount: number;
+    href?: string;
 }
 
 const AGENTS_DATA: Agent[] = [
@@ -24,6 +25,7 @@ const AGENTS_DATA: Agent[] = [
         status: "Active",
         rating: 4.8,
         usageCount: 156,
+        href: "/dashboard/paper-review",
     },
     {
         id: "2",
@@ -99,6 +101,7 @@ export default function AgentsPage() {
                         rating={agent.rating}
                         usageCount={agent.usageCount}
                         icon={<BookOpen size={24} />}
+                        href={agent.href}
                     />
                 ))}
             </div>
