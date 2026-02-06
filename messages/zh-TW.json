@@ -1,10 +1,13 @@
 {
   "Sidebar": {
-    "dashboard": { "title": "儀表板", "subTitle": {} },
+    "dashboard": {
+      "title": "儀表板",
+      "subTitle": {}
+    },
     "agent": {
       "title": "Agent",
       "subTitle": {
-        "manuscript": "論文稿件"
+        "agents": "代理"
       }
     },
     "library": {
@@ -39,7 +42,10 @@
         "project-list": "專案列表"
       }
     },
-    "authority": { "title": "權限", "subTitle": {} }
+    "authority": {
+      "title": "權限",
+      "subTitle": {}
+    }
   },
   "Common": {
     "loading": "載入中...",

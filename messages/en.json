@@ -1,10 +1,13 @@
 {
   "Sidebar": {
-    "dashboard": { "title": "Dashboard", "subTitle": {} },
+    "dashboard": {
+      "title": "Dashboard",
+      "subTitle": {}
+    },
     "agent": {
       "title": "Agent",
       "subTitle": {
-        "manuscript": "Manuscript"
+        "agents": "Agents"
       }
     },
     "library": {
@@ -39,7 +42,10 @@
         "project-list": "Project List"
       }
     },
-    "authority": { "title": "Authority", "subTitle": {} }
+    "authority": {
+      "title": "Authority",
+      "subTitle": {}
+    }
   },
   "Common": {
     "loading": "Loading...",

@@ -81,7 +81,7 @@ export const navItems: NavGroup[] = [
         href: "#",
         icon: BookOpen,
         items: [
-          { title: "manuscript", href: "/dashboard/paper-review" }
+          { title: "agents", href: "/dashboard/agents" }
         ]
       },
       {

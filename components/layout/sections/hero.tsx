@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { CircleArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { Button } from '@/components/ui/button';
 
@@ -12,7 +12,6 @@ const CELL_SIZE = 80; // px
 function GridBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Canvas data flow animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -20,78 +19,169 @@ function GridBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let animationFrameId: number;
+
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const w = Math.max(window.innerWidth || 1, 1);
+      const h = Math.max(window.innerHeight || 1, 1);
+      canvas.width = w;
+      canvas.height = h;
     };
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Light particles
-    interface Particle {
-      x: number;
-      y: number;
+    const perspectiveScale = (y: number) => {
+      if (canvas.height <= 1) return 1;
+      return 1 - (y / canvas.height) * 0.5; // simulate rotateX(60deg)
+    };
+
+    class LightFlowParticle {
+      direction: 'horizontal' | 'vertical';
+      x: number = 0;
+      y: number = 0;
+      dx: number = 0;
+      dy: number = 0;
       speed: number;
       opacity: number;
       size: number;
+      trailLength: number;
+      positions: { x: number; y: number }[];
+
+      constructor() {
+        this.direction = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+        this.speed = Math.random() * 2.5 + 0.5;
+        this.opacity = Math.random() * 0.4 + 0.3;
+        this.size = Math.random() * 2 + 2;
+        this.trailLength = 200;
+        this.positions = [];
+        this.reset();
+      }
+
+      reset() {
+        if (!canvas) return;
+        // avoid NaN
+        if (this.direction === 'horizontal') {
+          this.y = Math.floor(Math.random() * (canvas.height / CELL_SIZE + 1)) * CELL_SIZE;
+          this.x = Math.random() < 0.5 ? -20 : canvas.width + 20; // 稍微超出邊界開始
+          this.dx = this.x < 0 ? this.speed : -this.speed;
+          this.dy = 0;
+        } else {
+          this.x = Math.floor(Math.random() * (canvas.width / CELL_SIZE + 1)) * CELL_SIZE;
+          this.y = Math.random() < 0.5 ? -20 : canvas.height + 20;
+          this.dy = this.y < 0 ? this.speed : -this.speed;
+          this.dx = 0;
+        }
+        this.positions = [];
+      }
+
+      update() {
+        if (!canvas) return;
+        this.x += this.dx;
+        this.y += this.dy;
+
+        // reset if out of canvas
+        if (
+          this.x > canvas.width + 50 ||
+          this.x < -50 ||
+          this.y > canvas.height + 50 ||
+          this.y < -50
+        ) {
+          this.reset();
+        }
+
+        // update positions
+        this.positions.push({ x: this.x, y: this.y });
+        if (this.positions.length > this.trailLength) {
+          this.positions.shift();
+        }
+      }
+
+      draw(ctx: CanvasRenderingContext2D) {
+        if (!canvas) return;
+        for (let i = 0; i < this.positions.length; i++) {
+          const pos = this.positions[i];
+
+          // skip if position is invalid
+          if (!Number.isFinite(pos.x) || !Number.isFinite(pos.y)) continue;
+
+          const scale = perspectiveScale(pos.y);
+          const centerX = canvas.width / 2;
+          let adjustedX = centerX + (pos.x - centerX) * scale;
+          const adjustedY = pos.y;
+
+          if (!Number.isFinite(adjustedX)) {
+            adjustedX = pos.x; 
+          }
+
+          const progress = (i + 1) / this.positions.length;
+          const alpha = this.opacity * progress; // alpha 0.3 ~ 0
+          const outerRadius = this.size * (1 + i / this.trailLength);
+
+          if (outerRadius <= 0 || !Number.isFinite(outerRadius)) continue;
+
+          try {
+            const gradient = ctx.createRadialGradient(
+              adjustedX, adjustedY, 0,
+              adjustedX, adjustedY, outerRadius
+            );
+            gradient.addColorStop(0, `rgba(249, 115, 22, ${alpha})`);
+            gradient.addColorStop(1, 'rgba(249, 115, 22, 0)');
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(
+              adjustedX,
+              adjustedY,
+              Math.max(this.size * (1 - i / this.trailLength), 0.1), // avoid 0
+              0,
+              Math.PI * 2
+            );
+            ctx.fill();
+          } catch (e) {
+            // for debug
+            ctx.fillStyle = `rgba(249, 115, 22, ${alpha * 0.5})`;
+            ctx.beginPath();
+            ctx.arc(adjustedX, adjustedY, this.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
     }
 
-    const particles: Particle[] = [];
-    const particleCount = 18; // Number of light particles
-
-    // Initialize particles
+    const particles: LightFlowParticle[] = [];
+    const particleCount = 12;
     for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speed: Math.random() * 0.5 + 0.2,
-        opacity: Math.random() * 0.3 + 0.1,
-        size: Math.random() * 2 + 1,
-      });
+      particles.push(new LightFlowParticle());
     }
 
     const animate = () => {
+      // skip if canvas is invalid
+      if (canvas.width < 2 || canvas.height < 2) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particles.forEach((particle) => {
-        // Move downward
-        particle.y += particle.speed;
-        if (particle.y > canvas.height) {
-          particle.y = 0;
-          particle.x = Math.random() * canvas.width;
-        }
-
-        // Light particles - using deeper colors to be more visible in light mode
-        const gradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 3
-        );
-
-        // Using orange tones, more visible in light mode
-        gradient.addColorStop(0, `rgba(249, 115, 22, ${particle.opacity * 2})`);
-        gradient.addColorStop(1, 'rgba(249, 115, 22, 0)');
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
-        ctx.fill();
+        particle.update();
+        particle.draw(ctx);
       });
 
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div
-      className="pointer-events-none absolute inset-0 z-0"
-      style={{ width: '100%', height: '100%' }}
-    >
+    <div className="pointer-events-none absolute inset-0 z-0" style={{ width: '100%', height: '100%' }}>
       {/* 3D perspective grid background */}
       <div
         className="absolute inset-0"
@@ -107,14 +197,12 @@ function GridBackground() {
           animation: 'grid-move 20s linear infinite',
         }}
       />
-
-      {/* Canvas data flow - clean light particles */}
+      {/* Canvas for light flows */}
       <canvas
         ref={canvasRef}
         className="pointer-events-none absolute inset-0"
-        style={{ opacity: 0.6 }}
+        style={{ opacity: 0.7 }}
       />
-
       {/* Gradient mask to enhance 3D effect */}
       <div
         className="absolute inset-0"
@@ -126,6 +214,8 @@ function GridBackground() {
     </div>
   );
 }
+
+export default GridBackground;
 
 export const HeroSection = () => {
   const t = useTranslations('Hero');
