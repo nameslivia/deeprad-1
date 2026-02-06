@@ -25,7 +25,7 @@ const AGENTS_DATA: Agent[] = [
         status: "Active",
         rating: 4.8,
         usageCount: 156,
-        href: "/dashboard/paper-review",
+        href: "/dashboard/agents/agent-1",
     },
     {
         id: "2",
@@ -35,6 +35,7 @@ const AGENTS_DATA: Agent[] = [
         status: "Active",
         rating: 4.8,
         usageCount: 156,
+        href: "/dashboard/agents/agent-2",
     },
     {
         id: "3",
