@@ -14,6 +14,8 @@ import { useFileUpload } from '@/hooks/use-file-upload';
 interface ExtendedUploadZoneProps extends UploadZoneProps {
   uploadedFiles?: UploadedFile[];
   onDeleteFile?: (id: string) => void;
+  showDragHint?: boolean;
+  size?: 'default' | 'small';
 }
 
 export function UploadZone({
@@ -25,7 +27,9 @@ export function UploadZone({
   title,
   subtitle,
   uploadedFiles = [],
-  onDeleteFile
+  onDeleteFile,
+  showDragHint = true,
+  size = 'default'
 }: ExtendedUploadZoneProps) {
   const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
 
@@ -131,7 +135,12 @@ export function UploadZone({
           </div>
 
           {/* Grid Layout for Files */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2 p-2">
+          <div className={cn(
+            "grid gap-3 p-2",
+            size === 'small' 
+              ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" // small size
+              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-2"  // default size
+          )}>
             {uploadedFiles.map((file) => (
               <div
                 key={file.id}
@@ -225,13 +234,15 @@ export function UploadZone({
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-            <FileText className="h-4 w-4" />
-            <span>Drag and drop files here or click to browse</span>
-          </div>
+          {showDragHint && (
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+              <FileText className="h-4 w-4" />
+              <span>Drag and drop files here or click to browse</span>
+            </div>
+          )}
 
           <p className="text-xs text-muted-foreground">
-            Supports PDF and DOCX files
+            Supports PDF and DOCX files (max 5MB)
           </p>
         </div>
       )}

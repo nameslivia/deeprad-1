@@ -24,7 +24,7 @@ export function ResultsSection({ status = 'idle' }: ResultsSectionProps) {
             <Card className="p-4 border shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="bg-orange-100 text-orange-500 p-2 rounded-lg">
+                        <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                             <Search className="h-5 w-5" />
                         </div>
                         <div>
@@ -52,7 +52,7 @@ export function ResultsSection({ status = 'idle' }: ResultsSectionProps) {
             <Card className="p-4 border shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                        <div className="bg-orange-100 text-orange-500 p-2 rounded-lg">
+                        <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                             <FileText className="h-5 w-5" />
                         </div>
                         <div>

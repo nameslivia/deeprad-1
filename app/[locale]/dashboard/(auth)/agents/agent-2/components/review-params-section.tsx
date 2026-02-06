@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { ChevronDown, ChevronUp, Settings, Upload, X, CheckCircle2, FileText } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { ChevronDown, ChevronUp, Settings, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     Select,
@@ -11,8 +11,18 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { cn } from '@/lib/utils';
-import { Badge } from '@/components/ui/badge';
+import { UploadZone } from '@/components/paper-review/upload-zone';
+
+interface UploadedFile {
+    id: string;
+    name: string;
+    size: number;
+    type: string;
+    file: File;
+    status: 'idle' | 'uploading' | 'completed' | 'error';
+    progress: number;
+    category: 'authorGuide';
+}
 
 interface ReviewParamsSectionProps {
     onVerdictChange: (value: string) => void;
@@ -28,26 +38,28 @@ export function ReviewParamsSection({
     onToggle
 }: ReviewParamsSectionProps) {
     const [advancedOpen, setAdvancedOpen] = useState(false);
-    const [authorGuideFile, setAuthorGuideFile] = useState<{ name: string; size: string } | null>(null);
+    const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 
-    const handleClickUpload = () => {
-        // Simulate file input click
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.pdf,.docx,.doc';
-        input.onchange = (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (file) {
-                setAuthorGuideFile({ name: file.name, size: 'Original File' });
-            }
-        };
-        input.click();
-    };
+    const handleFilesSelected = useCallback((files: File[], category: 'authorGuide') => {
+        const newFiles: UploadedFile[] = files.map(file => ({
+            id: `${file.name}-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            file: file,
+            status: 'completed' as const,
+            progress: 100,
+            category: category
+        }));
 
-    const handleRemoveFile = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setAuthorGuideFile(null);
-    };
+        setUploadedFiles(prev => [...prev, ...newFiles]);
+    }, []);
+
+    const handleRemoveFile = useCallback((id: string) => {
+        setUploadedFiles(prev => prev.filter(f => f.id !== id));
+    }, []);
+
+    const authorGuidelineFiles = uploadedFiles.filter(f => f.category === 'authorGuide');
 
     return (
         <div className="rounded-xl border bg-card shadow-sm transition-all duration-200">
@@ -56,10 +68,11 @@ export function ReviewParamsSection({
                 onClick={onToggle}
             >
                 <div className="flex items-center gap-3">
-                    <div className="flex bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 h-8 w-8 items-center justify-center rounded-full text-sm font-bold">
+                    <div className="flex bg-primary text-primary-foreground h-8 w-8 items-center justify-center rounded-full text-sm font-bold">
                         2
-                    </div>
-                    <h2 className="text-lg font-semibold text-card-foreground">Review Parameters</h2>
+                    </div>          
+                    <Settings className="h-5 w-5" />
+                    <h2 className="text-card-foreground">Review Parameters</h2>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -95,8 +108,8 @@ export function ReviewParamsSection({
                     <div className="space-y-3">
                         <label className="text-sm font-medium">Concerns & Comments <span className="text-destructive">*</span></label>
                         <Textarea
-                            placeholder="Enter your main concerns and comments for the review..."
-                            className="min-h-[120px] resize-y"
+                            placeholder="Share comments on the manuscript's originality, methods, clarity, and suggestions for improvement..."
+                            className="min-h-30 resize-y"
                             onChange={(e) => onCommentsChange(e.target.value)}
                         />
                     </div>
@@ -143,73 +156,38 @@ export function ReviewParamsSection({
                                         </Select>
                                     </div>
                                 </div>
-
-                                <div className="space-y-3">
-                                    <label className="text-sm font-medium">Select Journal or Load Author Guide Here</label>
-                                    <Select defaultValue="accept-minor">
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select Journal..." />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="accept-minor">Accept with Minor Revision</SelectItem>
-                                            {/* Mock items */}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <label className="text-sm font-medium">Author Guidelines</label>
-
-                                    {/* Mini Upload Zone */}
-                                    <div
-                                        onClick={!authorGuideFile ? handleClickUpload : undefined}
-                                        className={cn(
-                                            "border-input relative flex min-h-[100px] flex-col overflow-hidden rounded-xl border border-dashed p-4 transition-colors",
-                                            !authorGuideFile && "cursor-pointer hover:bg-accent/30 items-center justify-center text-center",
-                                            authorGuideFile && "bg-background"
-                                        )}
-                                    >
-                                        {authorGuideFile ? (
-                                            <div className="flex w-full flex-col gap-3">
-                                                <div className="flex items-center justify-between">
-                                                    <h3 className="text-sm font-medium">Uploaded Files (1)</h3>
-                                                    <Button variant="outline" size="sm" className="h-7 text-xs" onClick={handleClickUpload}>
-                                                        <Upload className="mr-1 h-3 w-3" /> Replace
-                                                    </Button>
-                                                </div>
-                                                <div className="relative flex items-center gap-3 rounded-lg border bg-accent p-3">
-                                                    <FileText className="h-8 w-8 text-primary" />
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="truncate text-sm font-medium">{authorGuideFile.name}</p>
-                                                        <p className="text-xs text-muted-foreground">{authorGuideFile.size}</p>
-                                                    </div>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                                                        onClick={handleRemoveFile}
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                    <div className="absolute -top-1 -right-1 rounded-full bg-green-500 p-0.5 text-white">
-                                                        <CheckCircle2 className="h-3 w-3" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <div className="flex items-center gap-3 text-muted-foreground">
-                                                <Button variant="outline" size="sm" className="pointer-events-none">
-                                                    <Upload className="mr-2 h-3.5 w-3.5" />
-                                                    Add more
-                                                </Button>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
                             </div>
                         )}
                     </div>
 
+                    <div className="space-y-3">
+                        <label className="text-sm font-medium">Select Journal or Load Author Guide Here</label>
+                        <Select defaultValue="accept-minor">
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select Journal..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="accept-minor">Accept with Minor Revision</SelectItem>
+                                {/* Mock items */}
+                            </SelectContent>
+                        </Select>
+                    </div>
+
+                    <div className="space-y-3">
+                        <label className="text-sm font-medium">Author Guidelines</label>
+                        <UploadZone
+                            category="authorGuide"
+                            accept=".pdf,.docx,.doc"
+                            multiple={false}
+                            onFilesSelected={(files) => handleFilesSelected(files, 'authorGuide')}
+                            title="Upload Author Guidelines"
+                            subtitle=""
+                            uploadedFiles={authorGuidelineFiles}
+                            onDeleteFile={handleRemoveFile}
+                            showDragHint={false}
+                            size="small"
+                        />
+                    </div>
                 </div>
             )}
         </div>
