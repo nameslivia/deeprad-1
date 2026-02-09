@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { ChevronDown, ChevronUp, Settings, CheckCircle2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Settings, CheckCircle2, Settings2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     Select,
@@ -96,7 +96,7 @@ export function ReviewParamsSection({
                     <div className="space-y-3">
                         <label className="text-sm font-medium">Verdict <span className="text-destructive">*</span></label>
                         <Select onValueChange={onVerdictChange}>
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select verdict..." />
                             </SelectTrigger>
                             <SelectContent>
@@ -125,18 +125,17 @@ export function ReviewParamsSection({
                             onClick={() => setAdvancedOpen(!advancedOpen)}
                             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                         >
-                            <Settings className="h-4 w-4" />
+                            <Settings2 className="h-4 w-4" />
                             Advanced Settings
                             {advancedOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
                         </button>
 
                         {advancedOpen && (
-                            <div className="mt-4 space-y-6 rounded-lg border bg-muted/30 p-4 animate-in fade-in slide-in-from-top-2 duration-200">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                                     <div className="space-y-3">
                                         <label className="text-sm font-medium">Review Tone</label>
                                         <Select defaultValue="direct">
-                                            <SelectTrigger>
+                                            <SelectTrigger className="w-full">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -149,7 +148,7 @@ export function ReviewParamsSection({
                                     <div className="space-y-3">
                                         <label className="text-sm font-medium">Review Result Language</label>
                                         <Select defaultValue="en-US">
-                                            <SelectTrigger>
+                                            <SelectTrigger className="w-full">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -160,14 +159,13 @@ export function ReviewParamsSection({
                                         </Select>
                                     </div>
                                 </div>
-                            </div>
                         )}
                     </div>
 
                     <div className="space-y-3">
                         <label className="text-sm font-medium">Select Journal or Load Author Guide Here</label>
                         <Select defaultValue="accept-minor">
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select Journal..." />
                             </SelectTrigger>
                             <SelectContent>

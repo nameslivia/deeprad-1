@@ -10,10 +10,10 @@ export default function Logo() {
         <Image
           src="/logo.svg"
           alt="Logo"
-          width={26}
-          height={30}
-          className="lg:w-8 lg:h-8"
-        />
+          width={32}
+          height={37}
+          className="w-[26px] h-auto lg:w-8"
+        />      
       </span>
       <h5 className="text-lg lg:text-xl text-secondary-foreground dark:text-secondary">
         Scholia

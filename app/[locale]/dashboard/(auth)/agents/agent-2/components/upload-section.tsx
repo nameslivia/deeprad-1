@@ -106,7 +106,7 @@ export function UploadSection({
                     <div className="space-y-3">
                         <label className="text-sm font-medium">Manuscript Category </label>
                         <Select value={manuscriptCategory || undefined} onValueChange={handleCategoryChange}>
-                            <SelectTrigger>
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select category..." />
                             </SelectTrigger>
                             <SelectContent>

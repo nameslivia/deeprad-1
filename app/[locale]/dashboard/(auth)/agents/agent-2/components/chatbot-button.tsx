@@ -40,7 +40,7 @@ export function ChatbotButton() {
                 <div className="flex items-center justify-between border-b bg-primary px-4 py-3 text-primary-foreground">
                     <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8 border-2 border-primary-foreground/20">
-                            <AvatarImage src="/avatars/01.png" alt="@ai" />
+                            <AvatarImage src="/images/avatars/01.png" alt="@ai" />
                             <AvatarFallback>AI</AvatarFallback>
                         </Avatar>
                         <div>
