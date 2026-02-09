@@ -12,12 +12,19 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from 'react-responsive';
 import { cn } from '@/lib/utils';
+import { useEffect } from 'react';
 
 export default function ScholarAgents2Page() {
-    // Mobile detection
-    const isMobile = useIsMobile();
+    // Mobile detection via react-responsive
+    // We use a state to ensure no hydration mismatch (default to false/desktop until mounted)
+    const isMobileQuery = useMediaQuery({ maxWidth: 767 });
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(isMobileQuery);
+    }, [isMobileQuery]);
 
     // State for interaction flow
     const [step1Expanded, setStep1Expanded] = useState(true);
