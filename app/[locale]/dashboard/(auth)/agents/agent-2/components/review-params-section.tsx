@@ -29,13 +29,15 @@ interface ReviewParamsSectionProps {
     onCommentsChange: (value: string) => void;
     isExpanded?: boolean;
     onToggle?: () => void;
+    isReady?: boolean;
 }
 
 export function ReviewParamsSection({
     onVerdictChange,
     onCommentsChange,
     isExpanded = true,
-    onToggle
+    onToggle,
+    isReady = false
 }: ReviewParamsSectionProps) {
     const [advancedOpen, setAdvancedOpen] = useState(false);
     const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
@@ -70,15 +72,17 @@ export function ReviewParamsSection({
                 <div className="flex items-center gap-3">
                     <div className="flex bg-primary text-primary-foreground h-8 w-8 items-center justify-center rounded-full text-sm font-bold">
                         2
-                    </div>          
+                    </div>
                     <Settings className="h-5 w-5" />
                     <h2 className="text-card-foreground">Review Parameters</h2>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <div className="flex items-center text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
-                        <CheckCircle2 className="mr-1 h-3 w-3" /> Ready
-                    </div>
+                    {isReady && (
+                        <div className="flex items-center text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                            <CheckCircle2 className="mr-1 h-3 w-3" /> Ready
+                        </div>
+                    )}
                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                         {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                     </Button>

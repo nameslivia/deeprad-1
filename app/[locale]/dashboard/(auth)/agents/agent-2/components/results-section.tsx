@@ -1,22 +1,55 @@
 'use client';
 
-import { Check, Search, FileText, Loader2, AlertTriangle, Settings } from 'lucide-react';
+import { Check, Search, FileText, Loader2, AlertTriangle, Settings, CheckCircle2 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useEffect, useState } from 'react';
 
 interface ResultsSectionProps {
-    status: 'idle' | 'generating' | 'complete';
+    proSearchStatus: 'idle' | 'running' | 'completed';
+    peerReviewStatus: 'idle' | 'generating' | 'generated';
 }
 
-export function ResultsSection({ status = 'idle' }: ResultsSectionProps) {
+export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSectionProps) {
 
     // Mock data for Pro Search
-    const proSearchSteps = [
-        { label: 'Analyzing manuscript structure and formatting', completed: true },
-        { label: 'Identifying research methodology and data', completed: true },
-        { label: 'Cross-referencing related literature databases', completed: true },
-        { label: 'Analysis complete. Ready to generate review', completed: true },
+    const steps = [
+        { label: 'Analyzing manuscript structure and formatting' },
+        { label: 'Identifying research methodology and data' },
+        { label: 'Cross-referencing related literature databases' },
+        { label: 'Analysis complete. Ready to generate review' },
     ];
+
+    const [completedSteps, setCompletedSteps] = useState<number>(0);
+
+    // Effect to simulate steps completing one by one when proSearchStatus is running
+    useEffect(() => {
+        if (proSearchStatus === 'idle') {
+            setCompletedSteps(0);
+        } else if (proSearchStatus === 'running') {
+            // Reset completed steps when starting
+            setCompletedSteps(0);
+
+            // Total duration is roughly 4000ms in parent, so we space these out
+            const stepDuration = 900;
+
+            const timers: NodeJS.Timeout[] = [];
+
+            steps.forEach((_, index) => {
+                const timer = setTimeout(() => {
+                    setCompletedSteps(prev => Math.min(prev + 1, steps.length));
+                }, (index + 1) * stepDuration);
+                timers.push(timer);
+            });
+
+            return () => {
+                timers.forEach(clearTimeout);
+            };
+        } else if (proSearchStatus === 'completed') {
+            setCompletedSteps(steps.length);
+        }
+    }, [proSearchStatus, steps.length]);
+
 
     return (
         <div className="space-y-6">
@@ -32,19 +65,38 @@ export function ResultsSection({ status = 'idle' }: ResultsSectionProps) {
                             <p className="text-xs text-muted-foreground">Intelligent analysis & retrieval</p>
                         </div>
                     </div>
-                    <div className="flex items-center text-xs font-medium text-teal-500">
-                        <Check className="mr-1 h-3 w-3" /> Complete
-                        <Settings className="ml-2 h-3 w-3 text-muted-foreground cursor-pointer" />
-                    </div>
+                    {proSearchStatus === 'completed' && (
+                        <div className="flex items-center text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                            <CheckCircle2 className="mr-1 h-3 w-3" /> Completed
+                        </div>
+                    )}
+                    {proSearchStatus === 'running' && (
+                        <div className="flex items-center text-xs font-medium text-blue-500 bg-blue-500/10 px-2 py-1 rounded-full">
+                            <Loader2 className="mr-1 h-3 w-3 animate-spin" /> Analyzing
+                        </div>
+                    )}
                 </div>
 
                 <div className="space-y-2 bg-orange-50/50 dark:bg-orange-900/10 p-4 rounded-lg">
-                    {proSearchSteps.map((step, index) => (
-                        <div key={index} className="flex items-start gap-2.5">
-                            <Check className="h-3.5 w-3.5 text-teal-500 mt-0.5 shrink-0" />
-                            <span className="text-xs text-muted-foreground font-medium">{step.label}</span>
-                        </div>
-                    ))}
+                    {steps.map((step, index) => {
+                        const isCompleted = index < completedSteps;
+                        const isCurrent = index === completedSteps && proSearchStatus === 'running';
+
+                        return (
+                            <div key={index} className="flex items-start gap-2.5 transition-all duration-300">
+                                {isCompleted ? (
+                                    <Check className="h-3.5 w-3.5 text-teal-500 mt-0.5 shrink-0" />
+                                ) : isCurrent ? (
+                                    <Loader2 className="h-3.5 w-3.5 text-blue-500 mt-0.5 shrink-0 animate-spin" />
+                                ) : (
+                                    <div className="h-3.5 w-3.5 mt-0.5 shrink-0 rounded-full border border-muted-foreground/30" />
+                                )}
+                                <span className={`text-xs font-medium ${isCompleted ? 'text-muted-foreground' : isCurrent ? 'text-foreground' : 'text-muted-foreground/50'}`}>
+                                    {step.label}
+                                </span>
+                            </div>
+                        );
+                    })}
                 </div>
             </Card>
 
@@ -60,24 +112,44 @@ export function ResultsSection({ status = 'idle' }: ResultsSectionProps) {
                             <p className="text-xs text-muted-foreground">Generated review report</p>
                         </div>
                     </div>
-                    {status === 'generating' && (
-                        <Badge variant="secondary" className="bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 hover:bg-amber-100 pointer-events-none">
+                    {peerReviewStatus === 'generating' && (
+                        <div className="flex items-center text-xs font-medium text-amber-600 bg-amber-100 dark:bg-amber-900/30 dark:text-amber-400 px-2 py-1 rounded-full">
                             <Loader2 className="mr-1 h-3 w-3 animate-spin" /> Generating
-                        </Badge>
+                        </div>
                     )}
-                    <Settings className="h-3 w-3 text-muted-foreground cursor-pointer" />
+                    {peerReviewStatus === 'generated' && (
+                        <div className="flex items-center text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                            <CheckCircle2 className="mr-1 h-3 w-3" /> Generated
+                        </div>
+                    )}
                 </div>
 
-                <div className="min-h-[120px] flex items-center justify-center bg-orange-50/50 dark:bg-orange-900/10 rounded-lg border-dashed border border-orange-200 dark:border-orange-800">
-                    {status === 'generating' ? (
-                        <div className="flex flex-col items-center gap-3 text-muted-foreground">
+                <div className="min-h-[120px] flex items-center justify-center bg-orange-50/50 dark:bg-orange-900/10 rounded-lg border-dashed border border-orange-200 dark:border-orange-800 p-4">
+                    {peerReviewStatus === 'generating' ? (
+                        <div className="flex flex-col items-center gap-3 text-muted-foreground animate-pulse">
                             <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
-                            <span className="text-xs font-medium">Generating peer review report...</span>
+                            <span className="text-xs font-medium">Drafting comprehensive peer review...</span>
+                        </div>
+                    ) : peerReviewStatus === 'generated' ? (
+                        <div className="w-full text-sm text-muted-foreground space-y-3 bg-card p-4 rounded border">
+                            <p className="font-semibold text-foreground">Summary of Review:</p>
+                            <p>
+                                The manuscript presents a compelling analysis of the proposed methodology.
+                                The experimental design is robust, and the results largely support the conclusions.
+                                However, there are minor inconsistencies in the statistical analysis that need addressing.
+                            </p>
+                            <ul className="list-disc pl-5 space-y-1">
+                                <li><strong>Originality:</strong> High. The approach to data verification is novel.</li>
+                                <li><strong>Methodology:</strong> Sound, but requires clarification on sample selection.</li>
+                                <li><strong>Clarity:</strong> Well-written, though the discussion section is slightly verbose.</li>
+                            </ul>
+                            <div className="pt-2">
+                                <span className="font-semibold text-foreground">Recommendation:</span> Accept with Minor Revisions
+                            </div>
                         </div>
                     ) : (
                         <div className="text-xs text-muted-foreground">
-                            {/* Placeholder for before generation or after */}
-                            Ready to generate
+                            Waiting for Pro Search completion...
                         </div>
                     )}
                 </div>
