@@ -21,6 +21,7 @@ export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSec
     ];
 
     const [completedSteps, setCompletedSteps] = useState<number>(0);
+    const [copySuccess, setCopySuccess] = useState(false);
 
     // Effect to simulate steps completing one by one when proSearchStatus is running
     useEffect(() => {
@@ -50,6 +51,30 @@ export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSec
         }
     }, [proSearchStatus, steps.length]);
 
+    const handleCopy = async () => {
+        const reviewContent = `Peer Review Report
+
+Overall Assessment
+Decision: Accept with Minor Revision
+
+Summary of Review:
+
+The manuscript presents a compelling analysis of the proposed methodology. The experimental design is robust, and the results largely support the conclusions. However, there are minor inconsistencies in the statistical analysis that need addressing.
+
+• Originality: High. The approach to data verification is novel.
+• Methodology: Sound, but requires clarification on sample selection.
+• Clarity: Well-written, though the discussion section is slightly verbose.
+
+Recommendation: Accept with Minor Revisions`;
+        
+        try {
+            await navigator.clipboard.writeText(reviewContent);
+            setCopySuccess(true);
+            setTimeout(() => setCopySuccess(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    };
 
     return (
         <div className="space-y-6">
@@ -125,6 +150,34 @@ export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSec
                     <span className="text-xs font-medium">Drafting comprehensive peer review...</span>
                     </div>
                 ) : peerReviewStatus === 'generated' ? (
+                    <>
+                    {/* Divider Line */}
+                    <div className="border-b border-dashed border-border"></div>
+
+                    {/* Copy Button */}
+                    <div className="flex justify-end mb-1">
+                        <button 
+                            onClick={handleCopy}
+                            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground border border-border rounded-md hover:bg-accent transition-colors"
+                        >
+                            {copySuccess ? (
+                                <>
+                                    <CheckCircle2 className="h-3.5 w-3.5" />
+                                    Copied
+                                </>
+                            ) : (
+                                <>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                                    </svg>
+                                    Copy
+                                </>
+                            )}
+                        </button>
+                    </div>
+
+                    {/* Review Content */}
                     <div className="w-full text-sm text-muted-foreground space-y-3 bg-card p-4 rounded border">
                     <p className="font-semibold text-foreground">Summary of Review:</p>
                     <p>
@@ -141,6 +194,7 @@ export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSec
                         <span className="font-semibold text-foreground">Recommendation:</span> Accept with Minor Revisions
                     </div>
                     </div>
+                    </>
                 ) : (
                     <div className="text-xs text-muted-foreground">
                     Waiting for Pro Search completion...
@@ -149,7 +203,7 @@ export function ResultsSection({ proSearchStatus, peerReviewStatus }: ResultsSec
                 </Card>
 
             {/* Warning Note */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-orange-100/50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800/30">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-orange-50 dark:bg-orange-950/30 text-destructive dark:text-destructive border border-orange-200 dark:border-orange-800/30">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 <p className="text-xs">Scholar Agent may produce inaccurate results. Please verify all generated content.</p>
             </div>

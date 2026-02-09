@@ -102,6 +102,7 @@ export function UploadSection({
 
             {isExpanded && (
                 <div className="space-y-6 px-4 pb-6 pt-0">
+                    <div className="border-t border-border" />
                     {/* Manuscript Category */}
                     <div className="space-y-3">
                         <label className="text-sm font-medium">Manuscript Category </label>
