@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { UploadSection } from './components/upload-section';
-import { ReviewParamsSection } from './components/review-params-section';
-import { ResultsSection } from './components/results-section';
-import { ChatbotButton } from './components/chatbot-button';
+import { UploadSection } from './_components/upload-section';
+import { ReviewParamsSection } from './_components/review-params-section';
+import { ResultsSection } from './_components/results-section';
+import { ChatbotButton } from './_components/chatbot-button';
 import { Button } from '@/components/ui/button';
 import { Sparkles, RotateCcw } from 'lucide-react';
 import {

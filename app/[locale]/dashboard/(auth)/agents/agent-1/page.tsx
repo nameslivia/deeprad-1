@@ -1,10 +1,10 @@
 'use client';
 
-import { ReviewFooter } from './components/review-footer';
-import { StepNavigation } from './components/step-navigation';
-import { Step1_FileUpload } from './components/steps/step1-file-upload';
-import { Step2_JournalSelection } from './components/steps/step2-journal-selection';
-import { Step3_AIReviewResults } from './components/steps/step3-ai-review-results';
+import { ReviewFooter } from './_components/review-footer';
+import { StepNavigation } from './_components/step-navigation';
+import { Step1_FileUpload } from './_components/steps/step1-file-upload';
+import { Step2_JournalSelection } from './_components/steps/step2-journal-selection';
+import { Step3_AIReviewResults } from './_components/steps/step3-ai-review-results';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 
 export default function PaperReviewPage() {

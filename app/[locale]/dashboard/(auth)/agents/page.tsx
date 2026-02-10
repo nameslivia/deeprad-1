@@ -1,8 +1,8 @@
 'use client';
 
-import { AgentsHeader } from "./components/agents-header";
-import { PremiumBanner } from "./components/premium-banner";
-import { AgentCard, AgentStatus } from "./components/agent-card";
+import { AgentsHeader } from "./_components/agents-header";
+import { PremiumBanner } from "./_components/premium-banner";
+import { AgentCard, AgentStatus } from "./_components/agent-card";
 import { BookOpen } from "lucide-react";
 
 interface Agent {
