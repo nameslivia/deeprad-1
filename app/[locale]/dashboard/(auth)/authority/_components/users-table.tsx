@@ -28,11 +28,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MoreVerticalIcon, ShieldIcon, Trash2Icon } from "lucide-react";
+import { MoreVerticalIcon, ShieldIcon, Trash2Icon, UserCogIcon } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { getInitials } from "@/lib/utils";
 import { AdjustPermissionsDialog } from "./adjust-permissions-dialog";
+import { ChangeRoleDialog } from "./change-role-dialog";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -48,6 +49,7 @@ export function UsersTable() {
     const [users, setUsers] = useState<User[]>(USERS.slice(0, 20)); // Show first 20 for demo
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [permissionsDialogOpen, setPermissionsDialogOpen] = useState(false);
+    const [roleDialogOpen, setRoleDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
@@ -75,6 +77,11 @@ export function UsersTable() {
     const handleAdjustPermissions = (user: User) => {
         setSelectedUser(user);
         setPermissionsDialogOpen(true);
+    };
+
+    const handleChangeRole = (user: User) => {
+        setSelectedUser(user);
+        setRoleDialogOpen(true);
     };
 
     const handleDeleteUser = (user: User) => {
@@ -125,21 +132,9 @@ export function UsersTable() {
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <Select
-                                            value={user.roleId}
-                                            onValueChange={(value) => handleRoleChange(user.id, value)}
-                                        >
-                                            <SelectTrigger className="h-8 w-[140px]">
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {ROLES.map((role) => (
-                                                    <SelectItem key={role.id} value={role.id}>
-                                                        {role.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <Badge variant="outline">
+                                            {role?.name}
+                                        </Badge>
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex items-center gap-2">
@@ -173,6 +168,12 @@ export function UsersTable() {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuItem
+                                                    onClick={() => handleChangeRole(user)}
+                                                >
+                                                    <UserCogIcon className="mr-2 size-4" />
+                                                    Change Role
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem
                                                     onClick={() => handleAdjustPermissions(user)}
                                                 >
                                                     <ShieldIcon className="mr-2 size-4" />
@@ -194,6 +195,16 @@ export function UsersTable() {
                     </TableBody>
                 </Table>
             </div>
+
+            {/* Change Role Dialog */}
+            {selectedUser && (
+                <ChangeRoleDialog
+                    user={selectedUser}
+                    open={roleDialogOpen}
+                    onOpenChange={setRoleDialogOpen}
+                    onRoleChange={handleRoleChange}
+                />
+            )}
 
             {/* Adjust Permissions Dialog */}
             {selectedUser && (

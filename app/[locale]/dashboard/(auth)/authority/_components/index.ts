@@ -5,4 +5,5 @@ export { AddUserSheet } from "./add-user-sheet";
 export { UsersTable } from "./users-table";
 export { RolesTable } from "./roles-table";
 export { AdjustPermissionsDialog } from "./adjust-permissions-dialog";
+export { ChangeRoleDialog } from "./change-role-dialog";
 export { EditRolePermissionsDialog } from "./edit-role-permissions-dialog";
