@@ -22,6 +22,7 @@ import { User } from "../_data/types";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { ShieldAlertIcon } from "lucide-react";
 
 interface ChangeRoleDialogProps {
     user: User;
@@ -38,6 +39,7 @@ export function ChangeRoleDialog({
 }: ChangeRoleDialogProps) {
     const currentRole = getRoleById(user.roleId);
     const [selectedRoleId, setSelectedRoleId] = useState<string>(user.roleId);
+    const isSuperAdmin = currentRole?.id === "super-admin";
 
     const handleSave = () => {
         if (selectedRoleId === user.roleId) {
@@ -61,52 +63,72 @@ export function ChangeRoleDialog({
                 <DialogHeader>
                     <DialogTitle>Change Role for {user.name}</DialogTitle>
                     <DialogDescription>
-                        Select a new role for this user. Current role: {currentRole?.name}
+                        {isSuperAdmin ? (
+                            <span className="text-destructive">Super Admin role cannot be changed for security reasons.</span>
+                        ) : (
+                            `Select a new role for this user. Current role: ${currentRole?.name}`
+                        )}
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="space-y-4 py-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="role">New Role</Label>
-                        <Select value={selectedRoleId} onValueChange={setSelectedRoleId}>
-                            <SelectTrigger id="role">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {ROLES.map((role) => (
-                                    <SelectItem key={role.id} value={role.id}>
-                                        {role.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    {/* Role Permissions Preview */}
-                    {selectedRole && (
-                        <div className="rounded-lg border bg-muted/50 p-3">
-                            <p className="mb-2 text-xs font-medium">Role Permissions:</p>
-                            <div className="flex flex-wrap gap-1">
-                                {rolePermissions.slice(0, 6).map((perm) => (
-                                    <Badge key={perm?.id} variant="secondary" className="text-xs">
-                                        {perm?.name}
-                                    </Badge>
-                                ))}
-                                {rolePermissions.length > 6 && (
-                                    <Badge variant="secondary" className="text-xs">
-                                        +{rolePermissions.length - 6} more
-                                    </Badge>
-                                )}
+                {isSuperAdmin ? (
+                    <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+                        <div className="flex items-start gap-3">
+                            <ShieldAlertIcon className="mt-0.5 size-5 text-destructive" />
+                            <div className="space-y-1">
+                                <p className="text-sm font-medium">Role Change Restricted</p>
+                                <p className="text-muted-foreground text-xs">
+                                    Super Admin is a protected role and cannot be modified. This ensures system security and prevents accidental privilege changes.
+                                </p>
                             </div>
                         </div>
-                    )}
-                </div>
+                    </div>
+                ) : (
+                    <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="role">New Role</Label>
+                            <Select value={selectedRoleId} onValueChange={setSelectedRoleId}>
+                                <SelectTrigger id="role">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {ROLES.map((role) => (
+                                        <SelectItem key={role.id} value={role.id}>
+                                            {role.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        {/* Role Permissions Preview */}
+                        {selectedRole && (
+                            <div className="rounded-lg border bg-muted/50 p-3">
+                                <p className="mb-2 text-xs font-medium">Role Permissions:</p>
+                                <div className="flex flex-wrap gap-1">
+                                    {rolePermissions.slice(0, 6).map((perm) => (
+                                        <Badge key={perm?.id} variant="secondary" className="text-xs">
+                                            {perm?.name}
+                                        </Badge>
+                                    ))}
+                                    {rolePermissions.length > 6 && (
+                                        <Badge variant="secondary" className="text-xs">
+                                            +{rolePermissions.length - 6} more
+                                        </Badge>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 <DialogFooter>
                     <Button variant="outline" onClick={() => onOpenChange(false)}>
-                        Cancel
+                        {isSuperAdmin ? "Close" : "Cancel"}
                     </Button>
-                    <Button onClick={handleSave}>Save Changes</Button>
+                    {!isSuperAdmin && (
+                        <Button onClick={handleSave}>Save Changes</Button>
+                    )}
                 </DialogFooter>
             </DialogContent>
         </Dialog>

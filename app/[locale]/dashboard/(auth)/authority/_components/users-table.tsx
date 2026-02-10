@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import {
+    useReactTable,
+    getCoreRowModel,
+    getPaginationRowModel,
+    ColumnDef,
+    flexRender,
+} from "@tanstack/react-table";
 import { USERS, ROLES, getRoleById } from "../_data/mock-data";
 import { User } from "../_data/types";
 import {
@@ -12,13 +19,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import {
     DropdownMenu,
@@ -44,9 +44,18 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export function UsersTable() {
-    const [users, setUsers] = useState<User[]>(USERS.slice(0, 20)); // Show first 20 for demo
+    const [users, setUsers] = useState<User[]>(USERS);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [permissionsDialogOpen, setPermissionsDialogOpen] = useState(false);
     const [roleDialogOpen, setRoleDialogOpen] = useState(false);
@@ -98,102 +107,242 @@ export function UsersTable() {
         }
     };
 
+    const columns: ColumnDef<User>[] = [
+        {
+            accessorKey: "name",
+            header: "Name / Email",
+            cell: ({ row }) => {
+                const user = row.original;
+                return (
+                    <div className="flex items-center gap-3">
+                        <Avatar className="size-8">
+                            <AvatarFallback className="text-xs">
+                                {getInitials(user.name)}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div>
+                            <div className="font-medium">{user.name}</div>
+                            <div className="text-muted-foreground text-xs">
+                                {user.email}
+                            </div>
+                        </div>
+                    </div>
+                );
+            },
+        },
+        {
+            accessorKey: "roleId",
+            header: "Role",
+            cell: ({ row }) => {
+                const role = getRoleById(row.original.roleId);
+                return (
+                    <span className="text-sm font-medium">
+                        {role?.name}
+                    </span>
+                );
+            },
+        },
+        {
+            accessorKey: "status",
+            header: "Status",
+            cell: ({ row }) => {
+                const user = row.original;
+                return (
+                    <div className="flex items-center gap-2">
+                        <Switch
+                            checked={user.status === "active"}
+                            onCheckedChange={(checked) =>
+                                handleStatusToggle(user.id, checked)
+                            }
+                        />
+                        <Badge
+                            variant={user.status === "active" ? "default" : "secondary"}
+                            className={
+                                user.status === "active"
+                                    ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
+                                    : ""
+                            }
+                        >
+                            {user.status}
+                        </Badge>
+                    </div>
+                );
+            },
+        },
+        {
+            accessorKey: "lastActive",
+            header: "Last Active",
+            cell: ({ row }) => (
+                <span className="text-muted-foreground text-sm">
+                    {format(row.original.lastActive, "MMM dd, yyyy HH:mm")}
+                </span>
+            ),
+        },
+        {
+            id: "actions",
+            header: "Actions",
+            cell: ({ row }) => {
+                const user = row.original;
+                return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" size="icon" className="size-8">
+                                <MoreVerticalIcon className="size-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem
+                                onClick={() => handleChangeRole(user)}
+                            >
+                                <UserCogIcon className="mr-2 size-4" />
+                                Change Role
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => handleAdjustPermissions(user)}
+                            >
+                                <ShieldIcon className="mr-2 size-4" />
+                                Adjust Permissions
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => handleDeleteUser(user)}
+                                className="text-destructive"
+                            >
+                                <Trash2Icon className="mr-2 size-4" />
+                                Delete User
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                );
+            },
+        },
+    ];
+
+    const table = useReactTable({
+        data: users,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        initialState: {
+            pagination: {
+                pageSize: 10,
+            },
+        },
+    });
+
+    const pageCount = table.getPageCount();
+    const currentPage = table.getState().pagination.pageIndex;
+
     return (
         <>
-            <div className="rounded-lg border">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Name / Email</TableHead>
-                            <TableHead>Role</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Last Active</TableHead>
-                            <TableHead className="w-[50px]">Actions</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {users.map((user) => {
-                            const role = getRoleById(user.roleId);
-                            return (
-                                <TableRow key={user.id}>
-                                    <TableCell>
-                                        <div className="flex items-center gap-3">
-                                            <Avatar className="size-8">
-                                                <AvatarFallback className="text-xs">
-                                                    {getInitials(user.name)}
-                                                </AvatarFallback>
-                                            </Avatar>
-                                            <div>
-                                                <div className="font-medium">{user.name}</div>
-                                                <div className="text-muted-foreground text-xs">
-                                                    {user.email}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline">
-                                            {role?.name}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-2">
-                                            <Switch
-                                                checked={user.status === "active"}
-                                                onCheckedChange={(checked) =>
-                                                    handleStatusToggle(user.id, checked)
-                                                }
-                                            />
-                                            <Badge
-                                                variant={user.status === "active" ? "default" : "secondary"}
-                                                className={
-                                                    user.status === "active"
-                                                        ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
-                                                        : ""
-                                                }
-                                            >
-                                                {user.status}
-                                            </Badge>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-muted-foreground text-sm">
-                                        {format(user.lastActive, "MMM dd, yyyy HH:mm")}
-                                    </TableCell>
-                                    <TableCell>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" size="icon" className="size-8">
-                                                    <MoreVerticalIcon className="size-4" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="end">
-                                                <DropdownMenuItem
-                                                    onClick={() => handleChangeRole(user)}
-                                                >
-                                                    <UserCogIcon className="mr-2 size-4" />
-                                                    Change Role
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem
-                                                    onClick={() => handleAdjustPermissions(user)}
-                                                >
-                                                    <ShieldIcon className="mr-2 size-4" />
-                                                    Adjust Permissions
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem
-                                                    onClick={() => handleDeleteUser(user)}
-                                                    className="text-destructive"
-                                                >
-                                                    <Trash2Icon className="mr-2 size-4" />
-                                                    Delete User
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
+            <div className="space-y-4">
+                <div className="rounded-lg border">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => (
+                                        <TableHead key={header.id}>
+                                            {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                )}
+                                        </TableHead>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            {table.getRowModel().rows?.length ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow key={row.id}>
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={columns.length}
+                                        className="h-24 text-center"
+                                    >
+                                        No users found.
                                     </TableCell>
                                 </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+
+                {/* Pagination */}
+                {pageCount > 1 && (
+                    <div className="flex items-center justify-between">
+                        <div className="text-muted-foreground text-sm">
+                            Showing {currentPage * 10 + 1} to{" "}
+                            {Math.min((currentPage + 1) * 10, users.length)} of {users.length} users
+                        </div>
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious
+                                        onClick={() => table.previousPage()}
+                                        className={
+                                            !table.getCanPreviousPage()
+                                                ? "pointer-events-none opacity-50"
+                                                : "cursor-pointer"
+                                        }
+                                    />
+                                </PaginationItem>
+
+                                {Array.from({ length: pageCount }, (_, i) => i).map((page) => {
+                                    // Show first page, last page, current page, and pages around current
+                                    if (
+                                        page === 0 ||
+                                        page === pageCount - 1 ||
+                                        (page >= currentPage - 1 && page <= currentPage + 1)
+                                    ) {
+                                        return (
+                                            <PaginationItem key={page}>
+                                                <PaginationLink
+                                                    onClick={() => table.setPageIndex(page)}
+                                                    isActive={currentPage === page}
+                                                    className="cursor-pointer"
+                                                >
+                                                    {page + 1}
+                                                </PaginationLink>
+                                            </PaginationItem>
+                                        );
+                                    } else if (page === currentPage - 2 || page === currentPage + 2) {
+                                        return (
+                                            <PaginationItem key={page}>
+                                                <PaginationEllipsis />
+                                            </PaginationItem>
+                                        );
+                                    }
+                                    return null;
+                                })}
+
+                                <PaginationItem>
+                                    <PaginationNext
+                                        onClick={() => table.nextPage()}
+                                        className={
+                                            !table.getCanNextPage()
+                                                ? "pointer-events-none opacity-50"
+                                                : "cursor-pointer"
+                                        }
+                                    />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+                    </div>
+                )}
             </div>
 
             {/* Change Role Dialog */}
