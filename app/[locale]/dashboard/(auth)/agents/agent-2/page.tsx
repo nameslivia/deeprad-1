@@ -1,20 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { UploadSection } from './_components/upload-section';
-import { ReviewParamsSection } from './_components/review-params-section';
-import { ResultsSection } from './_components/results-section';
+import { useState, useEffect } from 'react';
 import { ChatbotButton } from './_components/chatbot-button';
-import { Button } from '@/components/ui/button';
-import { Sparkles, RotateCcw } from 'lucide-react';
-import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
-} from "@/components/ui/resizable";
 import { useMediaQuery } from 'react-responsive';
 import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
+import { MobileLayout } from './_components/mobile-layout';
+import { DesktopLayout } from './_components/desktop-layout';
 
 export default function ScholarAgents2Page() {
     // Mobile detection via react-responsive
@@ -90,6 +81,29 @@ export default function ScholarAgents2Page() {
 
     const isGenerating = proSearchStatus === 'running' || peerReviewStatus === 'generating';
 
+    // Shared props for both layouts
+    const layoutProps = {
+        step1Expanded,
+        setStep1Expanded,
+        manuscriptCategory,
+        setManuscriptCategory,
+        hasFile,
+        setHasFile,
+        step2Expanded,
+        setStep2Expanded,
+        verdict,
+        setVerdict,
+        comments,
+        setComments,
+        isReviewParamsReady,
+        isGenerateEnabled,
+        isGenerating,
+        handleGenerate,
+        handleClear,
+        proSearchStatus,
+        peerReviewStatus,
+    };
+
     return (
         <div className="min-h-screen bg-background pb-20">
             <div className={cn(
@@ -104,123 +118,9 @@ export default function ScholarAgents2Page() {
                 </div>
 
                 {isMobile ? (
-                    // Mobile Layout: Simple vertical stack without ResizablePanel
-                    <div className="space-y-6">
-                        {/* Control Sections */}
-                        <div className="space-y-6">
-                            {/* Step 1: Upload Section */}
-                            <UploadSection
-                                isExpanded={step1Expanded}
-                                onToggle={() => setStep1Expanded(!step1Expanded)}
-                                onCategoryChange={setManuscriptCategory}
-                                onFileChange={setHasFile}
-                            />
-
-                            {/* Step 2: Review Parameters Section */}
-                            <ReviewParamsSection
-                                isExpanded={step2Expanded}
-                                onToggle={() => setStep2Expanded(!step2Expanded)}
-                                onVerdictChange={setVerdict}
-                                onCommentsChange={setComments}
-                                isReady={isReviewParamsReady}
-                            />
-
-                            {/* Generate Review Button */}
-                            <div className="pt-4 flex gap-3">
-                                <Button
-                                    size="lg"
-                                    className="flex-1 h-12 text-lg font-semibold shadow-lg transition-all"
-                                    disabled={!isGenerateEnabled || isGenerating}
-                                    onClick={handleGenerate}
-                                >
-                                    <Sparkles className="mr-2 h-5 w-5" />
-                                    {isGenerating ? 'Processing...' : 'Generate Review'}
-                                </Button>
-                                <Button
-                                    size="lg"
-                                    variant="outline"
-                                    className="h-12 px-6"
-                                    onClick={handleClear}
-                                    disabled={isGenerating}
-                                >
-                                    <RotateCcw className="mr-2 h-5 w-5" />
-                                    Clear
-                                </Button>
-                            </div>
-                        </div>
-
-                        {/* Results Section */}
-                        <ResultsSection
-                            proSearchStatus={proSearchStatus}
-                            peerReviewStatus={peerReviewStatus}
-                        />
-                    </div>
+                    <MobileLayout {...layoutProps} />
                 ) : (
-                    // Desktop Layout: Resizable horizontal panels
-                    <ResizablePanelGroup
-                        direction="horizontal"
-                        className="h-full md:min-w-[450px]"
-                    >
-                        {/* Left Panel: Controls */}
-                        <ResizablePanel defaultSize={50} minSize={30}>
-                            <div className="h-full overflow-y-auto space-y-6 pr-4">
-                                {/* Step 1: Upload Section */}
-                                <UploadSection
-                                    isExpanded={step1Expanded}
-                                    onToggle={() => setStep1Expanded(!step1Expanded)}
-                                    onCategoryChange={setManuscriptCategory}
-                                    onFileChange={setHasFile}
-                                />
-
-                                {/* Step 2: Review Parameters Section */}
-                                <ReviewParamsSection
-                                    isExpanded={step2Expanded}
-                                    onToggle={() => setStep2Expanded(!step2Expanded)}
-                                    onVerdictChange={setVerdict}
-                                    onCommentsChange={setComments}
-                                    isReady={isReviewParamsReady}
-                                />
-
-                                {/* Generate Review Button - Sticky at bottom */}
-                                <div className="pt-4 sticky bottom-0 bg-background pb-4 z-10">
-                                    <div className="flex gap-3">
-                                        <Button
-                                            size="lg"
-                                            className="flex-1 h-12 text-lg font-semibold shadow-lg transition-all"
-                                            disabled={!isGenerateEnabled || isGenerating}
-                                            onClick={handleGenerate}
-                                        >
-                                            <Sparkles className="mr-2 h-5 w-5" />
-                                            {isGenerating ? 'Processing...' : 'Generate Review'}
-                                        </Button>
-                                        <Button
-                                            size="lg"
-                                            variant="outline"
-                                            className="h-12 px-6"
-                                            onClick={handleClear}
-                                            disabled={isGenerating}
-                                        >
-                                            <RotateCcw className="mr-2 h-5 w-5" />
-                                            Clear
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </ResizablePanel>
-
-                        {/* Resizable Handle */}
-                        <ResizableHandle withHandle />
-
-                        {/* Right Panel: AI Process & Results */}
-                        <ResizablePanel defaultSize={50} minSize={30}>
-                            <div className="h-full overflow-y-auto space-y-6 pl-4">
-                                <ResultsSection
-                                    proSearchStatus={proSearchStatus}
-                                    peerReviewStatus={peerReviewStatus}
-                                />
-                            </div>
-                        </ResizablePanel>
-                    </ResizablePanelGroup>
+                    <DesktopLayout {...layoutProps} />
                 )}
             </div>
 
