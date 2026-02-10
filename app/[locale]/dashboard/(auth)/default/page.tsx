@@ -1,25 +1,17 @@
 import { generateMeta } from "@/lib/utils";
 
-import CustomDateRangePicker from "@/components/custom-date-range-picker";
-import { Button } from "@/components/ui/button";
-
 import {
-  ChatWidget,
-  ExerciseMinutes,
-  LatestPayments,
-  PaymentMethodCard,
-  SubscriptionsCard,
-  TeamMembersCard,
-  TotalRevenueCard
-} from "@/app/[locale]/dashboard/(auth)/default/components";
-import { Download } from "lucide-react";
-import { toast } from "sonner";
+  RemainingTokensCard,
+  TokenUsageCard,
+  FilesUploadedCard,
+  TokenUsageByProductCard
+} from "@/app/[locale]/dashboard/(auth)/default/_components";
 
 export async function generateMetadata() {
   return generateMeta({
-    title: "Admin Dashboard",
+    title: "Dashboard",
     description:
-      "The admin dashboard template offers a sleek and efficient interface for monitoring important data and user interactions. Built with shadcn/ui.",
+      "Overview of your token usage and activity.",
     canonical: "/default"
   });
 }
@@ -28,27 +20,18 @@ export default function Page() {
   return (
     <div className="space-y-4">
       <div className="flex flex-row items-center justify-between">
-        <h1 className="text-xl font-bold tracking-tight lg:text-2xl">Dashboard</h1>
-        <div className="flex items-center space-x-2">
-          <CustomDateRangePicker />
-          <Button>
-            <Download />
-            <span className="hidden lg:inline">Download</span>
-          </Button>
+        <div>
+          <h1 className="text-xl font-bold tracking-tight lg:text-2xl">Dashboard</h1>
+          <p className="text-muted-foreground text-sm">Overview of your token usage and activity.</p>
         </div>
       </div>
       <div className="gap-4 space-y-4 lg:grid lg:grid-cols-3 lg:space-y-0">
-        <TeamMembersCard />
-        <SubscriptionsCard />
-        <TotalRevenueCard />
-        <ChatWidget />
-        <div className="lg:col-span-2">
-          <ExerciseMinutes />
+        <RemainingTokensCard />
+        <TokenUsageCard />
+        <FilesUploadedCard />
+        <div className="lg:col-span-3">
+          <TokenUsageByProductCard />
         </div>
-        <div className="lg:col-span-2">
-          <LatestPayments />
-        </div>
-        <PaymentMethodCard />
       </div>
     </div>
   );
