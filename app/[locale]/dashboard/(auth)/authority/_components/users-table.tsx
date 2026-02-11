@@ -1,12 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
     useReactTable,
     getCoreRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
+    getFilteredRowModel,
     ColumnDef,
     flexRender,
+    SortingState,
 } from "@tanstack/react-table";
 import { USERS, ROLES, getRoleById } from "../_data/mock-data";
 import { User } from "../_data/types";
@@ -28,7 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MoreVerticalIcon, ShieldIcon, Trash2Icon, UserCogIcon } from "lucide-react";
+import { MoreVerticalIcon, ShieldIcon, Trash2Icon, UserCogIcon, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { getInitials } from "@/lib/utils";
@@ -54,13 +57,18 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 
-export function UsersTable() {
+interface UsersTableProps {
+    searchQuery?: string;
+}
+
+export function UsersTable({ searchQuery = "" }: UsersTableProps) {
     const [users, setUsers] = useState<User[]>(USERS);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [permissionsDialogOpen, setPermissionsDialogOpen] = useState(false);
     const [roleDialogOpen, setRoleDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
+    const [sorting, setSorting] = useState<SortingState>([]);
 
     const handleRoleChange = (userId: string, newRoleId: string) => {
         setUsers(prev =>
@@ -110,7 +118,23 @@ export function UsersTable() {
     const columns: ColumnDef<User>[] = [
         {
             accessorKey: "name",
-            header: "Name / Email",
+            header: ({ column }) => {
+                return (
+                    <button
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Name / Email
+                        {column.getIsSorted() === "asc" ? (
+                            <ArrowUp className="size-3.5" />
+                        ) : column.getIsSorted() === "desc" ? (
+                            <ArrowDown className="size-3.5" />
+                        ) : (
+                            <ArrowUpDown className="size-3.5 opacity-50" />
+                        )}
+                    </button>
+                );
+            },
             cell: ({ row }) => {
                 const user = row.original;
                 return (
@@ -132,7 +156,23 @@ export function UsersTable() {
         },
         {
             accessorKey: "roleId",
-            header: "Role",
+            header: ({ column }) => {
+                return (
+                    <button
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Role
+                        {column.getIsSorted() === "asc" ? (
+                            <ArrowUp className="size-3.5" />
+                        ) : column.getIsSorted() === "desc" ? (
+                            <ArrowDown className="size-3.5" />
+                        ) : (
+                            <ArrowUpDown className="size-3.5 opacity-50" />
+                        )}
+                    </button>
+                );
+            },
             cell: ({ row }) => {
                 const role = getRoleById(row.original.roleId);
                 return (
@@ -141,10 +181,31 @@ export function UsersTable() {
                     </span>
                 );
             },
+            sortingFn: (rowA, rowB) => {
+                const roleA = getRoleById(rowA.original.roleId)?.name || "";
+                const roleB = getRoleById(rowB.original.roleId)?.name || "";
+                return roleA.localeCompare(roleB);
+            },
         },
         {
             accessorKey: "status",
-            header: "Status",
+            header: ({ column }) => {
+                return (
+                    <button
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Status
+                        {column.getIsSorted() === "asc" ? (
+                            <ArrowUp className="size-3.5" />
+                        ) : column.getIsSorted() === "desc" ? (
+                            <ArrowDown className="size-3.5" />
+                        ) : (
+                            <ArrowUpDown className="size-3.5 opacity-50" />
+                        )}
+                    </button>
+                );
+            },
             cell: ({ row }) => {
                 const user = row.original;
                 return (
@@ -171,7 +232,23 @@ export function UsersTable() {
         },
         {
             accessorKey: "lastActive",
-            header: "Last Active",
+            header: ({ column }) => {
+                return (
+                    <button
+                        className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Last Active
+                        {column.getIsSorted() === "asc" ? (
+                            <ArrowUp className="size-3.5" />
+                        ) : column.getIsSorted() === "desc" ? (
+                            <ArrowDown className="size-3.5" />
+                        ) : (
+                            <ArrowUpDown className="size-3.5 opacity-50" />
+                        )}
+                    </button>
+                );
+            },
             cell: ({ row }) => (
                 <span className="text-muted-foreground text-sm">
                     {format(row.original.lastActive, "MMM dd, yyyy HH:mm")}
@@ -217,11 +294,31 @@ export function UsersTable() {
         },
     ];
 
+    // Filter users based on search query
+    const filteredUsers = useMemo(() => {
+        if (!searchQuery.trim()) return users;
+
+        const query = searchQuery.toLowerCase();
+        return users.filter(user => {
+            const role = getRoleById(user.roleId);
+            return (
+                user.name.toLowerCase().includes(query) ||
+                user.email.toLowerCase().includes(query) ||
+                role?.name.toLowerCase().includes(query)
+            );
+        });
+    }, [users, searchQuery]);
+
     const table = useReactTable({
-        data: users,
+        data: filteredUsers,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        onSortingChange: setSorting,
+        state: {
+            sorting,
+        },
         initialState: {
             pagination: {
                 pageSize: 10,
@@ -286,7 +383,7 @@ export function UsersTable() {
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="text-muted-foreground text-sm w-full">
                             Showing {currentPage * 10 + 1} to{" "}
-                            {Math.min((currentPage + 1) * 10, users.length)} of {users.length} users
+                            {Math.min((currentPage + 1) * 10, filteredUsers.length)} of {filteredUsers.length} users
                         </div>
                         <Pagination className="w-auto">
                             <PaginationContent>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { generateMeta } from "@/lib/utils";
 import {
     TotalUsersCard,
@@ -8,16 +11,12 @@ import {
     RolesTable,
 } from "./_components";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-export async function generateMetadata() {
-    return generateMeta({
-        title: "Authority",
-        description: "User and role management dashboard",
-        canonical: "/authority"
-    });
-}
+import { Input } from "@/components/ui/input";
+import { SearchIcon } from "lucide-react";
 
 export default function AuthorityPage() {
+    const [searchQuery, setSearchQuery] = useState("");
+
     return (
         <div className="space-y-4">
             {/* Header Section */}
@@ -40,13 +39,24 @@ export default function AuthorityPage() {
 
             {/* Main Content Tabs */}
             <Tabs defaultValue="users" className="space-y-4">
-                <TabsList>
-                    <TabsTrigger value="users">Users</TabsTrigger>
-                    <TabsTrigger value="roles">Roles</TabsTrigger>
-                </TabsList>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <TabsList>
+                        <TabsTrigger value="users">Users</TabsTrigger>
+                        <TabsTrigger value="roles">Roles</TabsTrigger>
+                    </TabsList>
+                    <div className="relative w-full sm:justify-between">
+                        <SearchIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                        <Input
+                            placeholder="Search by name, email, or role..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-9"
+                        />
+                    </div>
+                </div>
 
                 <TabsContent value="users" className="space-y-4">
-                    <UsersTable />
+                    <UsersTable searchQuery={searchQuery} />
                 </TabsContent>
 
                 <TabsContent value="roles" className="space-y-4">
