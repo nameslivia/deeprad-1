@@ -283,12 +283,12 @@ export function UsersTable() {
 
                 {/* Pagination */}
                 {pageCount > 1 && (
-                    <div className="flex items-center justify-between">
-                        <div className="text-muted-foreground text-sm">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="text-muted-foreground text-sm w-full">
                             Showing {currentPage * 10 + 1} to{" "}
                             {Math.min((currentPage + 1) * 10, users.length)} of {users.length} users
                         </div>
-                        <Pagination>
+                        <Pagination className="w-auto">
                             <PaginationContent>
                                 <PaginationItem>
                                     <PaginationPrevious

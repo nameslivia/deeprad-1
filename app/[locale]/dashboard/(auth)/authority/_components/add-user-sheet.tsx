@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ROLES, GROUPS, PERMISSIONS, getPermissionById } from "../_data/mock-data";
-import { UserPlusIcon, ShuffleIcon, UploadIcon } from "lucide-react";
+import { UserPlusIcon, ShuffleIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Badge } from "@/components/ui/badge";
@@ -83,14 +83,14 @@ export function AddUserSheet() {
                 </Button>
             </SheetTrigger>
             <SheetContent className="overflow-y-auto sm:max-w-md">
-                <SheetHeader>
+                <SheetHeader className="px-6 pt-6">
                     <SheetTitle>Add New User</SheetTitle>
                     <SheetDescription>
                         Create a new user account with role and permissions
                     </SheetDescription>
                 </SheetHeader>
 
-                <div className="space-y-6 py-6">
+                <div className="space-y-6 px-6 py-6">
                     {/* Email/Username */}
                     <div className="space-y-2">
                         <Label htmlFor="email">
@@ -142,7 +142,7 @@ export function AddUserSheet() {
                             Role <span className="text-destructive">*</span>
                         </Label>
                         <Select value={selectedRole} onValueChange={setSelectedRole}>
-                            <SelectTrigger id="role">
+                            <SelectTrigger id="role" className="w-full">
                                 <SelectValue placeholder="Select role" />
                             </SelectTrigger>
                             <SelectContent>
@@ -178,7 +178,7 @@ export function AddUserSheet() {
                     <div className="space-y-2">
                         <Label htmlFor="group">Group (Optional)</Label>
                         <Select value={selectedGroup} onValueChange={setSelectedGroup}>
-                            <SelectTrigger id="group">
+                            <SelectTrigger id="group" className="w-full">
                                 <SelectValue placeholder="Select group" />
                             </SelectTrigger>
                             <SelectContent>
@@ -206,22 +206,10 @@ export function AddUserSheet() {
                         />
                     </div>
 
-                    {/* CSV Bulk Upload */}
-                    <div className="space-y-2">
-                        <Label>Bulk Upload</Label>
-                        <div className="border-muted-foreground/25 hover:border-primary flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-muted/50 p-6 transition-colors">
-                            <UploadIcon className="text-muted-foreground mb-2 size-8" />
-                            <p className="text-muted-foreground mb-1 text-sm font-medium">
-                                Drop CSV file here or click to upload
-                            </p>
-                            <p className="text-muted-foreground text-xs">
-                                Upload multiple users at once
-                            </p>
-                        </div>
-                    </div>
+
                 </div>
 
-                <SheetFooter className="gap-2">
+                <SheetFooter className="gap-2 px-6 pb-6">
                     <Button variant="outline" onClick={() => handleAddUser(true)}>
                         Add & Close
                     </Button>

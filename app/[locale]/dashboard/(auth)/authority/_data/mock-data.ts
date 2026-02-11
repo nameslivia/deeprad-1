@@ -3,7 +3,6 @@ import { Permission, Role, Group, User } from "./types";
 // Permissions organized by category
 export const PERMISSIONS: Permission[] = [
     // User Management
-    { id: "users.view", name: "View Users", description: "Can view user list and details", category: "User Management" },
     { id: "users.create", name: "Create Users", description: "Can create new users", category: "User Management" },
     { id: "users.edit", name: "Edit Users", description: "Can edit user information", category: "User Management" },
     { id: "users.delete", name: "Delete Users", description: "Can delete users", category: "User Management" },
@@ -14,13 +13,6 @@ export const PERMISSIONS: Permission[] = [
     { id: "roles.create", name: "Create Roles", description: "Can create new roles", category: "Role Management" },
     { id: "roles.edit", name: "Edit Roles", description: "Can edit role permissions", category: "Role Management" },
     { id: "roles.delete", name: "Delete Roles", description: "Can delete roles", category: "Role Management" },
-
-    // Content Management
-    { id: "content.view", name: "View Content", description: "Can view all content", category: "Content Management" },
-    { id: "content.create", name: "Create Content", description: "Can create new content", category: "Content Management" },
-    { id: "content.edit", name: "Edit Content", description: "Can edit content", category: "Content Management" },
-    { id: "content.delete", name: "Delete Content", description: "Can delete content", category: "Content Management" },
-    { id: "content.publish", name: "Publish Content", description: "Can publish content", category: "Content Management" },
 
     // Analytics
     { id: "analytics.view", name: "View Analytics", description: "Can view analytics dashboard", category: "Analytics" },
@@ -51,9 +43,8 @@ export const ROLES: Role[] = [
         name: "Admin",
         description: "Administrative access with most permissions",
         permissions: [
-            "users.view", "users.create", "users.edit", "users.delete",
+            "users.create", "users.edit", "users.delete", "users.permissions",
             "roles.view", "roles.create", "roles.edit",
-            "content.view", "content.create", "content.edit", "content.delete", "content.publish",
             "analytics.view", "analytics.export",
             "settings.view", "settings.edit",
             "billing.view",
@@ -66,8 +57,7 @@ export const ROLES: Role[] = [
         name: "Moderator",
         description: "Content moderation and user management",
         permissions: [
-            "users.view", "users.edit",
-            "content.view", "content.edit", "content.delete", "content.publish",
+            "users.edit",
             "analytics.view",
         ],
         isLocked: false,
