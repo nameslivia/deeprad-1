@@ -102,7 +102,7 @@ export const navItems: NavGroup[] = [
           { title: "bookings", href: "/dashboard/hotel/bookings" }
         ]
       },
-      { title: "authority", href: "/dashboard/sales", icon: Building },
+      { title: "authority", href: "/dashboard/authority", icon: Building },
       {
         title: "project",
         href: "/dashboard/project-management",
