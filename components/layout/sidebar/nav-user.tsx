@@ -20,8 +20,8 @@ import { BellIcon, CreditCardIcon, LogOutIcon, UserCircle2Icon } from "lucide-re
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 
 const userData = {
-  name: "Toby Belhome",
-  email: "hello@tobybelhome.com",
+  name: "John Smith",
+  email: "john.smith@gmail.com",
   avatar: "/images/avatars/01.png"
 };
 
