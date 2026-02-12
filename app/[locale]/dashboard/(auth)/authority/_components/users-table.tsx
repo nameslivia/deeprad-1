@@ -31,11 +31,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MoreVerticalIcon, ShieldIcon, Trash2Icon, UserCogIcon, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { MoreVerticalIcon, Trash2Icon, UserCogIcon, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { getInitials } from "@/lib/utils";
-import { AdjustPermissionsDialog } from "./adjust-permissions-dialog";
+
 import { ChangeRoleDialog } from "./change-role-dialog";
 import {
     AlertDialog,
@@ -64,7 +64,6 @@ interface UsersTableProps {
 export function UsersTable({ searchQuery = "" }: UsersTableProps) {
     const [users, setUsers] = useState<User[]>(USERS);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [permissionsDialogOpen, setPermissionsDialogOpen] = useState(false);
     const [roleDialogOpen, setRoleDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState<User | null>(null);
@@ -91,10 +90,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         toast.success(`User ${newStatus ? "activated" : "deactivated"}`);
     };
 
-    const handleAdjustPermissions = (user: User) => {
-        setSelectedUser(user);
-        setPermissionsDialogOpen(true);
-    };
+
 
     const handleChangeRole = (user: User) => {
         setSelectedUser(user);
@@ -118,6 +114,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
     const columns: ColumnDef<User>[] = [
         {
             accessorKey: "name",
+            size: 300,
             header: ({ column }) => {
                 return (
                     <button
@@ -156,6 +153,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         },
         {
             accessorKey: "roleId",
+            size: 150,
             header: ({ column }) => {
                 return (
                     <button
@@ -189,6 +187,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         },
         {
             accessorKey: "status",
+            size: 180,
             header: ({ column }) => {
                 return (
                     <button
@@ -232,6 +231,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         },
         {
             accessorKey: "lastActive",
+            size: 180,
             header: ({ column }) => {
                 return (
                     <button
@@ -257,6 +257,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         },
         {
             id: "actions",
+            size: 80,
             header: "Actions",
             cell: ({ row }) => {
                 const user = row.original;
@@ -273,12 +274,6 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
                             >
                                 <UserCogIcon className="mr-2 size-4" />
                                 Change Role
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                                onClick={() => handleAdjustPermissions(user)}
-                            >
-                                <ShieldIcon className="mr-2 size-4" />
-                                Adjust Permissions
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 onClick={() => handleDeleteUser(user)}
@@ -333,12 +328,19 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
         <>
             <div className="space-y-4">
                 <div className="rounded-lg border">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             {table.getHeaderGroups().map((headerGroup) => (
                                 <TableRow key={headerGroup.id}>
                                     {headerGroup.headers.map((header) => (
-                                        <TableHead key={header.id}>
+                                        <TableHead
+                                            key={header.id}
+                                            style={{
+                                                width: header.column.columnDef.size
+                                                    ? `${header.column.columnDef.size}px`
+                                                    : 'auto'
+                                            }}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -452,14 +454,7 @@ export function UsersTable({ searchQuery = "" }: UsersTableProps) {
                 />
             )}
 
-            {/* Adjust Permissions Dialog */}
-            {selectedUser && (
-                <AdjustPermissionsDialog
-                    user={selectedUser}
-                    open={permissionsDialogOpen}
-                    onOpenChange={setPermissionsDialogOpen}
-                />
-            )}
+
 
             {/* Delete Confirmation Dialog */}
             <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
