@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 
-export default function AuthorityPage() {
+export default function RolesPage() {
     const [searchQuery, setSearchQuery] = useState("");
 
     return (
@@ -22,7 +22,7 @@ export default function AuthorityPage() {
             {/* Header Section */}
             <div className="flex flex-row items-center justify-between">
                 <div>
-                    <h1 className="text-xl font-bold tracking-tight lg:text-2xl">Authority</h1>
+                    <h1 className="text-xl font-bold tracking-tight lg:text-2xl">Roles</h1>
                     <p className="text-muted-foreground text-sm">
                         Manage users, roles, and permissions
                     </p>

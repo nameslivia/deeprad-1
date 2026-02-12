@@ -42,8 +42,8 @@
         "project-list": "Project List"
       }
     },
-    "authority": {
-      "title": "Authority",
+    "roles": {
+      "title": "Roles",
       "subTitle": {}
     }
   },

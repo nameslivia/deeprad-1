@@ -42,8 +42,8 @@
         "project-list": "專案列表"
       }
     },
-    "authority": {
-      "title": "權限",
+    "roles": {
+      "title": "角色",
       "subTitle": {}
     }
   },

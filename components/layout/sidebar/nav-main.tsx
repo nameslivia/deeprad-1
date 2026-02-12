@@ -104,7 +104,7 @@ export const navItems: NavGroup[] = [
         //   { title: "bookings", href: "/dashboard/hotel/bookings" }
         // ]
       },
-      { title: "authority", href: "/dashboard/authority", icon: Building },
+      { title: "roles", href: "/dashboard/roles", icon: Building },
       // {
       //   title: "project",
       //   href: "/dashboard/project-management",
