@@ -91,7 +91,7 @@ export default function AgentsPage() {
 
             <AgentsHeader />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
                 {AGENTS_DATA.map((agent) => (
                     <AgentCard
                         key={agent.id}
