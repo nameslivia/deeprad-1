@@ -67,14 +67,14 @@ export const navItems: NavGroup[] = [
         title: "library",
         href: "#",
         icon: Library,
-        items: [
-          { title: "dashboard", href: "/dashboard/ecommerce" },
-          { title: "product-list", href: "/dashboard/pages/products" },
-          { title: "product-detail", href: "/dashboard/pages/products/1" },
-          { title: "add-product", href: "/dashboard/pages/products/create" },
-          { title: "order-list", href: "/dashboard/pages/orders" },
-          { title: "order-detail", href: "/dashboard/pages/orders/detail" }
-        ]
+        // items: [
+        //   { title: "dashboard", href: "/dashboard/ecommerce" },
+        //   { title: "product-list", href: "/dashboard/pages/products" },
+        //   { title: "product-detail", href: "/dashboard/pages/products/1" },
+        //   { title: "add-product", href: "/dashboard/pages/products/create" },
+        //   { title: "order-list", href: "/dashboard/pages/orders" },
+        //   { title: "order-detail", href: "/dashboard/pages/orders/detail" }
+        // ]
       },
       {
         title: "agent",
@@ -86,32 +86,34 @@ export const navItems: NavGroup[] = [
       },
       {
         title: "report",
-        href: "/dashboard/payment",
+        // href: "/dashboard/payment",
+        href: "#",
         icon: FileSpreadsheet,
-        items: [
-          { title: "dashboard", href: "/dashboard/payment" },
-          { title: "transactions", href: "/dashboard/payment/transactions" }
-        ]
+        // items: [
+        //   { title: "dashboard", href: "/dashboard/payment" },
+        //   { title: "transactions", href: "/dashboard/payment/transactions" }
+        // ]
       },
       {
         title: "product",
-        href: "/dashboard/hotel",
+        // href: "/dashboard/hotel",
+        href: "#",
         icon: Package,
-        items: [
-          { title: "dashboard", href: "/dashboard/hotel" },
-          { title: "bookings", href: "/dashboard/hotel/bookings" }
-        ]
+        // items: [
+        //   { title: "dashboard", href: "/dashboard/hotel" },
+        //   { title: "bookings", href: "/dashboard/hotel/bookings" }
+        // ]
       },
       { title: "authority", href: "/dashboard/authority", icon: Building },
-      {
-        title: "project",
-        href: "/dashboard/project-management",
-        icon: FolderDotIcon,
-        items: [
-          { title: "dashboard", href: "/dashboard/project-management" },
-          { title: "project-list", href: "/dashboard/project-list" }
-        ]
-      },
+      // {
+      //   title: "project",
+      //   href: "/dashboard/project-management",
+      //   icon: FolderDotIcon,
+      //   items: [
+      //     { title: "dashboard", href: "/dashboard/project-management" },
+      //     { title: "project-list", href: "/dashboard/project-list" }
+      //   ]
+      // },
     ]
   }
 ];
