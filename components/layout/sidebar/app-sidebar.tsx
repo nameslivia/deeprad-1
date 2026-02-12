@@ -69,7 +69,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
           </CardHeader>
           <CardContent className="px-3">
             <Button className="w-full" asChild>
-              <Link href="https://shadcnuikit.com/pricing" target="_blank">
+              <Link href="#">
                 <Sparkles /> Buy Credits
               </Link>
             </Button>

@@ -18,7 +18,7 @@ export default function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar>
-          <AvatarImage src={`/images/avatars/01.png`} alt="shadcn ui kit" />
+          <AvatarImage src={`/images/avatars/01.png`} alt="scholia kit" />
           <AvatarFallback className="rounded-lg">TB</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -26,20 +26,20 @@ export default function UserMenu() {
         <DropdownMenuLabel className="p-0">
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar>
-              <AvatarImage src={`/images/avatars/01.png`} alt="shadcn ui kit" />
+              <AvatarImage src={`/images/avatars/01.png`} alt="scholia kit" />
               <AvatarFallback className="rounded-lg">TB</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">Toby Belhome</span>
-              <span className="text-muted-foreground truncate text-xs">hello@tobybelhome.com</span>
+              <span className="truncate font-semibold">John Smith</span>
+              <span className="text-muted-foreground truncate text-xs">john.smith@gmail.com</span>
             </div>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="https://agentwbro.com/pricing" target="_blank">
-              <Sparkles /> Upgrade to Pro
+            <Link href="#">
+              <Sparkles /> Change Plan
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

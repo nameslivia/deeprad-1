@@ -23,7 +23,7 @@ export function generateMeta({
   canonical: string;
 }): Metadata {
   return {
-    title: `${title} - Shadcn UI Kit`,
+    title: `${title} - Scholia`,
     description: description,
     metadataBase: new URL(`https://agentwbro.com`),
     alternates: {
