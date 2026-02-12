@@ -141,10 +141,12 @@ export const Navbar = () => {
                   {t('login')}
                 </Button>
               </Link>
-              <Button size="lg">
-                {t('tryForFree')}
-                <CircleArrowRight />
-              </Button>
+              <Link href="/dashboard/default">
+                <Button size="lg">
+                  {t('tryForFree')}
+                  <CircleArrowRight />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

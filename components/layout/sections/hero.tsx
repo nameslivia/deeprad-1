@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { CircleArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
@@ -111,7 +112,7 @@ function GridBackground() {
           const adjustedY = pos.y;
 
           if (!Number.isFinite(adjustedX)) {
-            adjustedX = pos.x; 
+            adjustedX = pos.x;
           }
 
           const progress = (i + 1) / this.positions.length;
@@ -240,10 +241,12 @@ export const HeroSection = () => {
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-4 md:flex-row">
-            <Button className="h-12 px-10 text-base">
-              {t('tryForFree')}
-              <CircleArrowRight />
-            </Button>
+            <Link href="/dashboard/default">
+              <Button className="h-12 px-10 text-base">
+                {t('tryForFree')}
+                <CircleArrowRight />
+              </Button>
+            </Link>
 
             <Button variant="outline" className="h-12 px-10 text-base">
               {t('watchVideo')}
