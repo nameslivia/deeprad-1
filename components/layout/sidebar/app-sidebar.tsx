@@ -51,7 +51,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
                 console.log("*** to landing page");
               }}>
               <Logo />
-              <span className="text-foreground font-semibold">Scholia v1.0</span>
+              <span className="text-foreground font-semibold">v1.0</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
