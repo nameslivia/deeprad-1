@@ -79,12 +79,25 @@ export const Navbar = () => {
                     {routeList.map(({ href, label }) => (
                       <Button
                         key={href}
-                        onClick={() => setIsOpen(false)}
-                        asChild
+                        onClick={(e) => {
+                          if (href.startsWith('#')) {
+                            e.preventDefault();
+                            const element = document.querySelector(href);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }
+                          setIsOpen(false);
+                        }}
+                        asChild={!href.startsWith('#')}
                         variant="ghost"
                         className="justify-start text-base"
                       >
-                        <Link href={href}>{t(label)}</Link>
+                        {href.startsWith('#') ? (
+                          <a href={href}>{t(label)}</a>
+                        ) : (
+                          <Link href={href}>{t(label)}</Link>
+                        )}
                       </Button>
                     ))}
                   </div>
@@ -112,7 +125,22 @@ export const Navbar = () => {
                       'hover:bg-muted! bg-transparent!'
                     )}
                   >
-                    <Link href={href}>{t(label)}</Link>
+                    {href.startsWith('#') ? (
+                      <a
+                        href={href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const element = document.querySelector(href);
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }}
+                      >
+                        {t(label)}
+                      </a>
+                    ) : (
+                      <Link href={href}>{t(label)}</Link>
+                    )}
                   </NavigationMenuLink>
                 ))}
               </NavigationMenuItem>
