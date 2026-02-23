@@ -1,11 +1,8 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { generateMeta } from "@/lib/utils";
-import Link from "next/link";
-import { PlusIcon } from "@radix-ui/react-icons";
 import { Metadata } from "next";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AgentList from "@/app/[locale]/dashboard/(auth)/products/agent-list";
@@ -38,11 +35,6 @@ export default async function Page() {
         <div className="space-y-4">
             <div className="flex items-center justify-between space-y-2">
                 <h1 className="text-2xl font-bold tracking-tight">Product</h1>
-                <Button asChild>
-                    <Link href="/dashboard/agents">
-                        <PlusIcon /> Add Agent
-                    </Link>
-                </Button>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
