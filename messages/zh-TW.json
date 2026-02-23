@@ -29,11 +29,8 @@
       }
     },
     "product": {
-      "title": "報表",
-      "subTitle": {
-        "dashboard": "儀表板",
-        "bookings": "預約"
-      }
+      "title": "產品",
+      "subTitle": {}
     },
     "project": {
       "title": "專案",

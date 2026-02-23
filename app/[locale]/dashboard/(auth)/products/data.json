@@ -1,0 +1,79 @@
+[
+    {
+        "id": 1,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "active",
+        "href": "/dashboard/agents/agent-1"
+    },
+    {
+        "id": 2,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "active",
+        "href": "/dashboard/agents/agent-2"
+    },
+    {
+        "id": 3,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "coming-soon",
+        "href": ""
+    },
+    {
+        "id": 4,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "coming-soon",
+        "href": ""
+    },
+    {
+        "id": 5,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "maintaining",
+        "href": ""
+    },
+    {
+        "id": 6,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "maintaining",
+        "href": ""
+    },
+    {
+        "id": 7,
+        "name": "Manuscript Peer Review",
+        "icon": "BookOpen",
+        "category": "Research",
+        "description": "Deep search and analysis of relevant papers and research reports.",
+        "rating": 4.8,
+        "usageCount": 156,
+        "status": "maintaining",
+        "href": ""
+    }
+]
