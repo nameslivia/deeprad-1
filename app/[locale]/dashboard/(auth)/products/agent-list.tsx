@@ -14,6 +14,8 @@ import {
     useReactTable
 } from "@tanstack/react-table";
 import {
+    ArrowUp,
+    ArrowDown,
     ArrowUpDown,
     ColumnsIcon,
     FilterIcon,
@@ -85,11 +87,17 @@ export type Agent = {
     href?: string;
 };
 
-const statusMap = {
-    active: { label: "Active", variant: "success" },
-    "coming-soon": { label: "Coming Soon", variant: "warning" },
-    maintaining: { label: "Maintaining", variant: "default" }
-} as const;
+const statusColorMap: Record<Agent["status"], string> = {
+    "active": "bg-green-100 text-green-700 hover:bg-green-100/80 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800",
+    "coming-soon": "bg-orange-100 text-orange-700 hover:bg-orange-100/80 border-orange-200 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800",
+    "maintaining": "bg-gray-100 text-gray-700 hover:bg-gray-100/80 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700"
+};
+
+const statusLabelMap: Record<Agent["status"], string> = {
+    "active": "Active",
+    "coming-soon": "Coming Soon",
+    "maintaining": "Maintaining"
+};
 
 const CATEGORIES = ["Research", "Writing", "Review", "Analysis", "Other"];
 const STATUSES = [
@@ -104,8 +112,6 @@ function AddAgentSheet({ onAdd }: { onAdd: (agent: Agent) => void }) {
     const [name, setName] = React.useState("");
     const [category, setCategory] = React.useState("");
     const [description, setDescription] = React.useState("");
-    const [rating, setRating] = React.useState("");
-    const [usageCount, setUsageCount] = React.useState("");
     const [status, setStatus] = React.useState<Agent["status"]>("active");
     const [href, setHref] = React.useState("");
 
@@ -113,8 +119,6 @@ function AddAgentSheet({ onAdd }: { onAdd: (agent: Agent) => void }) {
         setName("");
         setCategory("");
         setDescription("");
-        setRating("");
-        setUsageCount("");
         setStatus("active");
         setHref("");
     };
@@ -130,8 +134,6 @@ function AddAgentSheet({ onAdd }: { onAdd: (agent: Agent) => void }) {
             icon: name[0]?.toUpperCase() ?? "A",
             category,
             description,
-            rating: rating ? parseFloat(rating) : undefined,
-            usageCount: usageCount ? parseInt(usageCount, 10) : undefined,
             status,
             href: href || undefined
         };
@@ -205,34 +207,6 @@ function AddAgentSheet({ onAdd }: { onAdd: (agent: Agent) => void }) {
                         />
                     </div>
 
-                    {/* Rating */}
-                    <div className="space-y-2">
-                        <Label htmlFor="add-rating">Rating (0 – 5)</Label>
-                        <Input
-                            id="add-rating"
-                            type="number"
-                            min={0}
-                            max={5}
-                            step={0.1}
-                            placeholder="e.g. 4.8"
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Usage Count */}
-                    <div className="space-y-2">
-                        <Label htmlFor="add-usage">Usage Count</Label>
-                        <Input
-                            id="add-usage"
-                            type="number"
-                            min={0}
-                            placeholder="e.g. 156"
-                            value={usageCount}
-                            onChange={(e) => setUsageCount(e.target.value)}
-                        />
-                    </div>
-
                     {/* Status */}
                     <div className="space-y-2">
                         <Label htmlFor="add-status">
@@ -292,8 +266,6 @@ function EditAgentSheet({
     const [name, setName] = React.useState("");
     const [category, setCategory] = React.useState("");
     const [description, setDescription] = React.useState("");
-    const [rating, setRating] = React.useState("");
-    const [usageCount, setUsageCount] = React.useState("");
     const [status, setStatus] = React.useState<Agent["status"]>("active");
     const [href, setHref] = React.useState("");
 
@@ -303,8 +275,6 @@ function EditAgentSheet({
             setName(agent.name ?? "");
             setCategory(agent.category ?? "");
             setDescription(agent.description ?? "");
-            setRating(agent.rating !== undefined ? String(agent.rating) : "");
-            setUsageCount(agent.usageCount !== undefined ? String(agent.usageCount) : "");
             setStatus(agent.status);
             setHref(agent.href ?? "");
         }
@@ -321,8 +291,6 @@ function EditAgentSheet({
             name,
             category,
             description,
-            rating: rating ? parseFloat(rating) : undefined,
-            usageCount: usageCount ? parseInt(usageCount, 10) : undefined,
             status,
             href: href || undefined
         });
@@ -381,34 +349,6 @@ function EditAgentSheet({
                             placeholder="Short description of the agent"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Rating */}
-                    <div className="space-y-2">
-                        <Label htmlFor="edit-rating">Rating (0 – 5)</Label>
-                        <Input
-                            id="edit-rating"
-                            type="number"
-                            min={0}
-                            max={5}
-                            step={0.1}
-                            placeholder="e.g. 4.8"
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Usage Count */}
-                    <div className="space-y-2">
-                        <Label htmlFor="edit-usage">Usage Count</Label>
-                        <Input
-                            id="edit-usage"
-                            type="number"
-                            min={0}
-                            placeholder="e.g. 156"
-                            value={usageCount}
-                            onChange={(e) => setUsageCount(e.target.value)}
                         />
                     </div>
 
@@ -509,13 +449,18 @@ export default function AgentList({ data }: { data: Agent[] }) {
         {
             accessorKey: "name",
             header: ({ column }) => (
-                <Button
-                    className="-ml-3"
-                    variant="ghost"
+                <button
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Agent Name
-                    <ArrowUpDown className="size-3" />
-                </Button>
+                    {column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="size-3.5" />
+                    ) : column.getIsSorted() === "desc" ? (
+                        <ArrowDown className="size-3.5" />
+                    ) : (
+                        <ArrowUpDown className="size-3.5 opacity-50" />
+                    )}
+                </button>
             ),
             cell: ({ row }) => (
                 <div className="flex items-center gap-3">
@@ -540,13 +485,18 @@ export default function AgentList({ data }: { data: Agent[] }) {
         {
             accessorKey: "category",
             header: ({ column }) => (
-                <Button
-                    className="-ml-3"
-                    variant="ghost"
+                <button
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Category
-                    <ArrowUpDown className="size-3" />
-                </Button>
+                    {column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="size-3.5" />
+                    ) : column.getIsSorted() === "desc" ? (
+                        <ArrowDown className="size-3.5" />
+                    ) : (
+                        <ArrowUpDown className="size-3.5 opacity-50" />
+                    )}
+                </button>
             ),
             cell: ({ row }) => <div className="capitalize">{row.getValue("category")}</div>
         },
@@ -562,13 +512,18 @@ export default function AgentList({ data }: { data: Agent[] }) {
         {
             accessorKey: "rating",
             header: ({ column }) => (
-                <Button
-                    className="-ml-3"
-                    variant="ghost"
+                <button
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Rating
-                    <ArrowUpDown className="size-3" />
-                </Button>
+                    {column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="size-3.5" />
+                    ) : column.getIsSorted() === "desc" ? (
+                        <ArrowDown className="size-3.5" />
+                    ) : (
+                        <ArrowUpDown className="size-3.5 opacity-50" />
+                    )}
+                </button>
             ),
             cell: ({ row }) => {
                 const rating = row.getValue("rating") as number | undefined;
@@ -585,13 +540,18 @@ export default function AgentList({ data }: { data: Agent[] }) {
         {
             accessorKey: "usageCount",
             header: ({ column }) => (
-                <Button
-                    className="-ml-3"
-                    variant="ghost"
+                <button
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Uses
-                    <ArrowUpDown className="size-3" />
-                </Button>
+                    {column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="size-3.5" />
+                    ) : column.getIsSorted() === "desc" ? (
+                        <ArrowDown className="size-3.5" />
+                    ) : (
+                        <ArrowUpDown className="size-3.5 opacity-50" />
+                    )}
+                </button>
             ),
             cell: ({ row }) => {
                 const count = row.getValue("usageCount") as number | undefined;
@@ -601,20 +561,26 @@ export default function AgentList({ data }: { data: Agent[] }) {
         {
             accessorKey: "status",
             header: ({ column }) => (
-                <Button
-                    className="-ml-3"
-                    variant="ghost"
+                <button
+                    className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                     Status
-                    <ArrowUpDown className="size-3" />
-                </Button>
+                    {column.getIsSorted() === "asc" ? (
+                        <ArrowUp className="size-3.5" />
+                    ) : column.getIsSorted() === "desc" ? (
+                        <ArrowDown className="size-3.5" />
+                    ) : (
+                        <ArrowUpDown className="size-3.5 opacity-50" />
+                    )}
+                </button>
             ),
             cell: ({ row }) => {
                 const status = row.original.status;
-                const info = statusMap[status] ?? { label: status, variant: "default" };
+                const label = statusLabelMap[status] ?? status;
+                const colorClass = statusColorMap[status] ?? "";
                 return (
-                    <Badge variant={info.variant as "success" | "warning" | "default"} className="capitalize">
-                        {info.label}
+                    <Badge variant="outline" className={`capitalize font-normal ${colorClass}`}>
+                        {label}
                     </Badge>
                 );
             }

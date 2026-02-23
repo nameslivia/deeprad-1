@@ -3,8 +3,8 @@ import path from "path";
 import { generateMeta } from "@/lib/utils";
 import { Metadata } from "next";
 
-import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
 import AgentList from "@/app/[locale]/dashboard/(auth)/products/agent-list";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -48,33 +48,18 @@ export default async function Page() {
                     <CardHeader>
                         <CardDescription>Active</CardDescription>
                         <CardTitle className="font-display text-2xl lg:text-3xl">{active}</CardTitle>
-                        <CardAction>
-                            <Badge variant="outline">
-                                <span className="text-green-600">Deployed</span>
-                            </Badge>
-                        </CardAction>
                     </CardHeader>
                 </Card>
                 <Card>
                     <CardHeader>
                         <CardDescription>Coming Soon</CardDescription>
                         <CardTitle className="font-display text-2xl lg:text-3xl">{comingSoon}</CardTitle>
-                        <CardAction>
-                            <Badge variant="outline">
-                                <span className="text-orange-500">Pending</span>
-                            </Badge>
-                        </CardAction>
                     </CardHeader>
                 </Card>
                 <Card>
                     <CardHeader>
                         <CardDescription>Maintaining</CardDescription>
                         <CardTitle className="font-display text-2xl lg:text-3xl">{maintaining}</CardTitle>
-                        <CardAction>
-                            <Badge variant="outline">
-                                <span className="text-muted-foreground">Paused</span>
-                            </Badge>
-                        </CardAction>
                     </CardHeader>
                 </Card>
             </div>
