@@ -23,7 +23,8 @@ import {
   ChevronRight,
   FileSpreadsheet,
   FolderDotIcon,
-  type LucideIcon
+  type LucideIcon,
+  SettingsIcon
 } from "lucide-react";
 // import Link from "next/link";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -66,7 +67,7 @@ export const navItems: NavGroup[] = [
       {
         title: "library",
         href: "#",
-        icon: Library,
+        icon: Library
         // items: [
         //   { title: "dashboard", href: "/dashboard/ecommerce" },
         //   { title: "product-list", href: "/dashboard/pages/products" },
@@ -80,15 +81,13 @@ export const navItems: NavGroup[] = [
         title: "agent",
         href: "#",
         icon: BookOpen,
-        items: [
-          { title: "agents", href: "/dashboard/agents" }
-        ]
+        items: [{ title: "agents", href: "/dashboard/agents" }]
       },
       {
         title: "report",
         // href: "/dashboard/payment",
         href: "#",
-        icon: FileSpreadsheet,
+        icon: FileSpreadsheet
         // items: [
         //   { title: "dashboard", href: "/dashboard/payment" },
         //   { title: "transactions", href: "/dashboard/payment/transactions" }
@@ -98,7 +97,7 @@ export const navItems: NavGroup[] = [
         title: "product",
         // href: "/dashboard/hotel",
         href: "#",
-        icon: Package,
+        icon: Package
         // items: [
         //   { title: "dashboard", href: "/dashboard/hotel" },
         //   { title: "bookings", href: "/dashboard/hotel/bookings" }
@@ -114,6 +113,7 @@ export const navItems: NavGroup[] = [
       //     { title: "project-list", href: "/dashboard/project-list" }
       //   ]
       // },
+      { title: "settings", href: "/dashboard/settings", icon: SettingsIcon }
     ]
   }
 ];
