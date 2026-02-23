@@ -39,7 +39,7 @@ export function ChangeRoleDialog({
 }: ChangeRoleDialogProps) {
     const currentRole = getRoleById(user.roleId);
     const [selectedRoleId, setSelectedRoleId] = useState<string>(user.roleId);
-    const isSuperAdmin = currentRole?.id === "super-admin";
+    const isSuperAdmin = currentRole?.id === "admin";
 
     const handleSave = () => {
         if (selectedRoleId === user.roleId) {

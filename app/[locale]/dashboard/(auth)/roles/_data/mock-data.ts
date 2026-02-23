@@ -2,77 +2,87 @@ import { Permission, Role, Group, User } from "./types";
 
 // Permissions organized by category
 export const PERMISSIONS: Permission[] = [
-    // User Management
-    { id: "users.create", name: "Create Users", description: "Can create new users", category: "User Management" },
-    { id: "users.edit", name: "Edit Users", description: "Can edit user information", category: "User Management" },
-    { id: "users.delete", name: "Delete Users", description: "Can delete users", category: "User Management" },
-    { id: "users.permissions", name: "Manage User Permissions", description: "Can adjust individual user permissions", category: "User Management" },
+    // Dashboard
+    { id: "dashboard.personal", name: "Personal Overview", description: "Can view personal usage dashboard", category: "Dashboard" },
+    { id: "dashboard.company", name: "Company Overview", description: "Can view the overall company dashboard", category: "Dashboard" },
+    { id: "dashboard.platform", name: "Platform Overview", description: "Can view the full platform-wide dashboard", category: "Dashboard" },
 
-    // Role Management
-    { id: "roles.view", name: "View Roles", description: "Can view role list and details", category: "Role Management" },
-    { id: "roles.create", name: "Create Roles", description: "Can create new roles", category: "Role Management" },
-    { id: "roles.edit", name: "Edit Roles", description: "Can edit role permissions", category: "Role Management" },
-    { id: "roles.delete", name: "Delete Roles", description: "Can delete roles", category: "Role Management" },
+    // Library
+    { id: "library.own", name: "Own Files", description: "Can access and manage own files", category: "Library" },
 
-    // Analytics
-    { id: "analytics.view", name: "View Analytics", description: "Can view analytics dashboard", category: "Analytics" },
-    { id: "analytics.export", name: "Export Analytics", description: "Can export analytics data", category: "Analytics" },
+    // Agent
+    { id: "agent.trial", name: "All Agents, One Use Each", description: "Can try all Agents once per Agent", category: "Agent" },
+    { id: "agent.token", name: "All Available Agents, Per Token", description: "Can use all subscribed Agents billed by token", category: "Agent" },
+    { id: "agent.manage", name: "Manage All Agent Settings", description: "Can manage settings for all Agents", category: "Agent" },
 
-    // Settings
-    { id: "settings.view", name: "View Settings", description: "Can view system settings", category: "Settings" },
-    { id: "settings.edit", name: "Edit Settings", description: "Can modify system settings", category: "Settings" },
-    { id: "settings.security", name: "Security Settings", description: "Can manage security settings", category: "Settings" },
+    // Report
+    { id: "report.personal", name: "Personal Usage Report", description: "Can view own usage records and reports", category: "Report" },
+    { id: "report.all", name: "All Users Usage Report", description: "Can view usage records for all users", category: "Report" },
 
-    // Billing
-    { id: "billing.view", name: "View Billing", description: "Can view billing information", category: "Billing" },
-    { id: "billing.manage", name: "Manage Billing", description: "Can manage billing and subscriptions", category: "Billing" },
+    // Product
+    { id: "product.manage", name: "Publish / Unpublish Products", description: "Can publish and unpublish products", category: "Product" },
+
+    // Roles
+    { id: "roles.users", name: "User Account Management", description: "Can manage user accounts", category: "Roles" },
+    { id: "roles.roles", name: "Role & Permission Settings", description: "Can configure user roles and permissions", category: "Roles" },
 ];
 
 // Roles with their permissions
 export const ROLES: Role[] = [
     {
-        id: "super-admin",
-        name: "Super Admin",
-        description: "Full system access with all permissions",
-        permissions: PERMISSIONS.map(p => p.id), // All permissions
-        isLocked: true,
-        userCount: 1,
-    },
-    {
-        id: "admin",
-        name: "Admin",
-        description: "Administrative access with most permissions",
+        id: "trial-user",
+        name: "Trial User",
+        description: "Trial user with personal view; can try every Agent once",
         permissions: [
-            "users.create", "users.edit", "users.delete", "users.permissions",
-            "roles.view", "roles.create", "roles.edit",
-            "analytics.view", "analytics.export",
-            "settings.view", "settings.edit",
-            "billing.view",
+            "dashboard.personal",
+            "library.own",
+            "agent.trial",
         ],
         isLocked: false,
-        userCount: 3,
+        userCount: 209,
     },
     {
         id: "subscriber",
         name: "Subscriber",
-        description: "Content moderation and user management",
+        description: "Paid user with personal view; can use all subscribed Agents billed by token",
         permissions: [
-            "users.edit",
-            "analytics.view",
+            "dashboard.personal",
+            "library.own",
+            "agent.token",
+            "report.personal",
         ],
         isLocked: false,
         userCount: 5,
     },
     {
-        id: "trial-user",
-        name: "Trial User",
-        description: "Basic user access",
+        id: "super-user",
+        name: "Super User",
+        description: "Company-level user with organization view; can manage all Agent settings and view all reports",
         permissions: [
-            "content.view", "content.create",
-            "analytics.view",
+            "dashboard.company",
+            "agent.manage",
+            "report.all",
+            "product.manage",
+            "roles.users",
+            "roles.roles",
         ],
         isLocked: false,
-        userCount: 209,
+        userCount: 3,
+    },
+    {
+        id: "admin",
+        name: "Admin",
+        description: "Platform administrator with full platform view and all management permissions",
+        permissions: [
+            "dashboard.platform",
+            "agent.manage",
+            "report.all",
+            "product.manage",
+            "roles.users",
+            "roles.roles",
+        ],
+        isLocked: true,
+        userCount: 1,
     },
 ];
 
@@ -83,7 +93,7 @@ export const GROUPS: Group[] = [
         name: "Core Roles",
         description: "Essential system roles",
         type: "core",
-        roleIds: ["super-admin", "admin"],
+        roleIds: ["admin", "super-user"],
     },
     {
         id: "dept-marketing",
@@ -135,7 +145,7 @@ export const USERS: User[] = [
         id: "1",
         name: "Alice Johnson",
         email: "alice.johnson@example.com",
-        roleId: "super-admin",
+        roleId: "admin",
         status: "active",
         lastActive: new Date("2024-02-10T14:30:00"),
         groupId: "core",
