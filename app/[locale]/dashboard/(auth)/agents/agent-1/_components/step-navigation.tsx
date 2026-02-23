@@ -2,14 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Upload, FileText, CheckCircle } from 'lucide-react';
+import { Upload, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface StepNavigationProps {
-  currentStep: 1 | 2 | 3;
+  currentStep: 1 | 2;
   onBack: () => void;
   onNext: () => void;
-  onStepClick: (step: 1 | 2 | 3) => void;
+  onStepClick: (step: 1 | 2) => void;
   canGoBack: boolean;
   canGoNext: boolean;
 }
@@ -23,9 +23,8 @@ export function StepNavigation({
   canGoNext
 }: StepNavigationProps) {
   const steps = [
-    { id:1, label: 'Upload File', icon: Upload },
-    { id:2, label: 'Select Journal', icon: FileText },
-    { id:3, label: 'Review Results', icon: CheckCircle }
+    { id: 1, label: 'Upload File', icon: Upload },
+    { id: 2, label: 'Review Results', icon: CheckCircle }
   ];
 
   const currentStepIndex = currentStep - 1;
@@ -43,7 +42,7 @@ export function StepNavigation({
             return (
               <div key={step.id} className="flex-1 text-center">
                 <button
-                  onClick={() => onStepClick(step.id as 1 | 2 | 3)}
+                  onClick={() => onStepClick(step.id as 1 | 2)}
                   className={cn(
                     'mx-auto flex size-10 items-center justify-center rounded-full text-lg transition-all lg:size-12',
                     'hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
@@ -93,7 +92,7 @@ export function StepNavigation({
                 BACK
               </Button>
             )}
-            {currentStep < 3 && (
+            {currentStep < 2 && (
               <Button onClick={onNext} disabled={!canGoNext}>
                 NEXT
               </Button>

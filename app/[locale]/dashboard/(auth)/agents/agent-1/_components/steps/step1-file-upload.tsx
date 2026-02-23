@@ -7,16 +7,19 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
 import { UploadZone } from '@/components/paper-review/upload-zone';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 import { uploadFiles } from '@/lib/api/paperReviewApi';
 import type { ManuscriptType } from '@/types/paperReview';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export function Step1_FileUpload() {
   const {
     manuscriptType,
     setManuscriptType,
+    setSelectedJournal,
     uploadedFiles,
     addFiles,
     removeFile,
@@ -24,39 +27,36 @@ export function Step1_FileUpload() {
     updateFileStatus
   } = usePaperReviewStore();
 
+  const [searchValue, setSearchValue] = useState('');
+
   const handleFilesSelected = useCallback(
-    (files: File[], category: 'manuscript' | 'references' | 'prompt') => {
-      const newFileIds: string[] = [];
-      
-      // Add files to store
+    (files: File[], category: 'manuscript' | 'references' | 'authorGuide') => {
       addFiles(files, category);
-      
-      // Start uploading files
+
       setTimeout(() => {
-        // Get the latest uploadedFiles
         const currentFiles = usePaperReviewStore.getState().uploadedFiles;
         const filesToUpload = currentFiles.filter(f => f.status === 'idle');
         if (filesToUpload.length > 0) {
           uploadFiles(filesToUpload, updateFileProgress, updateFileStatus);
         }
-      }, 100); // Give a little time for the store to update
+      }, 100);
     },
     [addFiles, updateFileProgress, updateFileStatus]
-  );        
+  );
+
+  const handleSearchChange = (value: string) => {
+    setSearchValue(value);
+    if (value) {
+      setSelectedJournal(value);
+    }
+  };
 
   const manuscriptFiles = uploadedFiles.filter((f) => f.category === 'manuscript');
   const referenceFiles = uploadedFiles.filter((f) => f.category === 'references');
-  const promptFiles = uploadedFiles.filter((f) => f.category === 'prompt');
+  const authorGuideFiles = uploadedFiles.filter((f) => f.category === 'authorGuide');
 
   return (
     <div className="mx-auto max-w-5xl space-y-8 p-6">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold">Upload Your Manuscript</h1>
-        <p className="mt-2 text-muted-foreground">
-          Select the manuscript type and upload your files
-        </p>
-      </div>
-
       {/* Manuscript Type Selection */}
       <div className="space-y-3">
         <label className="text-sm font-medium">Manuscript Categories</label>
@@ -77,8 +77,8 @@ export function Step1_FileUpload() {
         </Select>
       </div>
 
-      {/* Upload Zones with embedded file lists */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* Upload Zones */}
+      <div className="grid gap-6 md:grid-cols-2">
         {/* Manuscript File */}
         <div className="space-y-3">
           <div className="flex items-baseline justify-between">
@@ -114,26 +114,72 @@ export function Step1_FileUpload() {
             onDeleteFile={removeFile}
           />
         </div>
+      </div>
 
-        {/* Prompt File */}
-        <div className="space-y-3">
-          <div className="flex items-baseline justify-between">
-            <label className="text-sm font-medium">Prompt File</label>
-            <span className="text-xs text-muted-foreground">Optional</span>
-          </div>
+      {/* Divider */}
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">Select Journal</span>
+        </div>
+      </div>
+
+      {/* Journal Search */}
+      <div className="space-y-3">
+        <label className="text-sm font-medium">Search for a journal</label>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Type journal name (e.g., Nature, Science, PLOS ONE)..."
+            value={searchValue}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        {searchValue && (
+          <p className="text-sm text-muted-foreground">
+            Selected journal: <span className="font-medium">{searchValue}</span>
+          </p>
+        )}
+      </div>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">Or</span>
+        </div>
+      </div>
+
+      {/* Author Guide Upload */}
+      <div className="space-y-3">
+        <label className="text-sm font-medium">Upload Author Guide</label>
+        <div className="mx-auto max-w-md">
           <UploadZone
-            category="prompt"
-            accept=".pdf,.docx,.doc,.txt"
+            category="authorGuide"
+            accept=".pdf,.docx,.doc"
             multiple={false}
-            onFilesSelected={(files) => handleFilesSelected(files, 'prompt')}
-            title="Upload Prompt"
-            subtitle="Custom review instructions"
-            uploadedFiles={promptFiles}
+            onFilesSelected={(files) => handleFilesSelected(files, 'authorGuide')}
+            title="Upload Author Guide"
+            subtitle="PDF or DOCX format with journal guidelines"
+            uploadedFiles={authorGuideFiles}
             onDeleteFile={removeFile}
           />
         </div>
       </div>
+
+      <div className="rounded-lg bg-muted/50 p-4">
+        <h3 className="font-medium">About AI Policy Transparency</h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Scholia will analyze the journal&apos;s AI policy and ensure your manuscript
+          complies with their requirements for AI-assisted writing disclosure and
+          formatting guidelines.
+        </p>
+      </div>
     </div>
   );
 }
-
