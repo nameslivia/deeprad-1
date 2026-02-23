@@ -22,7 +22,7 @@ export function Step3_AIReviewResults() {
   const [activeSection, setActiveSection] = useState<PaperSection>('abstract');
   const [isLoadingResults, setIsLoadingResults] = useState(false);
   const [tabsEnabled, setTabsEnabled] = useState(false);
-  const [canGetResults, setCanGetResults] = useState(false);
+  const [allSectionsGenerated, setAllSectionsGenerated] = useState(false);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
   const [isExportingWord, setIsExportingWord] = useState(false);
   const [sectionContentGenerated, setSectionContentGenerated] = useState<Record<PaperSection, boolean>>({
@@ -51,36 +51,23 @@ export function Step3_AIReviewResults() {
     simulateProSearch(
       (progress) => setProSearchProgress(progress),
       () => {
-        // Enable tabs immediately after Pro Search completes
+        // Enable "Get Your Review Result" button after Pro Search completes
         setTabsEnabled(true);
       }
     );
-
-    // Enable "Get Your Review Result" button after 3 minutes
-    const timer = setTimeout(() => {
-      setCanGetResults(true);
-    }, 180000); // 3 minutes = 180000ms
-
-    return () => clearTimeout(timer);
   }, []);
 
-  // Auto-load review results when tabs are enabled
-  useEffect(() => {
-    if (tabsEnabled && !reviewResults) {
-      handleGetResults();
-    }
-  }, [tabsEnabled, reviewResults]);
-
-  // Simulate section content generation
+  // Simulate section content generation after user clicks "Get Your Review Result"
   useEffect(() => {
     if (!reviewResults) return;
 
     // Start generating content for sections sequentially
     let currentIndex = 0;
-    
+
     const generateNextSection = () => {
       if (currentIndex >= sections.length) {
         setCurrentGeneratingSection(null);
+        setAllSectionsGenerated(true);
         return;
       }
 
@@ -89,7 +76,7 @@ export function Step3_AIReviewResults() {
 
       // Simulate generation time (random between 30-60 seconds per section)
       const generationTime = 30000 + Math.random() * 30000;
-      
+
       setTimeout(() => {
         setSectionContentGenerated(prev => ({
           ...prev,
@@ -192,12 +179,12 @@ export function Step3_AIReviewResults() {
       {/* Action Buttons */}
       <div className="flex flex-wrap justify-center gap-3">
         <Button
-          onClick={handleExportPDF}
-          disabled={!canGetResults || isExportingPDF}
+          onClick={handleGetResults}
+          disabled={!tabsEnabled || !!reviewResults || isLoadingResults}
           size="lg"
         >
-          {isExportingPDF ? (
-            'Generating PDF...'
+          {isLoadingResults ? (
+            'Loading...'
           ) : (
             <>
               <FaRegFilePdf className="mr-2 h-4 w-4" />
@@ -208,7 +195,7 @@ export function Step3_AIReviewResults() {
         <Button
           variant="outline"
           size="lg"
-          disabled={!canGetResults || isExportingWord}
+          disabled={!allSectionsGenerated || isExportingWord}
           onClick={handleExportWord}
         >
           {isExportingWord ? (
