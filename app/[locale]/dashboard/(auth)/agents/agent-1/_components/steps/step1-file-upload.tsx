@@ -91,7 +91,6 @@ export function Step1_FileUpload() {
             multiple={false}
             onFilesSelected={(files) => handleFilesSelected(files, 'manuscript')}
             title="Upload Manuscript"
-            subtitle="PDF or DOCX format"
             uploadedFiles={manuscriptFiles}
             onDeleteFile={removeFile}
           />
@@ -109,7 +108,6 @@ export function Step1_FileUpload() {
             multiple={true}
             onFilesSelected={(files) => handleFilesSelected(files, 'references')}
             title="Upload References"
-            subtitle="Multiple files allowed"
             uploadedFiles={referenceFiles}
             onDeleteFile={removeFile}
           />
@@ -165,7 +163,6 @@ export function Step1_FileUpload() {
             multiple={false}
             onFilesSelected={(files) => handleFilesSelected(files, 'authorGuide')}
             title="Upload Author Guide"
-            subtitle="PDF or DOCX format with journal guidelines"
             uploadedFiles={authorGuideFiles}
             onDeleteFile={removeFile}
           />

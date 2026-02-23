@@ -3,7 +3,7 @@
 import { ReviewFooter } from './_components/review-footer';
 import { StepNavigation } from './_components/step-navigation';
 import { Step1_FileUpload } from './_components/steps/step1-file-upload';
-import { Step3_AIReviewResults as Step2_AIReviewResults } from './_components/steps/step3-ai-review-results';
+import { Step3_AIReviewResults as Step2_AIReviewResults } from './_components/steps/step2-ai-review-results';
 import { usePaperReviewStore } from '@/lib/stores/paperReviewStore';
 
 export default function PaperReviewPage() {

@@ -274,7 +274,7 @@ export const HeroSection = () => {
               width={800}
               height={600}
               className="relative mx-auto w-full rounded-xl shadow-2xl transition-all duration-700 group-hover:scale-[1.02] md:hidden dark:shadow-[0_25px_60px_rgba(0,0,0,0.5)]"
-              src="/Figma Resources Component.png"
+              src="/hero-mobile.png"
               alt="hero"
               priority
               unoptimized
