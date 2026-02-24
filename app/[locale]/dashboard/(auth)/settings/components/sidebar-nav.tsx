@@ -18,22 +18,22 @@ import { Card, CardContent } from "@/components/ui/card";
 const sidebarNavItems = [
   {
     title: "Profile",
-    href: "/dashboard/pages/settings",
+    href: "/dashboard/settings",
     icon: UserIcon
   },
   {
     title: "Billing",
-    href: "/dashboard/pages/settings/billing",
+    href: "/dashboard/settings/billing",
     icon: CreditCardIcon
   },
   {
     title: "Appearance",
-    href: "/dashboard/pages/settings/appearance",
+    href: "/dashboard/settings/appearance",
     icon: PaletteIcon
   },
   {
     title: "Notifications",
-    href: "/dashboard/pages/settings/notifications",
+    href: "/dashboard/settings/notifications",
     icon: BellIcon
   },
 ];

@@ -1,6 +1,7 @@
 "use client";
 
-import { Edit2, Plus } from "lucide-react";
+import { Edit2, Plus, Users } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +21,16 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 type TransactionStatus = "pending" | "failed" | "paid";
 
@@ -76,7 +87,144 @@ const transactions: Transaction[] = [
   }
 ];
 
+interface PlanOption {
+  key: string;
+  name: string;
+  priceMonthly: number;
+  credits: number;
+  popular?: boolean;
+}
+
+const planOptions: PlanOption[] = [
+  {
+    key: "starter",
+    name: "Starter",
+    priceMonthly: 29,
+    credits: 40000
+  },
+  {
+    key: "professional",
+    name: "Professional",
+    priceMonthly: 79,
+    credits: 130000,
+    popular: true
+  },
+  {
+    key: "enterprise-self",
+    name: "Enterprise",
+    priceMonthly: 199,
+    credits: 450000
+  }
+];
+
+function ChoosePlanDialog({
+  open,
+  onOpenChange
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  const [selectedPlan, setSelectedPlan] = useState<string>("professional");
+  const [autoTopUp, setAutoTopUp] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[560px]">
+        <DialogHeader>
+          <DialogTitle className="text-xl font-semibold">Choose a Plan</DialogTitle>
+          <DialogDescription>
+            Select the plan that best fits your needs.{" "}
+            <a href="#" className="underline underline-offset-2">
+              View detailed plan information.
+            </a>
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Plan options */}
+        <div className="space-y-3 py-2">
+          {planOptions.map((plan) => (
+            <button
+              key={plan.key}
+              onClick={() => setSelectedPlan(plan.key)}
+              className={cn(
+                "w-full rounded-lg border-2 p-4 text-left transition-colors",
+                selectedPlan === plan.key
+                  ? "border-foreground bg-muted/40"
+                  : "border-border hover:border-muted-foreground/50"
+              )}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-base">{plan.name}</div>
+                  <div className="text-muted-foreground text-sm">
+                    <span className="font-medium text-foreground">${plan.priceMonthly}</span>
+                    {" "}/ month
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-3xl font-bold tabular-nums">
+                    {plan.credits.toLocaleString()}
+                  </div>
+                  <div className="text-muted-foreground text-sm">credits / month</div>
+                </div>
+              </div>
+            </button>
+          ))}
+
+          {/* Auto top-up row */}
+          <div className="flex items-center justify-between rounded-lg px-1 py-2">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              Automatically top-up with{" "}
+              <span className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs font-medium text-foreground bg-muted">
+                $10 <span className="opacity-50">⊕</span>
+              </span>{" "}
+              when balance is low
+            </div>
+            <Switch checked={autoTopUp} onCheckedChange={setAutoTopUp} />
+          </div>
+
+          {/* Enterprise Plan */}
+          <div className="rounded-lg border-2 border-border p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <div className="font-semibold text-base">Enterprise Plan</div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  Bespoke credit limits
+                  <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs font-medium">
+                    <Users className="h-3 w-3" /> Teams
+                  </span>
+                </div>
+                <p className="text-sm text-muted-foreground pt-2">
+                  Enterprise plans including SSO, OIDC, SCIM, Slack integration, dedicated
+                  support, and volume discounts.
+                </p>
+              </div>
+              <Button size="sm" className="shrink-0">
+                Contact Us
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <DialogFooter className="gap-2 sm:gap-2">
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
+          <Button
+            disabled={!selectedPlan}
+            onClick={() => onOpenChange(false)}
+          >
+            Continue
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Page() {
+  const [planDialogOpen, setPlanDialogOpen] = useState(false);
+
   return (
     <div className="space-y-4">
       <Card>
@@ -87,7 +235,7 @@ export default function Page() {
             <span className="font-medium">$59.90</span>
           </CardDescription>
           <CardAction>
-            <Button>Change plan</Button>
+            <Button onClick={() => setPlanDialogOpen(true)}>Change plan</Button>
           </CardAction>
         </CardHeader>
       </Card>
@@ -168,6 +316,8 @@ export default function Page() {
           </Table>
         </CardContent>
       </Card>
+
+      <ChoosePlanDialog open={planDialogOpen} onOpenChange={setPlanDialogOpen} />
     </div>
   );
 }

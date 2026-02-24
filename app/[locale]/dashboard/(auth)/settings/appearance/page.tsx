@@ -1,12 +1,11 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { BanIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,23 +18,14 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import Link from "next/link";
+
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useTheme } from "next-themes";
+import { useThemeConfig } from "@/components/active-theme";
 
 const appearanceFormSchema = z.object({
   theme: z.enum(["light", "dark"], {
     required_error: "Please select a theme."
-  }),
-  font: z.enum(["inter", "manrope", "system"], {
-    invalid_type_error: "Select a font",
-    required_error: "Please select a font."
   })
 });
 
@@ -48,6 +38,7 @@ const defaultValues: Partial<AppearanceFormValues> = {
 
 export default function Page() {
   const { theme, setTheme } = useTheme();
+  const { theme: themeConfig, setTheme: setThemeConfig } = useThemeConfig();
 
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
@@ -69,29 +60,42 @@ export default function Page() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <FormField
-              control={form.control}
-              name="font"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Font</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select font" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Inter">Inter</SelectItem>
-                      <SelectItem value="Manrope">Manrope</SelectItem>
-                      <SelectItem value="System">System</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>Set the font you want to use in the dashboard.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            {/* Font Scale Section */}
+            <FormItem>
+              <FormLabel>Font Scale</FormLabel>
+              <div className="flex flex-col gap-2">
+                <ToggleGroup
+                  value={themeConfig.scale}
+                  type="single"
+                  onValueChange={(value) =>
+                    setThemeConfig({ ...themeConfig, scale: value as any })
+                  }
+                  className="*:border-input w-full gap-3 *:rounded-md *:border"
+                >
+                  <ToggleGroupItem variant="outline" value="none">
+                    <BanIcon />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    variant="outline"
+                    value="sm"
+                    className="text-xs data-[variant=outline]:border-l"
+                  >
+                    XS
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    variant="outline"
+                    value="lg"
+                    className="text-xs data-[variant=outline]:border-l"
+                  >
+                    LG
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
+              <FormDescription>
+                Adjust the font scale used throughout the dashboard.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
 
             <FormField
               control={form.control}

@@ -27,7 +27,7 @@ export default async function Page() {
             Mark All as Read
           </Button>
           <Button variant="outline" asChild>
-            <Link href="/dashboard/pages/settings/notifications">
+            <Link href="/dashboard/settings/notifications">
               <Settings />
             </Link>
           </Button>

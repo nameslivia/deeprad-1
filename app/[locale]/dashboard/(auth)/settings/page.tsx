@@ -87,6 +87,8 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 const defaultValues: Partial<ProfileFormValues> = {
+  name: "",
+  email: "",
   bio: "I own a computer."
 };
 
