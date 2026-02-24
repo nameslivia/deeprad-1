@@ -4,6 +4,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { CircleUserRoundIcon, Trash2Icon } from "lucide-react";
@@ -43,6 +44,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CountryDropdown, Country } from "@/components/ui/country-dropdown";
 
 const languages = [
   { label: "English", value: "en" },
@@ -54,21 +56,6 @@ const languages = [
   { label: "Japanese", value: "ja" },
   { label: "Korean", value: "ko" },
   { label: "Chinese", value: "zh" }
-] as const;
-
-const countries = [
-  { label: "United States", value: "us" },
-  { label: "United Kingdom", value: "uk" },
-  { label: "Canada", value: "ca" },
-  { label: "Australia", value: "au" },
-  { label: "Germany", value: "de" },
-  { label: "France", value: "fr" },
-  { label: "Japan", value: "jp" },
-  { label: "South Korea", value: "kr" },
-  { label: "Taiwan", value: "tw" },
-  { label: "China", value: "cn" },
-  { label: "Singapore", value: "sg" },
-  { label: "India", value: "in" }
 ] as const;
 
 const profileFormSchema = z.object({
@@ -110,6 +97,8 @@ export default function Page() {
 
   const previewUrl = files[0]?.preview || null;
   const fileName = files[0]?.file.name || null;
+
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -256,50 +245,16 @@ export default function Page() {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Country</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          className={cn(
-                            "w-full justify-between",
-                            !field.value && "text-muted-foreground"
-                          )}>
-                          {field.value
-                            ? countries.find((c) => c.value === field.value)?.label
-                            : "Select country"}
-                          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="p-0" align="start">
-                      <Command>
-                        <CommandInput placeholder="Search country..." />
-                        <CommandList>
-                          <CommandEmpty>No country found.</CommandEmpty>
-                          <CommandGroup>
-                            {countries.map((c) => (
-                              <CommandItem
-                                value={c.label}
-                                key={c.value}
-                                onSelect={() => {
-                                  form.setValue("country", c.value);
-                                }}>
-                                <CheckIcon
-                                  className={cn(
-                                    "mr-2 h-4 w-4",
-                                    c.value === field.value ? "opacity-100" : "opacity-0"
-                                  )}
-                                />
-                                {c.label}
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
+                  <FormControl>
+                    <CountryDropdown
+                      value={selectedCountry}
+                      onChange={(country: Country) => {
+                        setSelectedCountry(country.alpha2);
+                        form.setValue("country", country.alpha2);
+                      }}
+                      placeholder="Select a country"
+                    />
+                  </FormControl>
                   <FormDescription>Select the country you are currently residing in.</FormDescription>
                   <FormMessage />
                 </FormItem>
