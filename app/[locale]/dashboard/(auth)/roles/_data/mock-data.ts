@@ -3,9 +3,7 @@ import { Permission, Role, Group, User } from "./types";
 // Permissions organized by category
 export const PERMISSIONS: Permission[] = [
     // Dashboard
-    { id: "dashboard.personal", name: "Personal Overview", description: "Can view personal usage dashboard", category: "Dashboard" },
-    { id: "dashboard.company", name: "Company Overview", description: "Can view the overall company dashboard", category: "Dashboard" },
-    { id: "dashboard.platform", name: "Platform Overview", description: "Can view the full platform-wide dashboard", category: "Dashboard" },
+    { id: "dashboard.own", name: "Dashboard Overview", description: "Can view the full platform-wide dashboard", category: "Dashboard" },
 
     // Library
     { id: "library.own", name: "Own Files", description: "Can access and manage own files", category: "Library" },
@@ -34,7 +32,7 @@ export const ROLES: Role[] = [
         name: "Trial User",
         description: "Trial user with personal view; can try every Agent once",
         permissions: [
-            "dashboard.personal",
+            "dashboard.own",
             "library.own",
             "agent.trial",
         ],
@@ -46,7 +44,7 @@ export const ROLES: Role[] = [
         name: "Subscriber",
         description: "Paid user with personal view; can use all subscribed Agents billed by token",
         permissions: [
-            "dashboard.personal",
+            "dashboard.own",
             "library.own",
             "agent.token",
             "report.personal",
@@ -59,7 +57,7 @@ export const ROLES: Role[] = [
         name: "Super User",
         description: "Company-level user with organization view; can manage all Agent settings and view all reports",
         permissions: [
-            "dashboard.company",
+            "dashboard.own",
             "agent.manage",
             "report.all",
             "product.manage",
@@ -74,7 +72,7 @@ export const ROLES: Role[] = [
         name: "Admin",
         description: "Platform administrator with full platform view and all management permissions",
         permissions: [
-            "dashboard.platform",
+            "dashboard.own",
             "agent.manage",
             "report.all",
             "product.manage",

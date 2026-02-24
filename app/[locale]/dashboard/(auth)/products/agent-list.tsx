@@ -17,12 +17,16 @@ import {
     ArrowUp,
     ArrowDown,
     ArrowUpDown,
+    ClipboardCopy,
     ColumnsIcon,
+    ExternalLink,
     FilterIcon,
-    MoreHorizontal,
+    MoreVerticalIcon,
+    Pencil,
     PlusCircle,
     PlusIcon,
-    Star
+    Star,
+    Trash2
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -57,6 +61,14 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle
+} from "@/components/ui/dialog";
 import {
     Sheet,
     SheetContent,
@@ -400,7 +412,11 @@ export default function AgentList({ data }: { data: Agent[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-    const [rowSelection, setRowSelection] = React.useState({});
+
+    // Delete dialog state
+    const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+    const [deletingAgent, setDeletingAgent] = React.useState<Agent | null>(null);
+    const [deleteConfirmInput, setDeleteConfirmInput] = React.useState("");
 
     // Edit sheet state
     const [editOpen, setEditOpen] = React.useState(false);
@@ -419,33 +435,22 @@ export default function AgentList({ data }: { data: Agent[] }) {
         setAgents((prev) => prev.map((a) => (a.id === updated.id ? updated : a)));
     };
 
-    const handleDelete = (id: number) => {
-        setAgents((prev) => prev.filter((a) => a.id !== id));
-        toast.success("Agent deleted.");
+    const openDeleteDialog = (agent: Agent) => {
+        setDeletingAgent(agent);
+        setDeleteConfirmInput("");
+        setDeleteDialogOpen(true);
+    };
+
+    const handleDelete = () => {
+        if (!deletingAgent) return;
+        setAgents((prev) => prev.filter((a) => a.id !== deletingAgent.id));
+        toast.success(`Agent "${deletingAgent.name}" deleted.`);
+        setDeleteDialogOpen(false);
+        setDeletingAgent(null);
+        setDeleteConfirmInput("");
     };
 
     const columns: ColumnDef<Agent>[] = [
-        {
-            id: "select",
-            header: ({ table }) => (
-                <Checkbox
-                    checked={
-                        table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && "indeterminate")
-                    }
-                    onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                    aria-label="Select all"
-                />
-            ),
-            cell: ({ row }) => (
-                <Checkbox
-                    checked={row.getIsSelected()}
-                    onCheckedChange={(value) => row.toggleSelected(!!value)}
-                    aria-label="Select row"
-                />
-            ),
-            enableSorting: false,
-            enableHiding: false
-        },
         {
             accessorKey: "name",
             header: ({ column }) => (
@@ -587,33 +592,40 @@ export default function AgentList({ data }: { data: Agent[] }) {
         },
         {
             id: "actions",
+            header: "Actions",
             enableHiding: false,
             cell: ({ row }) => {
                 const agent = row.original;
                 return (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <span className="sr-only">Open menu</span>
-                                <MoreHorizontal className="h-4 w-4" />
+                            <Button variant="ghost" size="icon" className="size-8">
+                                <MoreVerticalIcon className="size-4" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
                             {agent.href && (
                                 <DropdownMenuItem asChild>
-                                    <Link href={agent.href}>View Agent</Link>
+                                    <Link href={agent.href}>
+                                        <ExternalLink className="mr-2 size-4" />
+                                        View Agent
+                                    </Link>
                                 </DropdownMenuItem>
                             )}
-                            <DropdownMenuItem onClick={() => openEdit(agent)}>Edit</DropdownMenuItem>
-                            <DropdownMenuItem
-                                onClick={() => navigator.clipboard.writeText(String(agent.id))}>
-                                Copy ID
+                            <DropdownMenuItem onClick={() => openEdit(agent)}>
+                                <Pencil className="mr-2 size-4" />
+                                Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
+                                onClick={() => navigator.clipboard.writeText(String(agent.id))}>
+                                <ClipboardCopy className="mr-2 size-4" />
+                                Copy ID
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem
                                 className="text-destructive focus:text-destructive"
-                                onClick={() => handleDelete(agent.id)}>
+                                onClick={() => openDeleteDialog(agent)}>
+                                <Trash2 className="mr-2 size-4" />
                                 Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -633,12 +645,10 @@ export default function AgentList({ data }: { data: Agent[] }) {
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
-        onRowSelectionChange: setRowSelection,
         state: {
             sorting,
             columnFilters,
-            columnVisibility,
-            rowSelection
+            columnVisibility
         }
     });
 
@@ -739,6 +749,40 @@ export default function AgentList({ data }: { data: Agent[] }) {
 
     return (
         <>
+            {/* Delete Confirmation Dialog */}
+            <Dialog open={deleteDialogOpen} onOpenChange={(open) => {
+                setDeleteDialogOpen(open);
+                if (!open) setDeleteConfirmInput("");
+            }}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Delete Agent</DialogTitle>
+                        <DialogDescription>
+                            This action <strong>cannot be undone</strong>. This will permanently delete the agent{" "}
+                            <strong>{deletingAgent?.name}</strong> and all associated data.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-3 py-2">
+                        <p className="text-sm text-muted-foreground">
+                            Please type <span className="font-semibold text-foreground">{deletingAgent?.name}</span> to confirm.
+                        </p>
+                        <Input
+                            placeholder={deletingAgent?.name ?? ""}
+                            value={deleteConfirmInput}
+                            onChange={(e) => setDeleteConfirmInput(e.target.value)}
+                        />
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+                        <Button
+                            variant="destructive"
+                            disabled={deleteConfirmInput !== deletingAgent?.name}
+                            onClick={handleDelete}>
+                            I understand, delete this agent
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
             {/* Edit Sheet (rendered outside table to avoid DOM nesting issues) */}
             <EditAgentSheet
                 agent={editingAgent}
@@ -824,7 +868,7 @@ export default function AgentList({ data }: { data: Agent[] }) {
                         <TableBody>
                             {table.getRowModel().rows?.length ? (
                                 table.getRowModel().rows.map((row) => (
-                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                                    <TableRow key={row.id}>
                                         {row.getVisibleCells().map((cell) => (
                                             <TableCell key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -844,10 +888,7 @@ export default function AgentList({ data }: { data: Agent[] }) {
                 </div>
 
                 <div className="flex items-center justify-end space-x-2">
-                    <div className="text-muted-foreground flex-1 text-sm">
-                        {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                        {table.getFilteredRowModel().rows.length} row(s) selected.
-                    </div>
+                    <div className="flex-1" />
                     <div className="space-x-2">
                         <Button
                             variant="outline"
