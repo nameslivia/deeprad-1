@@ -42,6 +42,10 @@
     "roles": {
       "title": "Roles",
       "subTitle": {}
+    },
+    "settings": {
+      "title": "Settings",
+      "subTitle": {}
     }
   },
   "Common": {

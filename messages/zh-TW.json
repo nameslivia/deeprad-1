@@ -42,6 +42,10 @@
     "roles": {
       "title": "角色",
       "subTitle": {}
+    },
+    "settings": {
+      "title": "設定",
+      "subTitle": {}
     }
   },
   "Common": {
