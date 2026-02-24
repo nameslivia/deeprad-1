@@ -22,11 +22,6 @@ const sidebarNavItems = [
     icon: UserIcon
   },
   {
-    title: "Account",
-    href: "/dashboard/pages/settings/account",
-    icon: ShieldIcon
-  },
-  {
     title: "Billing",
     href: "/dashboard/pages/settings/billing",
     icon: CreditCardIcon
@@ -41,11 +36,6 @@ const sidebarNavItems = [
     href: "/dashboard/pages/settings/notifications",
     icon: BellIcon
   },
-  {
-    title: "Display",
-    href: "/dashboard/pages/settings/display",
-    icon: ContrastIcon
-  }
 ];
 
 export function SidebarNav() {

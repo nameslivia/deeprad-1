@@ -22,10 +22,10 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         </p>
       </div>
       <div className="flex flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
-        {/* <aside className="lg:w-64">
+        <aside className="lg:w-64">
           <SidebarNav />
         </aside>
-        <div className="flex-1 lg:max-w-2xl">{children}</div> */}
+        <div className="flex-1 lg:max-w-2xl">{children}</div>
       </div>
     </div>
   );
