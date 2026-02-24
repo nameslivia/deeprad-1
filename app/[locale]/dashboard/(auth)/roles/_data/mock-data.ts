@@ -9,12 +9,9 @@ export const PERMISSIONS: Permission[] = [
     { id: "library.own", name: "Own Files", description: "Can access and manage own files", category: "Library" },
 
     // Agent
-    { id: "agent.trial", name: "All Agents, One Use Each", description: "Can try all Agents once per Agent", category: "Agent" },
-    { id: "agent.token", name: "All Available Agents, Per Token", description: "Can use all subscribed Agents billed by token", category: "Agent" },
-    { id: "agent.manage", name: "Manage All Agent Settings", description: "Can manage settings for all Agents", category: "Agent" },
+    { id: "agent.use", name: "All Available Agents", description: "Can try all Agents", category: "Agent" },
 
     // Report
-    { id: "report.personal", name: "Personal Usage Report", description: "Can view own usage records and reports", category: "Report" },
     { id: "report.all", name: "All Users Usage Report", description: "Can view usage records for all users", category: "Report" },
 
     // Product
@@ -22,7 +19,6 @@ export const PERMISSIONS: Permission[] = [
 
     // Roles
     { id: "roles.users", name: "User Account Management", description: "Can manage user accounts", category: "Roles" },
-    { id: "roles.roles", name: "Role & Permission Settings", description: "Can configure user roles and permissions", category: "Roles" },
 ];
 
 // Roles with their permissions
@@ -34,7 +30,7 @@ export const ROLES: Role[] = [
         permissions: [
             "dashboard.own",
             "library.own",
-            "agent.trial",
+            "agent.use",
         ],
         isLocked: false,
         userCount: 209,
@@ -46,8 +42,8 @@ export const ROLES: Role[] = [
         permissions: [
             "dashboard.own",
             "library.own",
-            "agent.token",
-            "report.personal",
+            "agent.use",
+            "report.all",
         ],
         isLocked: false,
         userCount: 5,
@@ -58,11 +54,10 @@ export const ROLES: Role[] = [
         description: "Company-level user with organization view; can manage all Agent settings and view all reports",
         permissions: [
             "dashboard.own",
-            "agent.manage",
+            "agent.use",
             "report.all",
             "product.manage",
             "roles.users",
-            "roles.roles",
         ],
         isLocked: false,
         userCount: 3,
@@ -73,11 +68,10 @@ export const ROLES: Role[] = [
         description: "Platform administrator with full platform view and all management permissions",
         permissions: [
             "dashboard.own",
-            "agent.manage",
+            "agent.use",
             "report.all",
             "product.manage",
             "roles.users",
-            "roles.roles",
         ],
         isLocked: true,
         userCount: 1,
