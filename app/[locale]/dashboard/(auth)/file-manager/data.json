@@ -1,11 +1,12 @@
 [
   {
-    "id": "1",
-    "name": "Design",
+    "id": "agent-1",
+    "name": "agent-1",
+    "label": "Manuscript Peer Review",
     "type": "folder",
     "icon": "folder",
-    "date": "12.09.20",
-    "size": "5.8 GB",
+    "date": "25.02.26",
+    "size": "320 MB",
     "owner": {
       "name": "User",
       "avatar": "/images/avatars/01.png"
@@ -13,40 +14,211 @@
     "parentPath": "",
     "children": [
       {
-        "id": "1-1",
-        "name": "UI Components",
+        "id": "agent-1-uploads",
+        "name": "uploads",
+        "label": "Uploads",
         "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "2.1 GB",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "240 MB",
         "owner": {
           "name": "User",
-          "avatar": "/images/avatars/02.png"
+          "avatar": "/images/avatars/01.png"
         },
-        "parentPath": "Design"
+        "parentPath": "agent-1",
+        "children": [
+          {
+            "id": "agent-1-u-1",
+            "name": "manuscript_draft.pdf",
+            "label": "manuscript_draft.pdf",
+            "type": "file",
+            "icon": "pdf",
+            "date": "24.02.26",
+            "size": "4.5 MB",
+            "owner": {
+              "name": "User",
+              "avatar": "/images/avatars/01.png"
+            },
+            "parentPath": "agent-1/uploads"
+          },
+          {
+            "id": "agent-1-u-2",
+            "name": "references.pdf",
+            "label": "references.pdf",
+            "type": "file",
+            "icon": "pdf",
+            "date": "24.02.26",
+            "size": "2.1 MB",
+            "owner": {
+              "name": "User",
+              "avatar": "/images/avatars/01.png"
+            },
+            "parentPath": "agent-1/uploads"
+          }
+        ]
       },
       {
-        "id": "1-2",
-        "name": "Mockups",
-        "type": "file",
-        "icon": "figma",
-        "date": "12.09.20",
-        "size": "45 MB",
+        "id": "agent-1-reports",
+        "name": "reports",
+        "label": "Reports",
+        "type": "folder",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "80 MB",
         "owner": {
           "name": "User",
-          "avatar": "/images/avatars/03.png"
+          "avatar": "/images/avatars/01.png"
         },
-        "parentPath": "Design"
+        "parentPath": "agent-1",
+        "children": [
+          {
+            "id": "agent-1-r-1",
+            "name": "peer_review_report.pdf",
+            "label": "peer_review_report.pdf",
+            "type": "file",
+            "icon": "pdf",
+            "date": "25.02.26",
+            "size": "3.8 MB",
+            "owner": {
+              "name": "User",
+              "avatar": "/images/avatars/01.png"
+            },
+            "parentPath": "agent-1/reports"
+          }
+        ]
       }
     ]
   },
   {
-    "id": "2",
-    "name": "Projects",
+    "id": "agent-2",
+    "name": "agent-2",
+    "label": "Literature Review",
     "type": "folder",
     "icon": "folder",
-    "date": "12.09.20",
-    "size": "3.2 GB",
+    "date": "25.02.26",
+    "size": "150 MB",
+    "owner": {
+      "name": "User",
+      "avatar": "/images/avatars/02.png"
+    },
+    "parentPath": "",
+    "children": [
+      {
+        "id": "agent-2-uploads",
+        "name": "uploads",
+        "label": "Uploads",
+        "type": "folder",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "120 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/02.png"
+        },
+        "parentPath": "agent-2",
+        "children": [
+          {
+            "id": "agent-2-u-1",
+            "name": "research_paper.pdf",
+            "label": "research_paper.pdf",
+            "type": "file",
+            "icon": "pdf",
+            "date": "20.02.26",
+            "size": "5.2 MB",
+            "owner": {
+              "name": "User",
+              "avatar": "/images/avatars/02.png"
+            },
+            "parentPath": "agent-2/uploads"
+          }
+        ]
+      },
+      {
+        "id": "agent-2-reports",
+        "name": "reports",
+        "label": "Reports",
+        "type": "folder",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "30 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/02.png"
+        },
+        "parentPath": "agent-2",
+        "children": [
+          {
+            "id": "agent-2-r-1",
+            "name": "literature_summary.pdf",
+            "label": "literature_summary.pdf",
+            "type": "file",
+            "icon": "pdf",
+            "date": "22.02.26",
+            "size": "2.4 MB",
+            "owner": {
+              "name": "User",
+              "avatar": "/images/avatars/02.png"
+            },
+            "parentPath": "agent-2/reports"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "agent-3",
+    "name": "agent-3",
+    "label": "Citation Checker",
+    "type": "folder",
+    "icon": "folder",
+    "date": "25.02.26",
+    "size": "45 MB",
+    "owner": {
+      "name": "User",
+      "avatar": "/images/avatars/03.png"
+    },
+    "parentPath": "",
+    "children": [
+      {
+        "id": "agent-3-uploads",
+        "name": "uploads",
+        "label": "Uploads",
+        "type": "folder",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "35 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/03.png"
+        },
+        "parentPath": "agent-3",
+        "children": []
+      },
+      {
+        "id": "agent-3-reports",
+        "name": "reports",
+        "label": "Reports",
+        "type": "folder",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "10 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/03.png"
+        },
+        "parentPath": "agent-3",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "agent-4",
+    "name": "agent-4",
+    "label": "Grammar & Style",
+    "type": "folder",
+    "icon": "folder",
+    "date": "25.02.26",
+    "size": "28 MB",
     "owner": {
       "name": "User",
       "avatar": "/images/avatars/04.png"
@@ -54,273 +226,173 @@
     "parentPath": "",
     "children": [
       {
-        "id": "2-1",
-        "name": "Website Redesign",
+        "id": "agent-4-uploads",
+        "name": "uploads",
+        "label": "Uploads",
         "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "1.8 GB",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "20 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/04.png"
+        },
+        "parentPath": "agent-4",
+        "children": []
+      },
+      {
+        "id": "agent-4-reports",
+        "name": "reports",
+        "label": "Reports",
+        "type": "folder",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "8 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/04.png"
+        },
+        "parentPath": "agent-4",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "agent-5",
+    "name": "agent-5",
+    "label": "Plagiarism Detector",
+    "type": "folder",
+    "icon": "folder",
+    "date": "25.02.26",
+    "size": "60 MB",
+    "owner": {
+      "name": "User",
+      "avatar": "/images/avatars/05.png"
+    },
+    "parentPath": "",
+    "children": [
+      {
+        "id": "agent-5-uploads",
+        "name": "uploads",
+        "label": "Uploads",
+        "type": "folder",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "50 MB",
         "owner": {
           "name": "User",
           "avatar": "/images/avatars/05.png"
         },
-        "parentPath": "Projects"
+        "parentPath": "agent-5",
+        "children": []
       },
       {
-        "id": "2-2",
-        "name": "Mobile App",
+        "id": "agent-5-reports",
+        "name": "reports",
+        "label": "Reports",
         "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "1.4 GB",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "10 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/05.png"
+        },
+        "parentPath": "agent-5",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "agent-6",
+    "name": "agent-6",
+    "label": "Abstract Summarizer",
+    "type": "folder",
+    "icon": "folder",
+    "date": "25.02.26",
+    "size": "15 MB",
+    "owner": {
+      "name": "User",
+      "avatar": "/images/avatars/06.png"
+    },
+    "parentPath": "",
+    "children": [
+      {
+        "id": "agent-6-uploads",
+        "name": "uploads",
+        "label": "Uploads",
+        "type": "folder",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "10 MB",
         "owner": {
           "name": "User",
           "avatar": "/images/avatars/06.png"
         },
-        "parentPath": "Projects"
+        "parentPath": "agent-6",
+        "children": []
+      },
+      {
+        "id": "agent-6-reports",
+        "name": "reports",
+        "label": "Reports",
+        "type": "folder",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "5 MB",
+        "owner": {
+          "name": "User",
+          "avatar": "/images/avatars/06.png"
+        },
+        "parentPath": "agent-6",
+        "children": []
       }
     ]
   },
   {
-    "id": "3",
-    "name": "Music",
+    "id": "agent-7",
+    "name": "agent-7",
+    "label": "Journal Matcher",
     "type": "folder",
     "icon": "folder",
-    "date": "12.09.20",
-    "size": "1.5 GB",
+    "date": "25.02.26",
+    "size": "22 MB",
     "owner": {
       "name": "User",
-      "avatar": "/images/avatars/01.png"
+      "avatar": "/images/avatars/07.png"
     },
     "parentPath": "",
     "children": [
       {
-        "id": "3-1",
-        "name": "Playlist 2020",
-        "type": "file",
-        "icon": "audio",
-        "date": "12.09.20",
-        "size": "250 MB",
+        "id": "agent-7-uploads",
+        "name": "uploads",
+        "label": "Uploads",
+        "type": "folder",
+        "icon": "folder-upload",
+        "date": "25.02.26",
+        "size": "18 MB",
         "owner": {
           "name": "User",
           "avatar": "/images/avatars/07.png"
         },
-        "parentPath": "Music"
-      }
-    ]
-  },
-  {
-    "id": "4",
-    "name": "Pictures",
-    "type": "folder",
-    "icon": "folder",
-    "date": "12.09.20",
-    "size": "1.7 GB",
-    "owner": {
-      "name": "User",
-      "avatar": "/images/avatars/09.png"
-    },
-    "parentPath": "",
-    "children": [
-      {
-        "id": "4-1",
-        "name": "Vacation 2020",
-        "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "890 MB",
-        "owner": {
-          "name": "User",
-          "avatar": "/images/avatars/08.png"
-        },
-        "parentPath": "Pictures"
-      }
-    ]
-  },
-  {
-    "id": "5",
-    "name": "Documents",
-    "type": "folder",
-    "icon": "folder",
-    "date": "12.09.20",
-    "size": "440 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/images/avatars/09.png"
-    },
-    "parentPath": "",
-    "children": [
-      {
-        "id": "5-1",
-        "name": "Contracts",
-        "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "120 MB",
-        "owner": {
-          "name": "User",
-          "avatar": "/placeholder.svg?height=32&width=32"
-        },
-        "parentPath": "Documents"
+        "parentPath": "agent-7",
+        "children": []
       },
       {
-        "id": "5-2",
-        "name": "Invoice Template",
-        "type": "file",
-        "icon": "word",
-        "date": "12.09.20",
-        "size": "2.4 MB",
-        "owner": {
-          "name": "User",
-          "avatar": "/placeholder.svg?height=32&width=32"
-        },
-        "parentPath": "Documents"
-      }
-    ]
-  },
-  {
-    "id": "6",
-    "name": "Downloads",
-    "type": "folder",
-    "icon": "folder",
-    "date": "12.09.20",
-    "size": "10.1 GB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": "",
-    "children": [
-      {
-        "id": "6-1",
-        "name": "Software",
+        "id": "agent-7-reports",
+        "name": "reports",
+        "label": "Reports",
         "type": "folder",
-        "icon": "folder",
-        "date": "12.09.20",
-        "size": "8.2 GB",
+        "icon": "folder-report",
+        "date": "25.02.26",
+        "size": "4 MB",
         "owner": {
           "name": "User",
-          "avatar": "/placeholder.svg?height=32&width=32"
+          "avatar": "/images/avatars/07.png"
         },
-        "parentPath": "Downloads"
+        "parentPath": "agent-7",
+        "children": []
       }
     ]
-  },
-  {
-    "id": "7",
-    "name": "Rocket – Admin Dashboard & UI Kit",
-    "type": "file",
-    "icon": "figma",
-    "date": "12.09.20",
-    "size": "1.8 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "8",
-    "name": "Rocket – Admin Dashboard & UI Kit",
-    "type": "file",
-    "icon": "sketch",
-    "date": "12.09.20",
-    "size": "1.5 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "9",
-    "name": "Arion – Admin Dashboard & UI Kit",
-    "type": "file",
-    "icon": "sketch",
-    "date": "12.09.20",
-    "size": "1.2 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "10",
-    "name": "Project Brief",
-    "type": "file",
-    "icon": "figma",
-    "date": "12.09.20",
-    "size": "1.4 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "11",
-    "name": "Design",
-    "type": "file",
-    "icon": "illustrator",
-    "date": "12.09.20",
-    "size": "1.9 GB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "12",
-    "name": "vCard – Resume",
-    "type": "file",
-    "icon": "photoshop",
-    "date": "12.09.20",
-    "size": "2.5 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "13",
-    "name": "Project Brief",
-    "type": "file",
-    "icon": "word",
-    "date": "12.09.20",
-    "size": "1.2 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "14",
-    "name": "Brand Styles Guide",
-    "type": "file",
-    "icon": "pdf",
-    "date": "12.09.20",
-    "size": "4.5 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
-  },
-  {
-    "id": "15",
-    "name": "Brand Styles Guide",
-    "type": "file",
-    "icon": "pdf",
-    "date": "12.09.20",
-    "size": "4.5 MB",
-    "owner": {
-      "name": "User",
-      "avatar": "/placeholder.svg?height=32&width=32"
-    },
-    "parentPath": ""
   }
 ]

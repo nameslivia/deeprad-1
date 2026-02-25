@@ -66,8 +66,7 @@ export const navItems: NavGroup[] = [
       },
       {
         title: "library",
-        // href: "/dashboard/file-manager",
-        href: "#",
+        href: "/dashboard/file-manager",
         icon: Library
         // items: [
         //   { title: "dashboard", href: "/dashboard/ecommerce" },

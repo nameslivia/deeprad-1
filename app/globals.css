@@ -489,3 +489,61 @@ dialog[class*='c15t-root'][open] {
     opacity: 0.6;
   }
 }
+
+/* File Manager Enhancements */
+
+/* File type color tokens */
+:root {
+  --file-pdf: #ef4444;
+  --file-doc: #3b82f6;
+  --file-figma: #a855f7;
+  --file-folder: #eab308;
+  --file-upload: #06b6d4;
+  --file-report: #10b981;
+}
+
+/* Custom utilities for file manager */
+@utility file-card-hover {
+  transition: all 200ms ease-out;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@utility file-row-hover {
+  transition: all 150ms ease;
+  &:hover {
+    background-color: var(--muted);
+    transform: translateX(4px);
+  }
+}
+
+@utility drop-zone-active {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  opacity: 0.05;
+}
+
+/* File manager animations */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
