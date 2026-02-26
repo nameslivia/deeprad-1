@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Download, X, FileText, FileImage, File as FileIcon } from "lucide-react";
+import { Download, FileText, FileImage, File as FileIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface FilePreviewModalProps {
@@ -66,16 +66,7 @@ export function FilePreviewModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
-          <DialogTitle className="flex items-center justify-between">
-            <span className="truncate pr-8">{file.name}</span>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onOpenChange(false)}
-              className="shrink-0">
-              <X className="h-4 w-4" />
-            </Button>
-          </DialogTitle>
+          <DialogTitle className="truncate pr-8">{file.name}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
