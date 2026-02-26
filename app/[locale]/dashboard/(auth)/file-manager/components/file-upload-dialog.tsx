@@ -68,7 +68,7 @@ export function FileUploadDialog() {
       <DialogContent className="sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>Upload Files</DialogTitle>
-          <DialogDescription>Drag and drop files here or click to select files</DialogDescription>
+          {/* <DialogDescription>Drag and drop files here or click to select files</DialogDescription> */}
         </DialogHeader>
         <div
           className={`mt-2 flex flex-col items-center justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 ${

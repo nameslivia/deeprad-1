@@ -142,9 +142,9 @@ function AgentSplitView({
                   <FolderOpen className="h-6 w-6" />
                 </EmptyMedia>
                 <EmptyTitle>No files yet</EmptyTitle>
-                <EmptyDescription>
+                {/* <EmptyDescription>
                   Drag and drop files here to upload
-                </EmptyDescription>
+                </EmptyDescription> */}
               </EmptyHeader>
             </Empty>
           ) : viewMode === "grid" ? (
@@ -437,11 +437,11 @@ export function FileManager() {
                     <EmptyTitle>
                       {searchQuery ? "No files found" : "This folder is empty"}
                     </EmptyTitle>
-                    <EmptyDescription>
+                    {/* <EmptyDescription>
                       {searchQuery
                         ? `No files matching "${searchQuery}"`
                         : "Drag and drop files here to upload"}
-                    </EmptyDescription>
+                    </EmptyDescription> */}
                   </EmptyHeader>
                 </Empty>
               ) : viewMode === "grid" ? (
