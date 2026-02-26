@@ -46,6 +46,18 @@
     "settings": {
       "title": "設定",
       "subTitle": {}
+    },
+    "case-analysis": {
+      "title": "案督分析",
+      "subTitle": {}
+    },
+    "threshold-settings": {
+      "title": "個閾設定",
+      "subTitle": {}
+    },
+    "reinforcement-mgmt": {
+      "title": "補強管理",
+      "subTitle": {}
     }
   },
   "Common": {

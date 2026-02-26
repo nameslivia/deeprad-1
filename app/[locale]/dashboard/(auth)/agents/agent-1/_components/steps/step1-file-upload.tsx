@@ -172,7 +172,7 @@ export function Step1_FileUpload() {
       <div className="rounded-lg bg-muted/50 p-4">
         <h3 className="font-medium">About AI Policy Transparency</h3>
         <p className="mt-2 text-sm text-muted-foreground">
-          Scholia will analyze the journal&apos;s AI policy and ensure your manuscript
+          Deeprad will analyze the journal&apos;s AI policy and ensure your manuscript
           complies with their requirements for AI-assisted writing disclosure and
           formatting guidelines.
         </p>

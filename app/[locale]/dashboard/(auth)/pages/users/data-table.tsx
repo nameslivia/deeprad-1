@@ -84,7 +84,7 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-4">
         <Avatar>
-          <AvatarImage src={row.original.image} alt="scholia kit" />
+          <AvatarImage src={row.original.image} alt="deeprad kit" />
           <AvatarFallback>{generateAvatarFallback(row.getValue("name"))}</AvatarFallback>
         </Avatar>
         <div className="capitalize">{row.getValue("name")}</div>

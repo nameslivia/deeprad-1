@@ -65,49 +65,20 @@ export const navItems: NavGroup[] = [
         icon: LayoutDashboard
       },
       {
-        title: "library",
-        href: "/dashboard/file-manager",
-        icon: Library
-        // items: [
-        //   { title: "dashboard", href: "/dashboard/ecommerce" },
-        //   { title: "product-list", href: "/dashboard/pages/products" },
-        //   { title: "product-detail", href: "/dashboard/pages/products/1" },
-        //   { title: "add-product", href: "/dashboard/pages/products/create" },
-        //   { title: "order-list", href: "/dashboard/pages/orders" },
-        //   { title: "order-detail", href: "/dashboard/pages/orders/detail" }
-        // ]
-      },
-      {
-        title: "agent",
-        href: "/dashboard/agents",
-        icon: BookOpen
-      },
-      {
-        title: "report",
-        // href: "/dashboard/payment",
+        title: "case-analysis",
         href: "#",
         icon: FileSpreadsheet
-        // items: [
-        //   { title: "dashboard", href: "/dashboard/payment" },
-        //   { title: "transactions", href: "/dashboard/payment/transactions" }
-        // ]
       },
       {
-        title: "product",
-        href: "/dashboard/products",
-        icon: Package
+        title: "threshold-settings",
+        href: "#",
+        icon: Building
       },
-      { title: "roles", href: "/dashboard/roles", icon: Building },
-      // {
-      //   title: "project",
-      //   href: "/dashboard/project-management",
-      //   icon: FolderDotIcon,
-      //   items: [
-      //     { title: "dashboard", href: "/dashboard/project-management" },
-      //     { title: "project-list", href: "/dashboard/project-list" }
-      //   ]
-      // },
-      { title: "settings", href: "/dashboard/settings", icon: SettingsIcon }
+      {
+        title: "reinforcement-mgmt",
+        href: "#",
+        icon: SettingsIcon
+      }
     ]
   }
 ];

@@ -23,7 +23,7 @@ export function generateMeta({
   canonical: string;
 }): Metadata {
   return {
-    title: `${title} - Scholia`,
+    title: `${title} - Deeprad`,
     description: description,
     metadataBase: new URL(`https://agentwbro.com`),
     alternates: {

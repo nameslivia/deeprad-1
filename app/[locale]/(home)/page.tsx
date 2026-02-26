@@ -7,27 +7,27 @@ import { PricingSection } from '@/components/layout/sections/pricing';
 import { ServicesSection } from '@/components/layout/sections/services';
 
 export const metadata = {
-  title: `Scholia`,
+  title: `Deeprad`,
   description:
     '',
   openGraph: {
     type: 'website',
-    url: 'https://scholia.com.tw',
-    title: 'Scholia',
+    url: 'https://deeprad.com.tw',
+    title: 'Deeprad',
     description: '',
     images: [
       {
         url: '/seo.jpg',
         width: 1200,
         height: 630,
-        alt: 'Scholia',
+        alt: 'Deeprad',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    site: 'https://scholia.com.tw',
-    title: 'Scholia',
+    site: 'https://deeprad.com.tw',
+    title: 'Deeprad',
     description:
       '',
     images: ['/seo.jpg'],

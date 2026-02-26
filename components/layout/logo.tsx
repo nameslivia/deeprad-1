@@ -16,7 +16,7 @@ export default function Logo() {
         />      
       </span>
       <h5 className="text-lg lg:text-xl text-secondary-foreground dark:text-secondary">
-        Scholia
+        Deeprad
       </h5>
     </Link>
   );

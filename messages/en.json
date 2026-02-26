@@ -46,6 +46,18 @@
     "settings": {
       "title": "Settings",
       "subTitle": {}
+    },
+    "case-analysis": {
+      "title": "Case Analysis",
+      "subTitle": {}
+    },
+    "threshold-settings": {
+      "title": "Threshold Settings",
+      "subTitle": {}
+    },
+    "reinforcement-mgmt": {
+      "title": "Reinforcement Mgmt",
+      "subTitle": {}
     }
   },
   "Common": {

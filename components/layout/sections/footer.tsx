@@ -80,7 +80,7 @@ export const FooterSection = () => {
       <div className="flex flex-col justify-center gap-4 sm:flex-row!">
         <div className="text-muted-foreground flex items-center justify-center gap-1 text-sm">
           <span>&copy; {new Date().getFullYear()}</span>
-          <span>Scholia. All rights reserved.</span>
+          <span>Deeprad. All rights reserved.</span>
           <span className="mx-4">Term Of Service | Privacy Policy</span>
         </div>
       </div>

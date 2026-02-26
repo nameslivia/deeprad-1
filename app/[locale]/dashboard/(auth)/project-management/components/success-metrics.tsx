@@ -29,7 +29,7 @@ export function SuccessMetrics() {
               <Tooltip key={key}>
                 <TooltipTrigger>
                   <Avatar className="border-card size-12 border-4 hover:z-10">
-                    <AvatarImage src={user.avatar} alt="scholia kit" />
+                    <AvatarImage src={user.avatar} alt="deeprad kit" />
                     <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                   </Avatar>
                 </TooltipTrigger>
