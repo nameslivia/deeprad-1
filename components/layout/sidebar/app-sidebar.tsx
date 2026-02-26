@@ -62,19 +62,6 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
         </ScrollArea>
       </SidebarContent>
       <SidebarFooter>
-        <Card className="gap-4 overflow-hidden py-4 group-data-[collapsible=icon]:hidden">
-          <CardHeader className="px-3">
-            <CardTitle>Credits Balance: 100</CardTitle>
-            <CardDescription>Unlock premium features and services.</CardDescription>
-          </CardHeader>
-          <CardContent className="px-3">
-            <Button className="w-full" asChild>
-              <Link href="#">
-                <Sparkles /> Buy Credits
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
         <NavUser />
       </SidebarFooter>
     </Sidebar>

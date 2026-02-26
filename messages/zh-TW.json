@@ -48,15 +48,15 @@
       "subTitle": {}
     },
     "case-analysis": {
-      "title": "案督分析",
+      "title": "客群分析",
       "subTitle": {}
     },
     "threshold-settings": {
-      "title": "個閾設定",
+      "title": "權限設定",
       "subTitle": {}
     },
     "reinforcement-mgmt": {
-      "title": "補強管理",
+      "title": "帳號管理",
       "subTitle": {}
     }
   },

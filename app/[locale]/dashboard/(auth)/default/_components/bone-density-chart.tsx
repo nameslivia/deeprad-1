@@ -1,25 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const bars = [
     {
         label: "骨質疏鬆",
         value: 249,
-        color: "var(--chart-3)",
-        bgOpacity: "bg-[var(--chart-3)]"
+        color: "var(--chart-5)",
     },
     {
         label: "骨量減少",
         value: 439,
         color: "var(--chart-4)",
-        bgOpacity: "bg-[var(--chart-4)]"
     },
     {
         label: "正常",
         value: 590,
-        color: "var(--muted-foreground)",
-        bgOpacity: "bg-[var(--muted-foreground)]"
+        color: "var(--chart-1)",
     }
 ];
 
@@ -28,12 +26,20 @@ const abnormalTotal = bars[0].value + bars[1].value;
 const abnormalPct = Math.round((abnormalTotal / total) * 100);
 
 const miniSegments = [
-    { label: "骨質疏鬆", pct: 23, color: "var(--chart-3)" },
+    { label: "骨質疏鬆", pct: 23, color: "var(--chart-5)" },
     { label: "骨量減少", pct: 35, color: "var(--chart-4)" },
-    { label: "正常", pct: 45, color: "var(--muted)" }
+    { label: "正常", pct: 45, color: "var(--chart-1)" }
 ];
 
 export function BoneDensityChart() {
+    const [animated, setAnimated] = useState(false);
+
+    useEffect(() => {
+        // setTimeout is more reliable than RAF in Next.js Strict Mode
+        const t = setTimeout(() => setAnimated(true), 60);
+        return () => clearTimeout(t);
+    }, []);
+
     return (
         <Card className="flex flex-col">
             <CardHeader className="pb-2">
@@ -43,8 +49,9 @@ export function BoneDensityChart() {
             <CardContent className="flex flex-1 flex-col gap-4">
                 {/* Horizontal bar rows */}
                 <div className="space-y-3">
-                    {bars.map((bar) => {
+                    {bars.map((bar, idx) => {
                         const pct = Math.round((bar.value / total) * 100);
+                        const delay = idx * 120;
                         return (
                             <div key={bar.label} className="space-y-1">
                                 <div className="flex items-center justify-between text-xs">
@@ -53,10 +60,11 @@ export function BoneDensityChart() {
                                 </div>
                                 <div className="h-5 w-full overflow-hidden rounded-sm bg-muted">
                                     <div
-                                        className="h-full rounded-sm transition-all duration-500"
+                                        className="h-full rounded-sm"
                                         style={{
-                                            width: `${pct}%`,
-                                            backgroundColor: bar.color
+                                            width: animated ? `${pct}%` : "0%",
+                                            backgroundColor: bar.color,
+                                            transition: `width 700ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`
                                         }}
                                     />
                                 </div>
@@ -77,7 +85,7 @@ export function BoneDensityChart() {
                         </div>
                         <span
                             className="text-2xl font-bold"
-                            style={{ color: "var(--chart-3)" }}
+                            style={{ color: "var(--chart-5)" }}
                         >
                             {abnormalPct}%
                         </span>
@@ -85,13 +93,14 @@ export function BoneDensityChart() {
 
                     {/* Mini segmented bar */}
                     <div className="mt-3 flex h-3 w-full overflow-hidden rounded-full">
-                        {miniSegments.map((seg) => (
+                        {miniSegments.map((seg, idx) => (
                             <div
                                 key={seg.label}
                                 className="h-full"
                                 style={{
-                                    width: `${seg.pct}%`,
-                                    backgroundColor: seg.color
+                                    width: animated ? `${seg.pct}%` : "0%",
+                                    backgroundColor: seg.color,
+                                    transition: `width 700ms cubic-bezier(0.4, 0, 0.2, 1) ${400 + idx * 80}ms`
                                 }}
                             />
                         ))}
