@@ -80,22 +80,22 @@ export function FileList({ items, onItemClick, onDownload, selectable = false }:
           <div
             key={item.id}
             className={cn(
-              "flex cursor-pointer items-center justify-between p-3 transition-all duration-150 hover:bg-muted lg:p-4",
+              "flex cursor-default items-center justify-between p-3 transition-all duration-150 hover:bg-muted lg:p-4",
               isSelected && "bg-primary/5"
-            )}
-            onClick={() => onItemClick(item)}>
+            )}>
             <div className="flex min-w-0 flex-1 items-center gap-3">
               {selectable && (
                 <Checkbox
                   checked={isSelected}
                   onCheckedChange={() => toggleFileSelection(item.id)}
-                  onClick={(e) => e.stopPropagation()}
                 />
               )}
 
               <div className="shrink-0">{getFileIcon(item.icon)}</div>
 
-              <div className="min-w-0 flex-1">
+              <div
+                className="min-w-0 flex-1 cursor-pointer"
+                onClick={() => onItemClick(item)}>
                 <p className="truncate text-sm font-medium">
                   {item.name}
                 </p>

@@ -67,10 +67,9 @@ export function FileGrid({ items, onItemClick, onDownload, selectable = false }:
           <Card
             key={item.id}
             className={cn(
-              "group cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg",
+              "group transition-all duration-200 hover:-translate-y-1 hover:shadow-lg",
               isSelected && "ring-2 ring-primary"
-            )}
-            onClick={() => onItemClick(item)}>
+            )}>
             <CardContent className="p-4">
               <div className="flex flex-col gap-3">
                 {/* Icon and Checkbox */}
@@ -83,7 +82,6 @@ export function FileGrid({ items, onItemClick, onDownload, selectable = false }:
                       <Checkbox
                         checked={isSelected}
                         onCheckedChange={() => toggleFileSelection(item.id)}
-                        onClick={(e) => e.stopPropagation()}
                       />
                     )}
                     <DropdownMenu>
@@ -108,8 +106,10 @@ export function FileGrid({ items, onItemClick, onDownload, selectable = false }:
                   </div>
                 </div>
 
-                {/* File Info */}
-                <div className="min-w-0">
+                {/* File Info — clicking here navigates/opens */}
+                <div
+                  className="min-w-0 cursor-pointer"
+                  onClick={() => onItemClick(item)}>
                   <p className="truncate font-medium text-sm" title={item.name}>
                     {item.name}
                   </p>
