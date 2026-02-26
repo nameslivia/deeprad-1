@@ -68,7 +68,7 @@ export function LungRadsChart() {
                     {/* Center label */}
                     <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
                         <span className="text-xl font-bold">{highRiskPct}%</span>
-                        <span className="text-muted-foreground text-xs">最高庫</span>
+                        <span className="text-muted-foreground text-xs">高風險</span>
                     </div>
                 </div>
 

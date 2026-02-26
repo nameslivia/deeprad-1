@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const categories = [
     { label: "正常 (0)", value: 485, color: "var(--chart-1)", pct: 49 },
-    { label: "輕微 (1-100)", value: 312, color: "var(--chart-2)", pct: 27 },
+    { label: "輕微 (1-100)", value: 312, color: "var(--chart-3)", pct: 27 },
     { label: "中度 (101-400)", value: 261, color: "var(--chart-4)", pct: 22 },
     { label: "重度 (>400)", value: 187, color: "var(--chart-5)", pct: 15 },
 ];

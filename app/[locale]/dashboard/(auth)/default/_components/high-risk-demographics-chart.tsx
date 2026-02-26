@@ -59,8 +59,9 @@ export function HighRiskDemographicsChart() {
                 <ResponsiveContainer width="100%" height={220}>
                     <BarChart
                         data={data}
-                        barCategoryGap="30%"
-                        barGap={4}
+                        barCategoryGap="40%"
+                        barGap={6}
+                        maxBarSize={50}
                         margin={{ top: 8, right: 16, left: -8, bottom: 0 }}
                     >
                         <CartesianGrid

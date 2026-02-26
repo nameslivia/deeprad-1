@@ -12,16 +12,18 @@ const cards = [
     icon: Activity,
     iconColor: "text-[var(--primary)]",
     bgColor: "bg-[var(--primary)]/10",
+    trend: "+12%",
+    trendLabel: "較上月成長",
     footer: null
   },
   {
     title: "高風險 CAC",
     value: 261,
     badge: "21%",
-    badgeColor: "text-[var(--chart-5)]",
+    badgeColor: "text-orange-500",
     icon: Heart,
-    iconColor: "text-[var(--chart-2)]",
-    bgColor: "bg-[var(--chart-2)]/10",
+    iconColor: "text-[var(--primary)]",
+    bgColor: "bg-[var(--primary)]/10",
     footer: "需心臟科後診"
   },
   {
@@ -30,8 +32,8 @@ const cards = [
     badge: "4%",
     badgeColor: "text-[var(--chart-4)]",
     icon: TrendingUp,
-    iconColor: "text-[var(--chart-4)]",
-    bgColor: "bg-[var(--chart-4)]/10",
+    iconColor: "text-[var(--primary)]",
+    bgColor: "bg-[var(--primary)]/10",
     footer: "需切片或密切追蹤"
   },
   {
@@ -40,8 +42,8 @@ const cards = [
     badge: "20%",
     badgeColor: "text-[var(--chart-4)]",
     icon: KeyRound,
-    iconColor: "text-[var(--muted-foreground)]",
-    bgColor: "bg-[var(--muted)]/60",
+    iconColor: "text-[var(--primary)]",
+    bgColor: "bg-[var(--primary)]/10",
     footer: "T-score < -2.5"
   }
 ];
@@ -92,8 +94,15 @@ export function DashboardSummaryCards() {
                         </span>
                       )}
                     </div>
+                    {(card as any).trend && (
+                      <div className="flex items-center text-xs mt-1">
+                        <TrendingUp className="h-3 w-3 text-orange-500 mr-1" />
+                        <span className="text-orange-500 font-medium mr-1">{(card as any).trend}</span>
+                        <span className="text-muted-foreground">{(card as any).trendLabel}</span>
+                      </div>
+                    )}
                     {card.footer && (
-                      <p className="text-muted-foreground text-xs">{card.footer}</p>
+                      <p className="text-muted-foreground text-xs mt-1">{card.footer}</p>
                     )}
                   </div>
                   <div className={`rounded-md p-2 ${card.bgColor}`}>
